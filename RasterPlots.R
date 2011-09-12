@@ -1,5 +1,20 @@
-PlotRasterFromSweeps<-function(sweepdir,sweeps,odourRange=c(2000,2500),xlim=c(0,5000),
-  dotcolour='black',dotsize=0.5,odourCol=rgb(1,0,0,alpha=.3),
+#' Make a raster plot from a set of Nclamp sweeps recording odour responses  
+#' @param sweepdir directory containing Nclamp pxp sweep files 
+#' @param sweeps Vector of sweeps to include (e.g. 1:7)
+#' @param xlim x axis range of plot 
+#' @param dotcolour colour of dots in raster plot (default black)
+#' @param dotsize size of dots in raster plot (default 0.5) 
+#' @param odourRange time window of odour delivery 
+#' @param odourCol colour of odour window (default pale red) 
+#' @param main main title of plot (see \code{\link{title}}) 
+#' @param sub subtitle of plot
+#' @param relabelfun function to apply to odour labels
+#' @return 
+#' @author jefferis
+#' @export
+PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
+  dotcolour='black',dotsize=0.5,
+  odourRange=c(2000,2500),odourCol=rgb(1,0,0,alpha=.3),
   main,sub,relabelfun){
   # Read in all spike times
   ff=dir(sweepdir,'^[0-9]{3}_SP_',full=T)
@@ -25,7 +40,6 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,odourRange=c(2000,2500),xlim=c(0,
   nreps=length(rasterd)
   for(i in seq(rasterd)){
     yoff=i/(nreps+1)
-    print(yoff)
     df=rasterd[[i]]
     points(x=df$Time,y=df$Sweep+yoff,pch=22,col=NA,bg=dotcolour,cex=dotsize)
   }
