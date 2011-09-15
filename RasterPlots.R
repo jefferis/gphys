@@ -14,6 +14,10 @@
 #' @return 
 #' @author jefferis
 #' @export
+#' @example
+#' ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
+#' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
+#'   c(0,1,3),xlim=c(2000,4000),odourRange=c(2000,3000))
 PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
   main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
