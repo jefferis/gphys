@@ -38,7 +38,8 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
 
   # read in ODD protocol
   oddfiles=file.path(sweepdir,paste(basename(sweepdir),sweeps,"odd.txt",sep="_"))
-  oddconf=read.table(oddfiles[1],col.names=make.unique(c('odour',rep(c('del','dur','chan'),5))))
+  oddconf=read.table(oddfiles[1],col.names=make.unique(c('odour',rep(c('del','dur','chan'),5))),
+    stringsAsFactors=FALSE)
   md5s=md5sum(oddfiles)
   if(length(unique(md5s))>1) stop("I dont yet know how to handle different odd config files")
 
