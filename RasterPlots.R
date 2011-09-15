@@ -2,20 +2,23 @@
 #' @param sweepdir directory containing Nclamp pxp sweep files 
 #' @param sweeps Vector of sweeps to include (e.g. 1:7)
 #' @param xlim x axis range of plot 
+#' @param main main title of plot (see \code{\link{title}}) 
+#' @param sub subtitle of plot
+#' @param xlab axis label (default Time/ms)
+#' @param ylab axis label (default odour)
 #' @param dotcolour colour of dots in raster plot (default black)
 #' @param dotsize size of dots in raster plot (default 0.5) 
 #' @param odourRange time window of odour delivery 
 #' @param odourCol colour of odour window (default pale red) 
-#' @param main main title of plot (see \code{\link{title}}) 
-#' @param sub subtitle of plot
-#' @param relabelfun function to apply to odour labels
+#' @param relabelfun function to apply to odour labels (default no relabelling)
 #' @return 
 #' @author jefferis
 #' @export
 PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
+  main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
   odourRange=c(2000,2500),odourCol=rgb(1,0,0,alpha=.3),
-  main,sub,relabelfun){
+  relabelfun=identity,...){
   # Read in all spike times
   ff=dir(sweepdir,'^[0-9]{3}_SP_',full=T)
   rasterd=lapply(ff,read.table,col.names=c("Time","Sweep"),header=T, 
@@ -34,8 +37,9 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
   oddconf=read.table(oddfiles[1],col.names=make.unique(c('odour',rep(c('del','dur','chan'),5))))
 
   last_sweep=max(sapply(rasterd,function(x) max(x$Sweep,na.rm=T)))
-  plot(NA,xlim=xlim,ylim=c(last_sweep+1,0),xlab='Time/ms',ylab='Odour',axes=F)
-  axis(side=2,at=seq(last_sweep+1)-0.5,labels=oddconf$odour,tick=F,las=1)
+  plot(NA,xlim=xlim,ylim=c(last_sweep+1,0),ylab=ylab,xlab=xlab,axes=F,...)
+
+  axis(side=2,at=seq(last_sweep+1)-0.5,labels=relabelfun(oddconf$odour),tick=F,las=1)
   axis(1)
   nreps=length(rasterd)
   for(i in seq(rasterd)){
