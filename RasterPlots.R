@@ -18,6 +18,10 @@
 #' ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
 #' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
 #'   c(0,1,3),xlim=c(2000,4000),odourRange=c(2000,3000))
+#' ## Fix a bad label, first define a function 
+#' relabel=function(labels) {labels[labels=="fly"]="empty";labels}
+#' ## and then use it
+#' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3),relabelfun=relabel)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
   main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
