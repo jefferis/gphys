@@ -101,6 +101,35 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
   rasterd
 }
 
+#' Boxplot of spikes within a window (optionally less a baseline)
+PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
+  PlotFrequency=FALSE,PLOTFUN=stripchart,...){
+  nreps=length(spiketimes)
+  last_wave=max(sapply(spiketimes,function(x) max(x$Wave,na.rm=T)))
+  # plot(NA,xlim=xlim,ylim=c(last_sweep+1,0),ylab=ylab,xlab=xlab,axes=F,...)
+  # Want to collect a table which has rows for each odour
+  # and re
+  spikess=do.call(rbind,spiketimes)
+  spikess$Sweep=rep(names(spikes),sapply(spikes,nrow))
+
+  responseTime=diff(responseWindow)
+  responsecount=by(spikess$Time,
+    list(factor(spikess$Sweep),factor(spikess$Wave)),
+    function(t) sum(t>responseWindow[1] &t<responseWindow[2]))
+  if(!missing(baselineWindow)){
+    baselinecount=by(spikess$Time,
+      list(factor(spikess$Sweep),factor(spikess$Wave)),
+      function(t) sum(t>baselineWindow[1] &t<baselineWindow[2]))
+    baselineTime=diff(baselineWindow)
+    responsecount=responsecount-baselinecount*responseTime/baselineTime
   }
+  bbdf=as.data.frame(matrix(responsecount,ncol=ncol(responsecount)))
+  colnames(bbdf)=make.unique(attr(spiketimes,'oddconf')$odour)
+  # stack(bbdf)
+  if(PlotFrequency) {
+    bbdf=bbdf/(responseTime/1000)
+    PLOTFUN(bbdf,xlab='Spike Frequency /Hz',las=2,...)
+  } else {
+    PLOTFUN(bbdf,xlab='Spike Count',las=2,...)
   }
 }
