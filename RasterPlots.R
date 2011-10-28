@@ -18,7 +18,7 @@
 #' @author jefferis
 #' @seealso CollectSpikesFromSweeps
 #' @export
-#' @example
+#' @examples 
 #' ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
 #' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
 #'   c(0,1,3),xlim=c(2000,4000),odourRange=c(2000,3000))
@@ -67,7 +67,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
 #' @return list (with class spiketimes) containing times for each sweep
 #' @author jefferis
 #' @export
-#' @example
+#' @examples
 #' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3))
 #' PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 CollectSpikesFromSweeps<-function(sweepdir,sweeps){
@@ -102,6 +102,22 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
 }
 
 #' Boxplot of spikes within a window (optionally less a baseline)
+#' @param spiketimes list of spiketimes collected by CollectSpikesFromSweeps
+#' @param responseWindow vector of start and end time of odour response (in ms)
+#' @param baselineWindow vector of start and end time of baseline period (in ms)
+#' @param PlotFrequency Plot spike rate in Hz rather than counts (default FALSE)
+#' @param PLOTFUN stripchart, boxplot or similar function (default stripchart)
+#' @param ... 
+#' @return results of plotfun (if any)
+#' @author jefferis
+#' @export
+#' @seealso CollectSpikesFromSweeps
+#' @examples 
+#' spikes=CollectSpikesFromSweeps("/GD/projects/JonnyLocal/data/nm20110914c4",sweeps=0:4)
+#' ## stripchart
+#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',col=1:6)
+#' ## boxplot, in Hz
+#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=T,PLOTFUN=boxplot)
 PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
   PlotFrequency=FALSE,PLOTFUN=stripchart,...){
   nreps=length(spiketimes)
