@@ -71,6 +71,10 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
 #' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3))
 #' PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 CollectSpikesFromSweeps<-function(sweepdir,sweeps){
+  require(tools)
+  fi=file.info(sweepdir)
+  if(is.na(fi$isdir) || !fi$isdir)
+    stop("Cannot read directory",sweepdir)
   # Read in all spike times
   ff=dir(sweepdir,'^[0-9]{3}_SP_',full=T)
   rasterd=lapply(ff,read.table,col.names=c("Time","Wave"),header=T, 
