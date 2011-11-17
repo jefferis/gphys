@@ -14,7 +14,7 @@
 #' @param odourCol colour of odour window (default pale red) 
 #' @param relabelfun function to apply to odour labels (default no relabelling)
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
-#' @return 
+#' @return TODO
 #' @author jefferis
 #' @seealso CollectSpikesFromSweeps
 #' @export
@@ -35,7 +35,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
     rasterd=sweepdir
   else
     rasterd=CollectSpikesFromSweeps(sweepdir,sweeps)
-  last_wave=max(sapply(rasterd,function(x) max(x$Wave,na.rm=T)))
+  last_wave=max(sapply(rasterd,function(x) max(x$Wave,na.rm=TRUE)))
   plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,...)
 
   labels=relabelfun(attr(rasterd,'oddconf')$odour)
@@ -76,8 +76,8 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
   if(is.na(fi$isdir) || !fi$isdir)
     stop("Cannot read directory",sweepdir)
   # Read in all spike times
-  ff=dir(sweepdir,'^[0-9]{3}_SP_',full=T)
-  rasterd=lapply(ff,read.table,col.names=c("Time","Wave"),header=T, 
+  ff=dir(sweepdir,'^[0-9]{3}_SP_',full=TRUE)
+  rasterd=lapply(ff,read.table,col.names=c("Time","Wave"),header=TRUE, 
     na.strings='NAN')
   names(rasterd)=substring(basename(ff),1,3)
   
@@ -121,16 +121,16 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
 #' ## stripchart
 #' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',col=1:6)
 #' ## boxplot, in Hz
-#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=T,PLOTFUN=boxplot)
+#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,PLOTFUN=boxplot)
 PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
   PlotFrequency=FALSE,PLOTFUN=stripchart,...){
   nreps=length(spiketimes)
-  last_wave=max(sapply(spiketimes,function(x) max(x$Wave,na.rm=T)))
+  last_wave=max(sapply(spiketimes,function(x) max(x$Wave,na.rm=TRUE)))
   # plot(NA,xlim=xlim,ylim=c(last_sweep+1,0),ylab=ylab,xlab=xlab,axes=F,...)
   # Want to collect a table which has rows for each odour
   # and re
   spikess=do.call(rbind,spiketimes)
-  spikess$Sweep=rep(names(spikes),sapply(spikes,nrow))
+  spikess$Sweep=rep(names(spiketimes),sapply(spiketimes,nrow))
 
   responseTime=diff(responseWindow)
   responsecount=by(spikess$Time,
