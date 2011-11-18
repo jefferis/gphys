@@ -96,7 +96,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
   oddconf=read.table(oddfiles[1],col.names=make.unique(c('odour',rep(c('del','dur','chan'),5))),
     stringsAsFactors=FALSE)
   md5s=md5sum(oddfiles)
-  if(length(unique(md5s))>1) stop("I dont yet know how to handle different odd config files")
+  if(length(unique(md5s))>1) stop("I don't yet know how to handle different odd config files")
   
   attr(rasterd,'oddconf')=oddconf
   attr(rasterd,'sweeps')=sweeps
