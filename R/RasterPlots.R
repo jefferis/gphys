@@ -14,7 +14,7 @@
 #' @param odourCol colour of odour window (default pale red) 
 #' @param relabelfun function to apply to odour labels (default no relabelling)
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
-#' @return TODO
+#' @param ... Additional parameters passed to plot 
 #' @author jefferis
 #' @seealso CollectSpikesFromSweeps
 #' @export
@@ -117,11 +117,14 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
 #' @export
 #' @seealso CollectSpikesFromSweeps
 #' @examples 
-#' spikes=CollectSpikesFromSweeps("/GD/projects/JonnyLocal/data/nm20110914c4",sweeps=0:4)
+#' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
+#'  sweeps=0:4)
 #' ## stripchart
-#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',col=1:6)
+#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
+#'  col=1:6)
 #' ## boxplot, in Hz
-#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,PLOTFUN=boxplot)
+#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,
+#'  PLOTFUN=boxplot)
 PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
   PlotFrequency=FALSE,PLOTFUN=stripchart,...){
   nreps=length(spiketimes)
