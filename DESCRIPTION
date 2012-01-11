@@ -12,6 +12,9 @@ Description: This package provides functions to make spike time raster
     Neuromatic.
 Version: 0.1
 Date: 2011-11-17
-Depends: tools
-Suggests: IgorR
-Collate: 'RasterPlots.R'
+Depends:
+    tools
+Suggests:
+    IgorR
+Collate:
+    'RasterPlots.R'
