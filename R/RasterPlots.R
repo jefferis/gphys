@@ -63,7 +63,8 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
 #' The list of spiketimes has two columns, Time and Wave, where wave is 
 #' the number of the wave within each sweepfile containing the spike.
 #' @param sweepdir directory containing Nclamp pxp sweep files
-#' @param sweeps Vector of sweeps to include (e.g. 1:7)
+#' @param sweeps Vector of sweeps to include (e.g. 1:7) or character regex which
+#'               sweeps must match.
 #' @return list (with class spiketimes) containing times for each sweep
 #' @author jefferis
 #' @export
@@ -81,18 +82,37 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
     na.strings='NAN')
   names(rasterd)=substring(basename(ff),1,3)
   
+  oddfiles=dir(sweepdir,patt='_odd[_.]')
+  names(oddfiles)=sub('.*_([0-9]{3})_odd.*','\\1',oddfiles)
   if(missing(sweeps)){
     sweeps=names(rasterd)
   } else {
-    sweeps=sprintf("%03d",sweeps)
+    if(is.character(sweeps)){
+      # assume we have been given a regex pattern to match against the odd 
+      # config files saved in the current data directory.
+      
+      oddfiles=oddfiles[grepl(sweeps,oddfiles)]
+      if(length(oddfiles)==0) 
+        stop("No ODD config files match regex: ",sweeps)
+      # Now extract the numeric ids of the relevant sweeps
+      sweeps=names(oddfiles)      
+    } else {
+      # we've been given a numeric vector 1:2->c("001","002")
+      sweeps=sprintf("%03d",sweeps)
+      if(!all(sweeps%in%names(oddfiles))) 
+        stop("Cannot find ODD config files for some sweeps: ",sweeps)
+      oddfiles=oddfiles[sweeps]
+    }
+    
     if(all(sweeps%in%names(rasterd)))
       rasterd=rasterd[sweeps]
     else
       stop("Missing spike counts for sweeps: ",setdiff(sweeps,names(rasterd)))
-  }
+  } 
+  
 
   # read in ODD protocol
-  oddfiles=file.path(sweepdir,paste(basename(sweepdir),sweeps,"odd.txt",sep="_"))
+  oddfiles=file.path(sweepdir,oddfiles)
   oddconf=read.table(oddfiles[1],col.names=make.unique(c('odour',rep(c('del','dur','chan'),5))),
     stringsAsFactors=FALSE)
   md5s=md5sum(oddfiles)
