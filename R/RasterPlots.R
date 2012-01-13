@@ -49,8 +49,9 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
     points(x=df$Time,y=df$Wave+yoff,pch=22,col=NA,bg=dotcolour,cex=dotsize)
   }
   rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
+  # plot boxes around each odour set
   for(i in seq(last_wave+1)){
-    rect(0,i-1,5000,i,col=NA,border='black')
+    rect(0,i-1,max(xlim),i,col=NA,border='black')
   }
   if(missing(main)) main=""
   if(missing(sub)) sub=paste("Cell:",basename(attr(rasterd,'sweepdir')),
