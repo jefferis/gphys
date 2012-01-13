@@ -58,7 +58,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
   title(main=main,sub=sub)
 }
 
-#' Make a raster plot from a set of Nclamp sweeps recording odour responses
+#' Read in Igor Pro exported text file of Nclamp spike times
 #'
 #' The list of spiketimes has two columns, Time and Wave, where wave is 
 #' the number of the wave within each sweepfile containing the spike.
