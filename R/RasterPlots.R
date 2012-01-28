@@ -114,8 +114,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
 
   # read in ODD protocol
   oddfiles=file.path(sweepdir,oddfiles)
-  oddconf=read.table(oddfiles[1],col.names=make.unique(c('odour',rep(c('del','dur','chan'),5))),
-    stringsAsFactors=FALSE)
+  oddconf=read.odd(oddfiles[1])
   md5s=md5sum(oddfiles)
   if(length(unique(md5s))>1) stop("I don't yet know how to handle different odd config files")
   
