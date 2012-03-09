@@ -48,7 +48,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
   for(i in seq(rasterd)){
     yoff=i/(nreps+1)
     df=rasterd[[i]]
-    points(x=df$Time,y=df$Chan+yoff,pch=22,col=NA,bg=dotcolour,cex=dotsize)
+    points(x=df$Time,y=df$Wave+yoff,pch=22,col=NA,bg=dotcolour,cex=dotsize)
   }
   rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
   # plot boxes around each odour set
