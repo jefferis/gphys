@@ -81,7 +81,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
 #' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3))
 #' PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 #' }
-CollectSpikesFromSweeps<-function(sweepdir,sweeps){
+CollectSpikesFromSweeps<-function(sweepdir,sweeps,xlim,stimRange){
   require(tools)
   fi=file.info(sweepdir)
   if(is.na(fi$isdir) || !fi$isdir)
@@ -119,7 +119,6 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
     else
       stop("Missing spike counts for sweeps: ",setdiff(sweeps,names(rasterd)))
   } 
-  
 
   # read in ODD protocol
   oddfiles=file.path(sweepdir,oddfiles)
@@ -130,6 +129,11 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps){
   attr(rasterd,'oddconf')=oddconf
   attr(rasterd,'sweeps')=sweeps
   attr(rasterd,'sweepdir')=sweepdir
+	if(!missing(stimRange))
+  	attr(rasterd,'stimRange')=stimRange
+	if(!missing(xlim))
+  	attr(rasterd,'xlim')=xlim
+	
   class(rasterd)=c('spiketimes',class(rasterd))
   rasterd
 }
