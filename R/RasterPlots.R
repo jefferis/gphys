@@ -216,3 +216,31 @@ split.spiketimes<-function(st,blocksize){
 	}
 	stnew
 }
+
+
+#' Combine multiple spiketimes series together (to plot in single rater figure)
+#' @param ... spiketimes objects 
+#' @return a new spiketimes objects
+#' @author jefferis
+#' @export
+"+.spiketimes" <- function(...) {
+	cc=c(...)
+	mostattributes(cc) <- attributes(list(...)[[1]])
+	cc	
+}
+
+is.spiketimes<-function (x) {
+	inherits(x,'spiketimes')
+}
+
+as.spiketimes<-function (x,xlim) {
+	if(!is.spiketimes(x)){
+		class(x)=c('spiketimes',class(x))
+	}
+	if(!missing(stimRange)) 
+		attr(x,'stimRange')=stimRange
+	x
+	if(!missing(xlim)) 
+		attr(x,'xlim')=xlim
+	x
+}
