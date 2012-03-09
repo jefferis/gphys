@@ -28,7 +28,7 @@
 #' ## and then use it
 #' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3),relabelfun=relabel)
 #' }
-PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
+PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
   main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
   odourRange=NULL,odourCol=rgb(1,0,0,alpha=.3),
@@ -38,6 +38,14 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
   else
     rasterd=CollectSpikesFromSweeps(sweepdir,sweeps)
   last_wave=max(sapply(rasterd,function(x) max(x$Wave,na.rm=TRUE)))
+	
+	if(is.null(xlim)){
+		if(is.null(attr(rasterd,'xlim')))
+			xlim=range(unlist(lapply(rasterd,'[[','Time')),na.rm = TRUE)
+		else
+			xlim=attr(rasterd,'xlim')
+	}
+	
 	if(is.null(odourRange)){
 		odourRange=attr(rasterd,'stimRange')
 	}
