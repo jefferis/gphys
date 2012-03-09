@@ -42,6 +42,11 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
 
   labels=relabelfun(attr(rasterd,'oddconf')$odour)
   if(IncludeChannels) labels=paste(labels,attr(rasterd,'oddconf')$chan)
+	if(length(labels)>(last_wave+1))
+	{
+		warning("Dropping ", length(labels)-last_wave-1, " labels from odd config")
+		labels = labels[seq(last_wave+1)]
+	}
   axis(side=2,at=seq(last_wave+1)-0.5,labels=labels,tick=F,las=1)
   axis(1)
   nreps=length(rasterd)
