@@ -31,13 +31,17 @@
 PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
   main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
-  odourRange=c(2000,2500),odourCol=rgb(1,0,0,alpha=.3),
+  odourRange=NULL,odourCol=rgb(1,0,0,alpha=.3),
   relabelfun=identity,IncludeChannels=FALSE,...){
   if(inherits(sweepdir,'spiketimes'))
     rasterd=sweepdir
   else
     rasterd=CollectSpikesFromSweeps(sweepdir,sweeps)
   last_wave=max(sapply(rasterd,function(x) max(x$Wave,na.rm=TRUE)))
+	if(is.null(odourRange)){
+		odourRange=attr(rasterd,'stimRange')
+	}
+	
   plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,...)
 
   labels=relabelfun(attr(rasterd,'oddconf')$odour)
@@ -55,7 +59,8 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=c(0,5000),
     df=rasterd[[i]]
     points(x=df$Time,y=df$Wave+yoff,pch=22,col=NA,bg=dotcolour,cex=dotsize)
   }
-  rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
+	if(!is.null(odourRange) && !is.na(odourRange))
+  	rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
   # plot boxes around each odour set
   for(i in seq(last_wave+1)){
     rect(0,i-1,max(xlim),i,col=NA,border='black')
