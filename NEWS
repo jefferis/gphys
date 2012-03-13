@@ -1,0 +1,11 @@
+gphys 0.2
+=========
+* handle experiments with repeated identical blocks (using split.spiketimes)
+* can now specify stimRange when collecting sweeps
+* can now specify xlim when collecting sweeps
+* and PlotRasterFromSweeps will use this info for plotting
+* +.spiketimes allows multiple consistent spiketimes objects to be gathered together  
+
+gphys 0.1
+=========
+* First version
