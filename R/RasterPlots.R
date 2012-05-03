@@ -1,6 +1,8 @@
 #' Make a raster plot from a set of Nclamp sweeps recording odour responses
 #'
 #' Note that can also give a spiketimes list from CollectSpikesFromSweeps
+#' By default the odour stimulus is represented by a pale red rectangle
+#'  in a layer behind the spikes.
 #' @param sweepdir directory containing Nclamp sweep files (or list of spiketimes)
 #' @param sweeps Vector of sweeps to include (e.g. 1:7)
 #' @param xlim x axis range of plot 
@@ -31,7 +33,7 @@
 PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
   main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
-  odourRange=NULL,odourCol=rgb(1,0,0,alpha=.3),
+  odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
   relabelfun=identity,IncludeChannels=FALSE,...){
   if(inherits(sweepdir,'spiketimes'))
     rasterd=sweepdir
@@ -50,8 +52,13 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
 		odourRange=attr(rasterd,'stimRange')
 	}
 	
-  plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,...)
-
+  # set up plot area (but don't plot anything
+	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,...)
+	# show odour stim range
+	if(!is.null(odourRange) && !is.na(odourRange))
+  	rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
+	
+	
   labels=relabelfun(attr(rasterd,'oddconf')$odour)
   if(IncludeChannels) labels=paste(labels,attr(rasterd,'oddconf')$chan)
 	if(length(labels)>(last_wave+1))
@@ -67,8 +74,6 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
     df=rasterd[[i]]
     points(x=df$Time,y=df$Wave+yoff,pch=22,col=NA,bg=dotcolour,cex=dotsize)
   }
-	if(!is.null(odourRange) && !is.na(odourRange))
-  	rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
   # plot boxes around each odour set
   for(i in seq(last_wave+1)){
     rect(0,i-1,max(xlim),i,col=NA,border='black')
