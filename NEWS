@@ -1,3 +1,8 @@
+gphys 0.2-1
+=========
+* plot odour stimulus as an opaque rectangle behind spike rasters rather than
+  a semi-transparent one in front.
+
 gphys 0.2
 =========
 * handle experiments with repeated identical blocks (using split.spiketimes)
