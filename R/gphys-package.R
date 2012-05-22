@@ -1,7 +1,8 @@
-#' Some simple functions for plotting electrophysiology data 
-#' collected in Igor Pro/Nclamp.
+#' Analyse electrophysiology data acquired by Neuromatic / Igor Pro
+#' 
 #' gphys = Greg's ephys (and perhaps gee whiz) 
-#' @name gphys
+#' @name gphys-package
+#' @aliases gphys
 #' @docType package
 #' @title Analyse electrophysiology data acquired by Neuromatic / Igor Pro
 #' @keywords package

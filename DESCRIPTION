@@ -19,4 +19,4 @@ Suggests:
 Collate:
     'RasterPlots.R'
     'ODDFiles.R'
-    'gphys.R'
+    'gphys-package.R'
