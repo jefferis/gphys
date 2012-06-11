@@ -21,7 +21,6 @@
 #' @seealso CollectSpikesFromSweeps
 #' @export
 #' @examples
-#' \dontrun{ 
 #' ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
 #' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
 #'   c(0,1,3),xlim=c(2000,4000),odourRange=c(2000,3000))
@@ -29,7 +28,6 @@
 #' relabel=function(labels) {labels[labels=="fly"]="empty";labels}
 #' ## and then use it
 #' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3),relabelfun=relabel)
-#' }
 PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
   main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
@@ -95,10 +93,8 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
 #' @author jefferis
 #' @export
 #' @examples
-#' \dontrun{
 #' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3))
 #' PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
-#' }
 CollectSpikesFromSweeps<-function(sweepdir,sweeps,xlim,stimRange){
   require(tools)
   fi=file.info(sweepdir)
@@ -239,8 +235,7 @@ split.spiketimes<-function(st,blocksize){
 	stnew
 }
 
-
-#' Combine multiple spiketimes series together (to plot in single rater figure)
+#' Combine multiple spiketimes series together (to plot in single raster figure)
 #' @param ... spiketimes objects 
 #' @return a new spiketimes objects
 #' @author jefferis
