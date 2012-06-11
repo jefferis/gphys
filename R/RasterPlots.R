@@ -134,11 +134,13 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,xlim,stimRange){
       stop("Missing spike counts for sweeps: ",setdiff(sweeps,names(rasterd)))
   } 
 
-  # read in ODD protocol
-  oddfiles=file.path(sweepdir,oddfiles)
-  oddconf=read.odd(oddfiles[1])
+  # Check that all ODD protocol(s) matching our chosen sweeps are the same
+  # and then read in the first one
+  oddfiles=file.path(sweepdir,oddfiles[sweeps])
   md5s=md5sum(oddfiles)
-  if(length(unique(md5s))>1) stop("I don't yet know how to handle different odd config files")
+  if(length(unique(md5s))>1)
+		stop("I don't yet know how to handle different odd config files")
+  oddconf=read.odd(oddfiles[1])
   
   attr(rasterd,'oddconf')=oddconf
   attr(rasterd,'sweeps')=sweeps
