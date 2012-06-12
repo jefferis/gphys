@@ -3,8 +3,7 @@
 #' Note that can also give a spiketimes list from CollectSpikesFromSweeps
 #' By default the odour stimulus is represented by a pale red rectangle
 #'  in a layer behind the spikes.
-#' @param sweepdir directory containing Nclamp sweep files (or list of spiketimes)
-#' @param sweeps Vector of sweeps to include (e.g. 1:7)
+#' @inheritParams CollectSpikesFromSweeps
 #' @param xlim x axis range of plot 
 #' @param main main title of plot (see \code{\link{title}}) 
 #' @param sub subtitle of plot
@@ -28,7 +27,10 @@
 #' relabel=function(labels) {labels[labels=="fly"]="empty";labels}
 #' ## and then use it
 #' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3),relabelfun=relabel)
-PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
+#' ## Example for Jonny's block based organisation (spike files sorted into subdirs)
+#' PlotRasterFromSweeps('/GD/projects/JonnyLocal/data/nm20120514c2',
+#'   subdir='BLOCK A',odourRange=c(2000,2500),xlim=c(0,5000))
+PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
   main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
@@ -36,7 +38,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
   if(inherits(sweepdir,'spiketimes'))
     rasterd=sweepdir
   else
-    rasterd=CollectSpikesFromSweeps(sweepdir,sweeps)
+    rasterd=CollectSpikesFromSweeps(sweepdir,sweeps,subdir=subdir)
   last_wave=max(sapply(rasterd,function(x) max(x$Wave,na.rm=TRUE)))
 	
 	if(is.null(xlim)){
@@ -87,6 +89,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
 #' The list of spiketimes has two columns, Time and Wave, where wave is 
 #' the number of the wave within each sweepfile containing the spike.
 #' @param sweepdir directory containing Nclamp pxp sweep files
+#' @param subdir subdirectory containing group of spike times txt files
 #' @param sweeps Vector of sweeps to include (e.g. 1:7) or character regex which
 #'               sweeps must match.
 #' @return list (with class spiketimes) containing times for each sweep
@@ -95,13 +98,16 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,xlim=NULL,
 #' @examples
 #' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3))
 #' PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
-CollectSpikesFromSweeps<-function(sweepdir,sweeps,xlim,stimRange){
+#' # example of collecting only from one of Jonny's subdirectories
+#' spikes=CollectSpikesFromSweeps('/GD/projects/JonnyLocal/data/nm20120514c2',subdir='BLOCK B')
+CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange){
   require(tools)
   fi=file.info(sweepdir)
   if(is.na(fi$isdir) || !fi$isdir)
     stop("Cannot read directory",sweepdir)
   # Read in all spike times
-  ff=dir(sweepdir,'^[0-9]{3}_SP_',full=TRUE)
+	
+  ff=dir(file.path(sweepdir,subdir),'^[0-9]{3}_SP_',full=TRUE)
   rasterd=lapply(ff,read.table,col.names=c("Time","Wave"),header=TRUE, 
     na.strings='NAN')
   names(rasterd)=substring(basename(ff),1,3)
