@@ -247,14 +247,15 @@ split.spiketimes<-function(st,blocksize){
 }
 
 #' Combine multiple spiketimes series together (to plot in single raster figure)
-#' @param ... spiketimes objects 
+#' @param e1,e2 spiketimes objects 
 #' @return a new spiketimes objects
 #' @author jefferis
 #' @rdname plus-spiketimes
+#' @method + spiketimes
 #' @export
-"+.spiketimes" <- function(...) {
-	cc=c(...)
-	mostattributes(cc) <- attributes(list(...)[[1]])
+"+.spiketimes" <- function(e1,e2) {
+	cc=c(e1,e2)
+	mostattributes(cc) <- attributes(e1)
 	cc	
 }
 
