@@ -1,3 +1,11 @@
+gphys 0.3
+=========
+* Teach CollectSpikesFromSweeps/PlotRasterFromSweeps to use Jonny's spike subdirs
+* Make sure that CollectSpikesFromSweeps/PlotRasterFromSweeps only reads ODD files
+  that match the sweeps that have been selected.
+* c.spiketimes replaces +.spiketimes
+* ?gphys shows package help
+
 gphys 0.2-1
 =========
 * plot odour stimulus as an opaque rectangle behind spike rasters rather than
