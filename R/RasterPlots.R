@@ -248,11 +248,10 @@ split.spiketimes<-function(st,blocksize){
 #' @return a new spiketimes objects
 #' @author jefferis
 #' @export
-"c.spiketimes" <- function(..., recursive = FALSE) {
-	cc=c(unlist(lapply(list(...), unclass)))
-	# copy over other attributes (including class)
+"+.spiketimes" <- function(...) {
+	cc=c(...)
 	mostattributes(cc) <- attributes(list(...)[[1]])
-	cc
+	cc	
 }
 
 is.spiketimes<-function (x) {
