@@ -88,10 +88,13 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
 #'
 #' The list of spiketimes has two columns, Time and Wave, where wave is 
 #' the number of the wave within each sweepfile containing the spike.
+#' xlim and stimRange are kept as attributes that will be used for plots
 #' @param sweepdir directory containing Nclamp pxp sweep files
-#' @param subdir subdirectory containing group of spike times txt files
 #' @param sweeps Vector of sweeps to include (e.g. 1:7) or character regex which
 #'               sweeps must match.
+#' @param subdir subdirectory containing group of spike times txt files
+#' @param xlim time range of sweeps
+#' @param stimRange time range of stimulus
 #' @return list (with class spiketimes) containing times for each sweep
 #' @author jefferis
 #' @export
@@ -166,7 +169,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange){
 #' @param baselineWindow vector of start and end time of baseline period (in ms)
 #' @param PlotFrequency Plot spike rate in Hz rather than counts (default FALSE)
 #' @param PLOTFUN stripchart, boxplot or similar function (default stripchart)
-#' @param ... 
+#' @param ... Additional arguments passed on to PLOTFUN
 #' @return results of plotfun (if any)
 #' @author jefferis
 #' @export
@@ -222,6 +225,7 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 #' @param blocksize number of waves per block - deduced from odour names if missing
 #' @return new spiketimes object (list) with one entry for each block of odours
 #' @author jefferis
+#' @method split spiketimes
 #' @export
 split.spiketimes<-function(st,blocksize){
 	if(length(st)>1) stop("Don't know how to split a spike time list of > length 1")
@@ -238,7 +242,6 @@ split.spiketimes<-function(st,blocksize){
 	mostattributes(stnew)=attributes(st)
 	if(!is.null(attr(stnew,'oddconf'))){
 		attr(stnew,'oddconf')=attr(stnew,'oddconf')[1:blocksize,]
-		
 	}
 	stnew
 }
@@ -247,6 +250,7 @@ split.spiketimes<-function(st,blocksize){
 #' @param ... spiketimes objects 
 #' @return a new spiketimes objects
 #' @author jefferis
+#' @rdname plus-spiketimes
 #' @export
 "+.spiketimes" <- function(...) {
 	cc=c(...)
@@ -258,7 +262,8 @@ is.spiketimes<-function (x) {
 	inherits(x,'spiketimes')
 }
 
-as.spiketimes<-function (x,xlim) {
+
+as.spiketimes<-function (x,xlim,stimRange) {
 	if(!is.spiketimes(x)){
 		class(x)=c('spiketimes',class(x))
 	}
