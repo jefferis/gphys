@@ -3,8 +3,8 @@ gphys 0.3
 * Teach CollectSpikesFromSweeps/PlotRasterFromSweeps to use Jonny's spike subdirs
 * Make sure that CollectSpikesFromSweeps/PlotRasterFromSweeps only reads ODD files
   that match the sweeps that have been selected.
-* c.spiketimes replaces +.spiketimes
 * ?gphys shows package help
+* utility functions to set and query Finder colour labels
 
 gphys 0.2-1
 =========

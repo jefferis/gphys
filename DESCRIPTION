@@ -20,3 +20,4 @@ Collate:
     'RasterPlots.R'
     'ODDFiles.R'
     'gphys-package.R'
+    'utils.R'
