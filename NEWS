@@ -1,3 +1,9 @@
+gphys 0.3-1
+=========
+* New OdourResponseFromSpikes function that can be used to extract the number or
+  frequency of spikes in a window (optionally subtracting a baseline).
+* PlotRasterFromSweeps plots left hand edge of box when the axis starts at time>0 
+
 gphys 0.3
 =========
 * Teach CollectSpikesFromSweeps/PlotRasterFromSweeps to use Jonny's spike subdirs
