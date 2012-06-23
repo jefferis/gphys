@@ -28,7 +28,7 @@
 #' ## and then use it
 #' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3),relabelfun=relabel)
 #' ## Example for Jonny's block based organisation (spike files sorted into subdirs)
-#' PlotRasterFromSweeps('/GD/projects/JonnyLocal/data/nm20120514c2',
+#' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',
 #'   subdir='BLOCK A',odourRange=c(2000,2500),xlim=c(0,5000))
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
   main,sub,xlab='Time/ms', ylab='Odour',
@@ -102,7 +102,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
 #' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3))
 #' PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 #' # example of collecting only from one of Jonny's subdirectories
-#' spikes=CollectSpikesFromSweeps('/GD/projects/JonnyLocal/data/nm20120514c2',subdir='BLOCK B')
+#' spikes=CollectSpikesFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
 CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange){
   require(tools)
   fi=file.info(sweepdir)
@@ -212,7 +212,7 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 #' apply(od,2,function(x) c(mean=mean(x),sd=sd(x)))
 #' 
 #' # show baseline response frequency only (by treating that as response)
-#' od2=OdourResponseFromSpikes(spikes,response=c(0,2000),freq=T)
+#' od2=OdourResponseFromSpikes(spikes,response=c(0,2000),freq=TRUE)
 #' summary(od2)
 OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=FALSE){
   nreps=length(spiketimes)
