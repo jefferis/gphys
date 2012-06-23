@@ -76,7 +76,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
   }
   # plot boxes around each odour set
   for(i in seq(last_wave+1)){
-    rect(0,i-1,max(xlim),i,col=NA,border='black')
+    rect(xlim[1],i-1,xlim[2],i,col=NA,border='black')
   }
   if(missing(main)) main=""
   if(missing(sub)) sub=paste("Cell:",basename(attr(rasterd,'sweepdir')),
