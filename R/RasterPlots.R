@@ -164,20 +164,19 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange){
 }
 
 #' Boxplot of spikes within a window (optionally less a baseline)
-#' @param spiketimes list of spiketimes collected by CollectSpikesFromSweeps
-#' @param responseWindow vector of start and end time of odour response (in ms)
-#' @param baselineWindow vector of start and end time of baseline period (in ms)
+#' @inheritParams OdourResponseFromSpikes
 #' @param PlotFrequency Plot spike rate in Hz rather than counts (default FALSE)
 #' @param PLOTFUN stripchart, boxplot or similar function (default stripchart)
 #' @param ... Additional arguments passed on to PLOTFUN
 #' @return results of plotfun (if any)
 #' @author jefferis
 #' @export
+#' @family OdourResponse
 #' @seealso CollectSpikesFromSweeps
 #' @examples
 #' \dontrun{ 
 #' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
-#'  sweeps=0:4)
+#'  subdir='Block I',sweeps=0:4)
 #' ## stripchart
 #' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
 #'  col=1:6)
@@ -187,32 +186,54 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange){
 #' }
 PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
   PlotFrequency=FALSE,PLOTFUN=stripchart,...){
+  # stack(bbdf)
+  bbdf=OdourResponseFromSpikes(spiketimes = spiketimes,responseWindow = responseWindow,
+      baselineWindow = baselineWindow, freq=PlotFrequency)
+  if(PlotFrequency) {
+    PLOTFUN(bbdf,xlab='Spike Frequency /Hz',las=2,...)
+  } else {
+    PLOTFUN(bbdf,xlab='Spike Count',las=2,...)
+  }
+}
+
+#' Produce table of spiking responses (optionally subtracting baseline)
+#' @param spiketimes list of spiketimes collected by CollectSpikesFromSweeps
+#' @param responseWindow vector of start and end time of odour response (in ms)
+#' @param baselineWindow vector of start and end time of baseline period (in ms)
+#' @param freq Calculate Spike rate in Hz rather than  
+#' @return dataframe with a column for each odour and row for each sweep
+#' @author jefferis
+#' @export
+#' @family OdourResponse
+#' @examples 
+#' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",subdir='Block I',sweeps=0:4)
+#' od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
+#' summary(od)
+#' apply(od,2,function(x) c(mean=mean(x),sd=sd(x)))
+#' 
+#' # show baseline response frequency only (by treating that as response)
+#' od2=OdourResponseFromSpikes(spikes,response=c(0,2000),freq=T)
+#' summary(od2)
+OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=FALSE){
   nreps=length(spiketimes)
   last_wave=max(sapply(spiketimes,function(x) max(x$Wave,na.rm=TRUE)))
-  # plot(NA,xlim=xlim,ylim=c(last_sweep+1,0),ylab=ylab,xlab=xlab,axes=F,...)
   # Want to collect a table which has rows for each odour
-  # and re
   spikess=do.call(rbind,spiketimes)
   spikess$Sweep=rep(names(spiketimes),sapply(spiketimes,nrow))
-
+  
   responseTime=diff(responseWindow)
   responsecount=by(spikess$Time,
-    list(factor(spikess$Sweep),factor(spikess$Wave)),
-    function(t) sum(t>responseWindow[1] &t<responseWindow[2]))
+      list(factor(spikess$Sweep),factor(spikess$Wave)),
+      function(t) sum(t>responseWindow[1] &t<responseWindow[2]))
   if(!missing(baselineWindow)){
     baselinecount=by(spikess$Time,
-      list(factor(spikess$Sweep),factor(spikess$Wave)),
-      function(t) sum(t>baselineWindow[1] &t<baselineWindow[2]))
+        list(factor(spikess$Sweep),factor(spikess$Wave)),
+        function(t) sum(t>baselineWindow[1] &t<baselineWindow[2]))
     baselineTime=diff(baselineWindow)
     responsecount=responsecount-baselinecount*responseTime/baselineTime
   }
   bbdf=as.data.frame(matrix(responsecount,ncol=ncol(responsecount)))
   colnames(bbdf)=make.unique(attr(spiketimes,'oddconf')$odour)
-  # stack(bbdf)
-  if(PlotFrequency) {
-    bbdf=bbdf/(responseTime/1000)
-    PLOTFUN(bbdf,xlab='Spike Frequency /Hz',las=2,...)
-  } else {
-    PLOTFUN(bbdf,xlab='Spike Count',las=2,...)
-  }
+  if(freq) bbdf=bbdf/(responseTime/1000)
+  bbdf
 }
