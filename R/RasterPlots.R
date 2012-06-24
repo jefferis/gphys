@@ -26,7 +26,8 @@
 #' ## Fix a bad label, first define a function 
 #' relabel=function(labels) {labels[labels=="fly"]="empty";labels}
 #' ## and then use it
-#' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3),relabelfun=relabel)
+#' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
+#'   c(0,1,3),relabelfun=relabel)
 #' ## Example for Jonny's block based organisation (spike files sorted into subdirs)
 #' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',
 #'   subdir='BLOCK A',odourRange=c(2000,2500),xlim=c(0,5000))
@@ -103,11 +104,22 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
 #' PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 #' # example of collecting only from one of Jonny's subdirectories
 #' spikes=CollectSpikesFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
+#' # example of setting data directory
+#' options(gphys.datadir='/Volumes/JData/JPeople/Jonny/physiology/data')
+#' spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCK B')
 CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange){
   require(tools)
+  if(!file.exists(sweepdir)){
+    defaultdatadir=options('gphys.datadir')[[1]]
+    if(!is.null(defaultdatadir)){
+      sweepdir=file.path(defaultdatadir,sweepdir)
+    }
+  }
   fi=file.info(sweepdir)
-  if(is.na(fi$isdir) || !fi$isdir)
-    stop("Cannot read directory",sweepdir)
+  if(is.na(fi$isdir) || !fi$isdir){
+    stop("Cannot read directory: ",sweepdir)
+  }
+  
   # Read in all spike times
 	
   ff=dir(file.path(sweepdir,subdir),'^[0-9]{3}_SP_',full=TRUE)

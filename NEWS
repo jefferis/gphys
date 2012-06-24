@@ -1,3 +1,9 @@
+gphys 0.3-2
+=========
+* You can now set options(gphys.datadir='/path/to/my/data') so that you can
+  specify relative paths in CollectSpikesFromSweeps/PlotRasterFromSweeps,
+  ideally just the Igor cell name.
+
 gphys 0.3-1
 =========
 * New OdourResponseFromSpikes function that can be used to extract the number or
