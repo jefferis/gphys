@@ -38,16 +38,19 @@
 #' fixVec=c(empty=31,IAA=30,cVA=29,PAA=27,`4ol`=26,ctr=25)
 #' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
 #'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
-PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
-  main,sub,xlab='Time/ms', ylab='Odour',
+PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
+  xlim=NULL,main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,pch=22,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
   relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,...){
-  if(inherits(sweepdir,'spiketimes'))
+  if(inherits(sweepdir,'spiketimes')){
     rasterd=sweepdir
+    if(!is.null(subset))
+      rasterd=subset.spiketimes(rasterd)
+  }
   else
     rasterd=CollectSpikesFromSweeps(sweepdir,sweeps,subdir=subdir,
-        fixChannels=fixChannels)
+        fixChannels=fixChannels,subset=subset)
   last_wave=max(sapply(rasterd,function(x) max(x$Wave,na.rm=TRUE)))
 	
 	if(is.null(xlim)){
