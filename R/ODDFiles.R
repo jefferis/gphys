@@ -36,3 +36,21 @@ read.odd<-function(oddfile,fill=TRUE,stringsAsFactors=FALSE,Verbose=FALSE){
   colnames(df)=make.unique(c('odour',rep(c('del','dur','chan'),5)))
   df
 }
+
+#' Fix the odour labels in an odd config 
+#' @param odddf odour config as read in by read.odd
+#' @param fixChannels Named vector of old integer channels with new odour names
+#' @return dataframe with fixed odd config 
+#' @author jefferis
+#' @export
+#' @examples 
+#' odd<-read.odd(system.file("igor","oddfiles","simple_odd.txt",package="gphys"))
+#' fixVec=c(empty=31,IAA=30,cVA=29,PAA=27,`4ol`=26,ctr=25)
+#' fixed=fix.odd(odd,fixVec)
+fix.odd<-function(odddf,fixChannels){
+  for(i in seq(fixChannels)){
+    oddrow=odddf$chan==fixChannels[i]
+    odddf$odour[oddrow]=names(fixChannels)[i]
+  }
+  odddf
+}

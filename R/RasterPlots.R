@@ -14,6 +14,7 @@
 #' @param odourRange time window of odour delivery 
 #' @param odourCol colour of odour window (default pale red) 
 #' @param relabelfun function to apply to odour labels (default no relabelling)
+#' @inheritParams CollectSpikesFromSweeps
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
 #' @param ... Additional parameters passed to plot 
 #' @author jefferis
@@ -31,15 +32,20 @@
 #' ## Example for Jonny's block based organisation (spike files sorted into subdirs)
 #' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',
 #'   subdir='BLOCK A',odourRange=c(2000,2500),xlim=c(0,5000))
+#' ## Example of fixing one of Jonny's traces when channels were mixed up
+#' fixVec=c(empty=31,IAA=30,cVA=29,PAA=27,`4ol`=26,ctr=25)
+#' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
+#'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
   main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
-  relabelfun=identity,IncludeChannels=FALSE,...){
+  relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,...){
   if(inherits(sweepdir,'spiketimes'))
     rasterd=sweepdir
   else
-    rasterd=CollectSpikesFromSweeps(sweepdir,sweeps,subdir=subdir)
+    rasterd=CollectSpikesFromSweeps(sweepdir,sweeps,subdir=subdir,
+        fixChannels=fixChannels)
   last_wave=max(sapply(rasterd,function(x) max(x$Wave,na.rm=TRUE)))
 	
 	if(is.null(xlim)){
@@ -90,12 +96,17 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
 #' The list of spiketimes has two columns, Time and Wave, where wave is 
 #' the number of the wave within each sweepfile containing the spike.
 #' xlim and stimRange are kept as attributes that will be used for plots
+#' * fixChannels expects a named vector of any channels that need to have 
+#'   different odour names. This can be used to fix an error in the original ODD
+#'   config file.
 #' @param sweepdir directory containing Nclamp pxp sweep files
 #' @param sweeps Vector of sweeps to include (e.g. 1:7) or character regex which
 #'               sweeps must match.
 #' @param subdir subdirectory containing group of spike times txt files
 #' @param xlim time range of sweeps
 #' @param stimRange time range of stimulus
+#' @param fixChannels Optional named integer vector that remaps some bad numeric 
+#'   channels to correct odours. FIXME shouldn't we fix channels as well.
 #' @return list (with class spiketimes) containing times for each sweep
 #' @author jefferis
 #' @export
@@ -107,7 +118,8 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
 #' # example of setting data directory
 #' options(gphys.datadir='/Volumes/JData/JPeople/Jonny/physiology/data')
 #' spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCK B')
-CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange){
+CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
+    fixChannels=NULL,xscalefac=1000){
   require(tools)
   if(!file.exists(sweepdir)){
     defaultdatadir=options('gphys.datadir')[[1]]
@@ -162,7 +174,8 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange){
   if(length(unique(md5s))>1)
 		stop("I don't yet know how to handle different odd config files")
   oddconf=read.odd(oddfiles[1])
-  
+  if(!is.null(fixChannels))
+    oddconf=fix.odd(oddconf,fixChannels)
   attr(rasterd,'oddconf')=oddconf
   attr(rasterd,'sweeps')=sweeps
   attr(rasterd,'sweepdir')=sweepdir

@@ -31,6 +31,15 @@ test_that("Read simple odd config file", {
       expect_that(odd, equals(odd_baseline))
     })
 
+test_that("Fix channels in ODD config file", {
+      odd<-read.odd("../igor/oddfiles/simple_odd.txt")
+      fixVec=c(empty=31,IAA=30,cVA=29,PAA=27,`4ol`=26,ctr=25)
+      fixed=fix.odd(odd,fixVec)
+      fixed_odour=c('IAA','4ol','empty','cVA','ctr','PAA')
+      expect_true(is.data.frame(fixed))
+      expect_that(fixed$odour,equals(fixed_odour))
+    })
+      
 test_that("Read complex ODD config file", {
       odd<<-read.odd("../igor/oddfiles/nm20120125c1_000_odd_5times_Sput_1.txt")
       odd_baseline=structure(list(odour = c("OilBl", "E2Hex", "GerAc", "Prpyl", 
