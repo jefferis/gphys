@@ -263,3 +263,51 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
   if(freq) bbdf=bbdf/(responseTime/1000)
   bbdf
 }
+
+#' Make a new spiketimes object containing only sweeps for an odour subset
+#' 
+#' NB the sweeps will be in the specified odour order
+#' @param spikes The old spiketimes object 
+#' @param odours A character vector of odours
+#' @param channels 
+#' @return 
+#' @author jefferis
+#' @export
+subset.spiketimes<-function(spikes,odours,channels){
+  oddconf=attr(spikes,'oddconf')
+  # Note that waves come in 0-indexed from Igor so we'll do the same
+  oddconf$OldWave=seq_len(nrow(oddconf))-1
+  if(!missing(odours)){
+    if(any(duplicated(odours)))
+      stop("Cannot handle duplicated odours")  
+    if(any(duplicated(oddconf$odours)))
+      stop("Cannot handle duplicated odours")  
+    rownames(oddconf)=as.character(oddconf$odour)
+    newoddconf=oddconf[odours,]
+    # Note that waves come in 0-indexed from Igor so we'll do the same
+    newoddconf$NewWave=seq_len(nrow(newoddconf))-1
+  } else {
+    stop("I can only handle odours at the moment")
+  }
+  rownames(newoddconf)=newoddconf$NewWave
+  new_waves=newoddconf$NewWave
+  sel_oldwaves=newoddconf$OldWave
+  newspikes=lapply(spikes,function(x) {
+        x$OldWave=x$Wave;
+        y=data.frame(Time=numeric(0), Wave=integer(0),OldWave=integer(0))
+        for(i in seq_along(new_waves)){
+          ssx=subset(x,Wave==sel_oldwaves[i],c(Time,Wave,OldWave))
+          if(nrow(ssx)>0){
+            ssx$Wave=new_waves[i]
+            y=rbind(y,ssx) 
+          } else {
+            y=rbind(y,data.frame(Time=NA,Wave=new_waves[i],OldWave=sel_oldwaves[i]))
+          }
+          y=rbind(y,cbind(Time=NA,Wave=NA,OldWave=NA))
+        }
+        y
+      })
+  mostattributes(newspikes)=attributes(spikes)
+  attr(newspikes,'oddconf')=newoddconf
+  newspikes
+}
