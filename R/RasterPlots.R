@@ -108,6 +108,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
 #' @param stimRange time range of stimulus
 #' @param fixChannels Optional named integer vector that remaps some bad numeric 
 #'   channels to correct odours. FIXME shouldn't we fix channels as well.
+#' @param subset Numeric vector of channels or character vector of odours
 #' @return list (with class spiketimes) containing times for each sweep
 #' @author jefferis
 #' @export
@@ -120,7 +121,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
 #' options(gphys.datadir='/Volumes/JData/JPeople/Jonny/physiology/data')
 #' spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCK B')
 CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
-    fixChannels=NULL,xscalefac=1000){
+    fixChannels=NULL,xscalefac=1000,subset=NULL){
   require(tools)
   if(!file.exists(sweepdir)){
     defaultdatadir=options('gphys.datadir')[[1]]
@@ -186,6 +187,11 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
   	attr(rasterd,'xlim')=xlim
 	
   class(rasterd)=c('spiketimes',class(rasterd))
+  
+  # now subset if required
+  if(!is.null(subset)){
+    rasterd=subset.spiketimes(rasterd,subset)
+  }
   rasterd
 }
 
