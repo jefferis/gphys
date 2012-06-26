@@ -273,11 +273,12 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
 #' @return 
 #' @author jefferis
 #' @export
-subset.spiketimes<-function(spikes,odours,channels){
+subset.spiketimes<-function(spikes,odours=NULL,channels=NULL){
   oddconf=attr(spikes,'oddconf')
   # Note that waves come in 0-indexed from Igor so we'll do the same
   oddconf$OldWave=seq_len(nrow(oddconf))-1
-  if(!missing(odours)){
+  if(is.null(channels) && is.numeric(odours)) {channels=odours;odours=NULL}
+  if(!is.null(odours)){
     if(any(duplicated(odours)))
       stop("Cannot handle duplicated odours")  
     if(any(duplicated(oddconf$odours)))
@@ -285,7 +286,7 @@ subset.spiketimes<-function(spikes,odours,channels){
     rownames(oddconf)=as.character(oddconf$odour)
     newoddconf=oddconf[odours,]
   } else {
-    if(missing(channels))
+    if(is.null(channels))
       stop("Must supply either odours or channels")
     if(any(duplicated(channels)))
       stop("Cannot handle duplicated channels")
