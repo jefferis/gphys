@@ -281,15 +281,36 @@ subset.spiketimes<-function(spikes,odours,channels){
     if(any(duplicated(odours)))
       stop("Cannot handle duplicated odours")  
     if(any(duplicated(oddconf$odours)))
-      stop("Cannot handle duplicated odours")  
+      stop("Cannot handle duplicated odours in ODD config")
     rownames(oddconf)=as.character(oddconf$odour)
     newoddconf=oddconf[odours,]
-    # Note that waves come in 0-indexed from Igor so we'll do the same
-    newoddconf$NewWave=seq_len(nrow(newoddconf))-1
   } else {
-    stop("I can only handle odours at the moment")
+    if(missing(channels))
+      stop("Must supply either odours or channels")
+    if(any(duplicated(channels)))
+      stop("Cannot handle duplicated channels")
+    if(any(duplicated(oddconf$chan)))
+      stop("Cannot handle duplicated channels in ODD config")
+    if(!all(channels%in%oddconf$chan)){
+      channels=intersect(channels,oddconf$chan)
+      if(length(channels))
+        warning("Dropping channels that are not present in odd config")
+      else {
+        message("This is the ODD config:")
+        print(oddconf)
+        stop("None of the channels that you gave me are in this ODD config")
+      }
+    }
+    
+    rownames(oddconf)=as.character(oddconf$chan)
+    newoddconf=oddconf[as.character(channels),]
   }
+  # Note that waves come in 0-indexed from Igor so we'll do the same
+  newoddconf$NewWave=seq_len(nrow(newoddconf))-1
+  # reset the rownames to numbers - this is how they arrive
   rownames(newoddconf)=newoddconf$NewWave
+  
+  # Now setup to replace old wave numbers with new wave numbers
   new_waves=newoddconf$NewWave
   sel_oldwaves=newoddconf$OldWave
   newspikes=lapply(spikes,function(x) {
