@@ -11,6 +11,7 @@
 #' @param ylab axis label (default odour)
 #' @param dotcolour colour of dots in raster plot (default black)
 #' @param dotsize size of dots in raster plot (default 0.5) 
+#' @param pch plotting character (default 22 is a square) 
 #' @param odourRange time window of odour delivery 
 #' @param odourCol colour of odour window (default pale red) 
 #' @param relabelfun function to apply to odour labels (default no relabelling)
@@ -18,7 +19,8 @@
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
 #' @param ... Additional parameters passed to plot 
 #' @author jefferis
-#' @seealso CollectSpikesFromSweeps
+#' @seealso \code{\link{CollectSpikesFromSweeps}} and \code{\link{plot.default}} 
+#'   for graphical parameters
 #' @export
 #' @examples
 #' ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
@@ -38,7 +40,7 @@
 #'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
   main,sub,xlab='Time/ms', ylab='Odour',
-  dotcolour='black',dotsize=0.5,
+  dotcolour='black',dotsize=0.5,pch=22,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
   relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,...){
   if(inherits(sweepdir,'spiketimes'))
@@ -65,7 +67,6 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
 	if(!is.null(odourRange) && !is.na(odourRange))
   	rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
 	
-	
   labels=relabelfun(attr(rasterd,'oddconf')$odour)
   if(IncludeChannels) labels=paste(labels,attr(rasterd,'oddconf')$chan)
 	if(length(labels)>(last_wave+1))
@@ -79,7 +80,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',xlim=NULL,
   for(i in seq(rasterd)){
     yoff=i/(nreps+1)
     df=rasterd[[i]]
-    points(x=df$Time,y=df$Wave+yoff,pch=22,col=NA,bg=dotcolour,cex=dotsize)
+    points(x=df$Time,y=df$Wave+yoff,pch=pch,col=NA,bg=dotcolour,cex=dotsize)
   }
   # plot boxes around each odour set
   for(i in seq(last_wave+1)){
