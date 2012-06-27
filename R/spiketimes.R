@@ -44,7 +44,6 @@ is.spiketimes<-function (x) {
 	inherits(x,'spiketimes')
 }
 
-
 as.spiketimes<-function (x,xlim,stimRange) {
 	if(!is.spiketimes(x)){
 		class(x)=c('spiketimes',class(x))
@@ -56,3 +55,45 @@ as.spiketimes<-function (x,xlim,stimRange) {
 		attr(x,'xlim')=xlim
 	x
 }
+
+as.repeatedTrain<-function(x,...){
+  UseMethod("as.repeatedTrain")
+}
+
+#' Convert gphys spiketimes object to STAR repeatedTrain
+#'
+#' The STAR (Spike Train Analysis with R) package has a large number of useful
+#' functions for e.g. PSTH analysis.
+#' Note that the spiketimes objects are a list of data frames, where each list 
+#' element will correspond to one pxp file and will have trials for different 
+#' odours. We now want to turn this into a list of repeatedTrain objects, 
+#' one for each odour.
+#' @param spiketimes object (list of dataframes)
+#' @return repeatedTrain object (list of numeric vectors)
+#' @export
+#' @seealso \code{\link{STAR::as.repeatedTrain}}
+#' @import STAR
+#' @examples
+#' spikes<-CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
+#' subdir='Block I',sweeps=0:4)
+#' rt=as.repeatedTrain(spikes)
+#' rt
+#' psth(rt[['PAA']])
+as.repeatedTrain.spiketimes<-function(x){  
+  # number of sweeps for each odour
+  nsweeps=max(x[[1]]$Wave)
+  # TODO handle repeated block that Shahar uses
+  nblocks=length(x)
+  
+  l=list()
+  oddconf=attr(x,'oddconf')
+  nn=oddconf$odour
+  if(is.null(nn)) nn=as.character(seq(nsweeps))
+  for(i in seq_along(nn)){
+    # nb waves are 0 indexed in nclamp and time unit is ms not s
+    l[[nn[i]]]=as.repeatedTrain(lapply(x,function(s) subset(s,Wave==(i-1),Time)[[1]]/1000))
+  }
+  l
+}
+
+as.repeatedTrain.default<-function(x,...) STAR::as.repeatedTrain(x)
