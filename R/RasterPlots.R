@@ -275,11 +275,13 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
 
 #' Make a new spiketimes object containing only sweeps for an odour subset
 #' 
-#' NB the sweeps will be in the specified odour order
+#' NB the sweeps will be in the specified odour/channel order. If an unnamed
+#' second parameter is specified it will be interpreted as vector of odours
+#' if character or channel ids if numeric.
 #' @param spikes The old spiketimes object 
 #' @param odours A character vector of odours
-#' @param channels 
-#' @return 
+#' @param channels Integer vector of channels
+#' @return spiketimes object restricted to specified odours or channels
 #' @author jefferis
 #' @export
 subset.spiketimes<-function(spikes,odours=NULL,channels=NULL){
