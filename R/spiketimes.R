@@ -56,6 +56,7 @@ as.spiketimes<-function (x,xlim,stimRange) {
 	x
 }
 
+#' @export
 as.repeatedTrain<-function(x,...){
   UseMethod("as.repeatedTrain")
 }
@@ -68,18 +69,18 @@ as.repeatedTrain<-function(x,...){
 #' element will correspond to one pxp file and will have trials for different 
 #' odours. We now want to turn this into a list of repeatedTrain objects, 
 #' one for each odour.
-#' @param spiketimes object (list of dataframes)
+#' @param x object (list of dataframes)
 #' @return repeatedTrain object (list of numeric vectors)
 #' @export
-#' @seealso \code{\link{STAR::as.repeatedTrain}}
-#' @import STAR
+#' @method as.repeatedTrain spiketimes
+#' @seealso \code{\link[STAR]{as.repeatedTrain}}
 #' @examples
 #' spikes<-CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
 #' subdir='Block I',sweeps=0:4)
 #' rt=as.repeatedTrain(spikes)
 #' rt
 #' psth(rt[['PAA']])
-as.repeatedTrain.spiketimes<-function(x){  
+as.repeatedTrain.spiketimes<-function(x,...){
   # number of sweeps for each odour
   nsweeps=max(x[[1]]$Wave)
   # TODO handle repeated block that Shahar uses
@@ -96,4 +97,9 @@ as.repeatedTrain.spiketimes<-function(x){
   l
 }
 
-as.repeatedTrain.default<-function(x,...) STAR::as.repeatedTrain(x)
+#' @export 
+#' @method as.repeatedTrain default
+as.repeatedTrain.default<-function(x,...) {
+  require(STAR)
+  STAR::as.repeatedTrain(x)
+}

@@ -13,7 +13,8 @@ Description: This package provides functions to make spike time raster
 Version: 0.3-2
 Date: 2012-06-24
 Depends:
-    tools
+    tools,
+    STAR
 Suggests:
     IgorR
 Collate:
