@@ -45,14 +45,15 @@ split.spiketimes<-function(st,blocksize){
 #' NB the sweeps will be in the specified odour/channel order. If an unnamed
 #' second parameter is specified it will be interpreted as vector of odours
 #' if character or channel ids if numeric.
-#' @param spikes The old spiketimes object
+#' @param x The old spiketimes object
 #' @param odours A character vector of odours
 #' @param channels Integer vector of channels
 #' @return spiketimes object restricted to specified odours or channels
+#' @method subset spiketimes
 #' @author jefferis
 #' @export
-subset.spiketimes<-function(spikes,odours=NULL,channels=NULL){
-  oddconf=attr(spikes,'oddconf')
+subset.spiketimes<-function(x,odours=NULL,channels=NULL){
+  oddconf=attr(x,'oddconf')
   # Note that waves come in 0-indexed from Igor so we'll do the same
   oddconf$OldWave=seq_len(nrow(oddconf))-1
   if(is.null(channels) && is.numeric(odours)) {channels=odours;odours=NULL}
@@ -92,7 +93,7 @@ subset.spiketimes<-function(spikes,odours=NULL,channels=NULL){
   # Now setup to replace old wave numbers with new wave numbers
   new_waves=newoddconf$NewWave
   sel_oldwaves=newoddconf$OldWave
-  newspikes=lapply(spikes,function(x) {
+  newspikes=lapply(x,function(x) {
         x$OldWave=x$Wave;
         y=data.frame(Time=numeric(0), Wave=integer(0),OldWave=integer(0))
         for(i in seq_along(new_waves)){
@@ -107,7 +108,7 @@ subset.spiketimes<-function(spikes,odours=NULL,channels=NULL){
         }
         y
       })
-  mostattributes(newspikes)=attributes(spikes)
+  mostattributes(newspikes)=attributes(x)
   attr(newspikes,'oddconf')=newoddconf
   newspikes
 }
