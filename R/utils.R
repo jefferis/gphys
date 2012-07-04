@@ -4,6 +4,7 @@
 #' http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 #' @param filename Path to a file 
 #' @return Character string (None when no colour is set) or NA on error 
+#' @family finder_colour
 #' @author jefferis
 #' @export
 finder_colour<-function(filename){
@@ -24,6 +25,7 @@ finder_colour<-function(filename){
 #' @param filename Character vector of file(s) to add colour labels 
 #' @param col Character vector of colour(s)
 #' @return Logical indicating success or failure
+#' @family finder_colour
 #' @author jefferis
 #' @export
 set_finder_colour<-function(filename,col=c("None","Gray","Grey","Green","Purple","Blue","Yellow","Red","Orange")){
