@@ -139,12 +139,12 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
   
   # Read in all spike times
 	
-  ff=dir(file.path(sweepdir,subdir),'^[0-9]{3}_SP_',full=TRUE)
+  ff=dir(file.path(sweepdir,subdir),'^[0-9]{3}_SP_',full.names=TRUE)
   rasterd=lapply(ff,read.table,col.names=c("Time","Wave"),header=TRUE, 
     na.strings='NAN')
   names(rasterd)=substring(basename(ff),1,3)
   
-  oddfiles=dir(sweepdir,patt='_odd[_.]')
+  oddfiles=dir(sweepdir,pattern='_odd[_.]')
   names(oddfiles)=sub('.*_([0-9]{3})_odd.*','\\1',oddfiles)
   if(missing(sweeps)){
     sweeps=names(rasterd)
