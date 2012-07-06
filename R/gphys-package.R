@@ -26,10 +26,16 @@
 #' appropriately at the start of a session or in your 
 #' \code{\link[=Startup]{.Rprofile}} file. You can then use relative paths to
 #' your Igor data folders in the plot functions.
+#' 
+#' Finally \code{\link{as.repeatedTRAIN}} provides a bridge to the \code{\link{STAR}}
+#' package which includes many spike analysis functions including (smoothed)
+#' peristimulus time histograms.
+#' 
 #' @name gphys-package
 #' @aliases gphys
 #' @seealso \code{\link{options}, \link{spiketimes}, \link{PlotRasterFromSweeps},
 #'   \link{CollectSpikesFromSweeps}}
+#' and \code{\link{STAR package}} for further analysis.
 #' @docType package
 #' @keywords package
 NULL
