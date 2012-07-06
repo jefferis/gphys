@@ -172,7 +172,7 @@ as.repeatedTrain.spiketimes<-function(x,...){
 
 #' @export 
 #' @method as.repeatedTrain default
+#' @importFrom STAR as.repeatedTrain
 as.repeatedTrain.default<-function(x,...) {
-  require(STAR)
   STAR::as.repeatedTrain(x)
 }
