@@ -1,3 +1,13 @@
+gphys 0.4
+=========
+* CollectSpikesFromSweeps/PlotRasterFromSweeps can now read/plot subsets of
+  spkes defined by odour name or channel number.
+* This depends on a new function subset.spiketimes.
+* STAR package is now a dependency (which must be installed from CRAN).
+* New as.repeatedTrain function will convert gphys spiketimes objects to STAR
+  repeatedTrain objects, allowing STAR's psth function to be used.
+* New fix.odd function to handle situation where ODD has been miswired
+* Significant documentation improvements (including package docs ?gphys) 
 gphys 0.3-2
 =========
 * You can now set options(gphys.datadir='/path/to/my/data') so that you can
