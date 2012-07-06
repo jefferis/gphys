@@ -123,9 +123,9 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 #' # example of setting data directory
 #' options(gphys.datadir='/Volumes/JData/JPeople/Jonny/physiology/data')
 #' spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCK B')
+#' @importFrom tools md5sum 
 CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
     fixChannels=NULL,subset=NULL){
-  require(tools)
   if(!file.exists(sweepdir)){
     defaultdatadir=options('gphys.datadir')[[1]]
     if(!is.null(defaultdatadir)){
