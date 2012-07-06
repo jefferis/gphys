@@ -52,7 +52,7 @@ split.spiketimes<-function(st,blocksize){
 #' @method subset spiketimes
 #' @author jefferis
 #' @export
-subset.spiketimes<-function(x,odours=NULL,channels=NULL){
+subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
   oddconf=attr(x,'oddconf')
   # Note that waves come in 0-indexed from Igor so we'll do the same
   oddconf$OldWave=seq_len(nrow(oddconf))-1
