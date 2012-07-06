@@ -166,6 +166,10 @@ as.spiketimes<-function (x,xlim,stimRange) {
 	x
 }
 
+#' Generic function to convert spikes to STAR as.repeatedTrain objects
+#' @param x Object containing spikes to convert
+#' @return repeatedTrain object (list of numeric vectors)
+#' @param ...	further arguments to be passed to or from other methods.
 #' @export
 as.repeatedTrain<-function(x,...){
   UseMethod("as.repeatedTrain")
@@ -179,11 +183,12 @@ as.repeatedTrain<-function(x,...){
 #' element will correspond to one pxp file and will have trials for different 
 #' odours. We now want to turn this into a list of repeatedTrain objects, 
 #' one for each odour.
-#' @param x object (list of dataframes)
-#' @param ...	further arguments to be passed to or from other methods.
-#' @return repeatedTrain object (list of numeric vectors)
+#' @param x Object to convert (list of dataframes)
+#' @inheritParams as.repeatedTrain
 #' @export
+#' @rdname as.repeatedTrain
 #' @method as.repeatedTrain spiketimes
+#' @aliases as.repeatedTrain
 #' @seealso \code{\link[STAR]{as.repeatedTrain}}
 #' @examples
 #' spikes<-CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
