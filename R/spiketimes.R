@@ -69,6 +69,7 @@ split.spiketimes<-function(st,blocksize){
 #' @param x The old spiketimes object
 #' @param odours A character vector of odours
 #' @param channels Integer vector of channels
+#' @param ...	further arguments to be passed to or from other methods.
 #' @return spiketimes object restricted to specified odours or channels
 #' @method subset spiketimes
 #' @author jefferis
@@ -179,6 +180,7 @@ as.repeatedTrain<-function(x,...){
 #' odours. We now want to turn this into a list of repeatedTrain objects, 
 #' one for each odour.
 #' @param x object (list of dataframes)
+#' @param ...	further arguments to be passed to or from other methods.
 #' @return repeatedTrain object (list of numeric vectors)
 #' @export
 #' @method as.repeatedTrain spiketimes
