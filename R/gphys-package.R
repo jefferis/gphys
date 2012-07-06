@@ -2,14 +2,34 @@
 #' 
 #' gphys = Greg's ephys (and perhaps gee whiz)
 #' 
-#' Note that you may find it useful to set  
-#' options(gphys.datadir='/Volumes/JData/JPeople/Jonny/physiology/data')
+#' You can use functions such as
+#' \code{\link{PlotRasterFromSweeps}} to view spike data. This function and others
+#' depend on spike times stored in Igor Pro text files. For details of how to make
+#' these files in Igor see:
+#' 
+#' \url{http://flybrain.mrc-lmb.cam.ac.uk/dokuwiki/doku.php?id=protocols:analysing_spikes}
+#' 
+#' Spike times read in from Igor Pro text files by \code{\link{CollectSpikesFromSweeps}}
+#' are stored in R a modified list of S3 class \code{spiketimes}.
+#' You can add, subset and split these lists - see \code{\link{spiketimes}}
+#' and links therein for details.
+#' 
+#' If you have a mistake in the assignments of your ODD channels (e.g. you were
+#' opening channel 27 when you thought you were opening 29) you will likely need
+#' to use the function \code{\link{fix.odd}} to make the correct assignments. If
+#' you simply want to relabel a channel you can use the \code{relabelfun}
+#' argument of \code{PlotRasterFromSweeps} - see function documentation for
+#' examples.
+#' 
+#' Note that you may find it useful to set e.g.
+#' \code{options(gphys.datadir='/Volumes/JData/JPeople/Jonny/physiology/data')}
 #' appropriately at the start of a session or in your 
-#' \code{\link[=Startup]{.Rprofile}} file.
+#' \code{\link[=Startup]{.Rprofile}} file. You can then use relative paths to
+#' your Igor data folders in the plot functions.
 #' @name gphys-package
 #' @aliases gphys
-#' @seealso options
+#' @seealso \code{\link{options}, \link{spiketimes}, \link{PlotRasterFromSweeps},
+#'   \link{CollectSpikesFromSweeps}}
 #' @docType package
-#' @title Analyse electrophysiology data acquired by Neuromatic / Igor Pro
 #' @keywords package
 NULL

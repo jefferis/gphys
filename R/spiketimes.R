@@ -1,3 +1,22 @@
+#' spiketimes class to store times of spikes with stimulus information
+#'  
+#' spiketimes objects consist of a list of dataframes reporting the time of spikes.
+#' the data frames have two core columns Time and Wave. Time is the time in ms 
+#' at which each spike occurred within the current sweep. Wave is the 0-indexed
+#' number of the sweep within the pxp file (Igor convention). Every Wave must have
+#' an entry, so if there are no spikes in e.g. Wave 2, an entry of
+#' (Time=NA,Wave=2) will be required.
+#' 
+#' Separate dataframes
+#' can be combined into a list where each dataframe is one block of waves that is
+#' repeated within a single pxp file or compatible blocks from multiple pxp
+#' files. Use \code{\link{split.spiketimes}} to split a spiketimes object loaded
+#' from a pxp file with repeated blocks and \code{\link{+.spiketimes}} to combine
+#' compatible blocks.
+#' @name spiketimes
+#' @family spiketimes
+NULL
+
 #' Split a spiketimes object with multiple repeats into list with one entry per repeat
 #' 
 #' Only works for spiketimes from single pxp file
@@ -8,6 +27,7 @@
 #' @author jefferis
 #' @method split spiketimes
 #' @export
+#' @family spiketimes
 split.spiketimes<-function(st,blocksize){
 	if(length(st)>1) stop("Don't know how to split a spike time list of > length 1")
 	st1=st[[1]]
@@ -34,6 +54,7 @@ split.spiketimes<-function(st,blocksize){
 #' @rdname plus-spiketimes
 #' @method + spiketimes
 #' @export
+#' @family spiketimes
 "+.spiketimes" <- function(e1,e2) {
 	cc=c(e1,e2)
 	mostattributes(cc) <- attributes(e1)
@@ -51,6 +72,7 @@ split.spiketimes<-function(st,blocksize){
 #' @return spiketimes object restricted to specified odours or channels
 #' @method subset spiketimes
 #' @author jefferis
+#' @family spiketimes
 #' @export
 subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
   oddconf=attr(x,'oddconf')
@@ -113,10 +135,24 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
   newspikes
 }
 
+#' Test if object is of class spiketimes
+#' @param x Object to test
+#' @return Logical indicating whether object is of class spiketimes
+#' @family spiketimes
 is.spiketimes<-function (x) {
 	inherits(x,'spiketimes')
 }
 
+#' Convert list of dataframes to spiketimes object
+#' 
+#' \code{\link{CollectSpikesFromSweeps}} will do this for you, so this only
+#' needed if you are constructing \code{\link{spiketimes}} objects from scratch.
+#' @param x object to convert to spiketimes list (normally already a list(
+#' @param xlim recording time window for each sweep
+#' @param stimRange time window over which stimulus was delivered
+#' @return spiketimes object
+#' @export
+#' @family spiketimes
 as.spiketimes<-function (x,xlim,stimRange) {
 	if(!is.spiketimes(x)){
 		class(x)=c('spiketimes',class(x))
