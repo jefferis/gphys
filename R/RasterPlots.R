@@ -9,6 +9,8 @@
 #' @param sub subtitle of plot
 #' @param xlab axis label (default Time/ms)
 #' @param ylab axis label (default odour)
+#' @param xaxis (default TRUE)
+#' @param yaxis (default TRUE)
 #' @param dotcolour colour of dots in raster plot (default black)
 #' @param dotsize size of dots in raster plot (default 0.5) 
 #' @param pch plotting character (default 22 is a square) 
@@ -39,7 +41,7 @@
 #' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
 #'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
-  xlim=NULL,main,sub,xlab='Time/ms', ylab='Odour',
+  xlim=NULL,xaxis=TRUE,yaxis=TRUE,main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,pch=22,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
   relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,...){
@@ -77,8 +79,10 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 		warning("Dropping ", length(labels)-last_wave-1, " labels from odd config")
 		labels = labels[seq(last_wave+1)]
 	}
-  axis(side=2,at=seq(last_wave+1)-0.5,labels=labels,tick=F,las=1)
-  axis(1)
+  if(yaxis)
+    axis(side=2,at=seq(last_wave+1)-0.5,labels=labels,tick=F,las=1)
+  if(xaxis)
+    axis(1)
   nreps=length(rasterd)
   for(i in seq(rasterd)){
     yoff=i/(nreps+1)

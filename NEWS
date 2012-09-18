@@ -1,3 +1,7 @@
+gphys 0.4-1
+=========
+* Option not to plot x and y axes in PlotRasterFromSweeps
+
 gphys 0.4
 =========
 * CollectSpikesFromSweeps/PlotRasterFromSweeps can now read/plot subsets of
