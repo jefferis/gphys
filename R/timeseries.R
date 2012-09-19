@@ -30,8 +30,10 @@ tsp.nclamppxp<-function(path,pxpnum,WaveToCheck="RecordA0"){
 #' Take the mean of all the columns in a multi-time series (mts) object
 #'
 #' @param x an mts object
+#' @param ... additional arguments (currently ignored)
 #' @return return value Single time series (ts)
 #' @export
+#' @method mean mts
 #' @seealso \code{\code{\link{ts}}
 #' @examples
 #' w<-read.pxp(system.file("igor","WedJul407c2_001.pxp",package="IgorR"))
