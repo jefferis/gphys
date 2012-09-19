@@ -34,7 +34,7 @@ tsp.nclamppxp<-function(path,pxpnum,WaveToCheck="RecordA0"){
 #' @return return value Single time series (ts)
 #' @export
 #' @method mean mts
-#' @seealso \code{\code{\link{ts}}
+#' @seealso \code{\link{ts}}
 #' @examples
 #' w<-read.pxp(system.file("igor","WedJul407c2_001.pxp",package="IgorR"))
 #' wts<-WaveToTimeSeries(w[c('RecordA0',"RecordA1")])
@@ -47,15 +47,15 @@ mean.mts<-function(x){
   ts(avg_wave,start=tspw[1],frequency=tspw[3])
 }
 
-#' Scale the y values of a multi-time series (mts) object
+#' Rescale the y values of a (multi-)time series (ts) object
 #' 
-#' Will linearly scale y values to map range[1] to 0 and
+#' Linearly rescale y values to map range[1] to 0 and
 #' range[2] to 1. Values outside this range will be <0 and >1 respectively.
 #' @param waves an mts object
 #' @param yrange - the y range, defaults to full scale of all waves
 #' @return return value Single time series (ts)
 #' @export
-#' @seealso \code{\code{\link{ts}}
+#' @seealso \code{\link{ts}}
 #' @examples
 #' w<-read.pxp(system.file("igor","WedJul407c2_001.pxp",package="IgorR"))
 #' wts<-WaveToTimeSeries(w[c('RecordA0',"RecordA1")])
