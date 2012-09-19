@@ -3,6 +3,7 @@ gphys 0.5
 * Add functions for handling timeseries data (ie voltages rather than spikes)
   including: scale.ts, mean.mts, smooth_decimate, tsp.nclamppxp
   and a new plot function AddLinesToRasterPlot.
+* IgorR package (on CRAN) is now a dependency (instead of a suggestion).
 
 gphys 0.4-1
 =========
