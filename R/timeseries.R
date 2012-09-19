@@ -40,7 +40,7 @@ tsp.nclamppxp<-function(path,pxpnum,WaveToCheck="RecordA0"){
 #' wts<-WaveToTimeSeries(w[c('RecordA0',"RecordA1")])
 #' wm<-mean(wts)
 #' summary(wm)
-mean.mts<-function(x){
+mean.mts<-function(x,...){
   avg_wave=rowMeans(x)
   # extract time parameters (start,end,freq)
   tspw=tsp(x)
