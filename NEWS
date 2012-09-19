@@ -2,6 +2,7 @@ gphys 0.5
 =========
 * Add functions for handling timeseries data (ie voltages rather than spikes)
   including: scale.ts, mean.mts, smooth_decimate, tsp.nclamppxp
+  and a new plot function AddLinesToRasterPlot.
 
 gphys 0.4-1
 =========

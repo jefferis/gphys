@@ -14,11 +14,14 @@
 #' You can add, subset and split these lists - see \code{\link{spiketimes}}
 #' and links therein for details.
 #' 
+#' You can also add continuous traces such as membrane voltage, PID signals etc
+#' to your raster plots. See \code{\link{AddLinesToRasterPlot}}.
+#' 
 #' If you have a mistake in the assignments of your ODD channels (e.g. you were
 #' opening channel 27 when you thought you were opening 29) you will likely need
 #' to use the function \code{\link{fix.odd}} to make the correct assignments. If
 #' you simply want to relabel a channel you can use the \code{relabelfun}
-#' argument of \code{PlotRasterFromSweeps} - see function documentation for
+#' argument of \code{\link{PlotRasterFromSweeps}} - see function documentation for
 #' examples.
 #' 
 #' Note that you may find it useful to set e.g.

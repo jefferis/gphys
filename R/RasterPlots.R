@@ -21,7 +21,7 @@
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
 #' @param ... Additional parameters passed to plot 
 #' @author jefferis
-#' @seealso \code{\link{CollectSpikesFromSweeps}} and \code{\link{plot.default}} 
+#' @seealso \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and \code{\link{plot.default}}
 #'   for graphical parameters
 #' @export
 #' @examples
@@ -275,4 +275,35 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
   colnames(bbdf)=make.unique(attr(spiketimes,'oddconf')$odour)
   if(freq) bbdf=bbdf/(responseTime/1000)
   bbdf
+}
+
+#' Add eg voltage traces to existing spike raster plot
+#' 
+#' First thing this does is scale waves to 0-1 range using scale.ts
+#' Assumes that number of waves and number of boxes (odours)
+#' on spike raster plot actually match. It doesn't check!
+#' @param waves an mts object
+#' @param ylim min and max value to plot y axis of wave data (eg voltage)
+#' @param ... additional arguments passed to lines.ts function
+#' @export
+#' @seealso \code{\link{PlotRasterFromSweeps}},\code{\link{lines}}
+#' @examples
+#' \dontrun{
+#' # First plot the rasters
+#' spikes8=CollectSpikesFromSweeps('/Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0',8)
+#' spike8_split=split(spikes8)
+#' PlotRasterFromSweeps (spike8_split)
+#' # Now plot the voltages
+#' avgwaves=read.table('/Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',header=T)
+#' avgwavests=ts(avgwaves,start=0,freq=10)
+#' AddLinesToRasterPlot(avgwavests,col='red')
+#' }
+AddLinesToRasterPlot<-function(waves,ylim,...){
+  scaled_waves=scale.ts(waves,yrange=ylim)
+  # iterate over individual waves
+  for(wnum in 1:ncol(scaled_waves)){
+    # nb - ... flips the y axis
+    # wnum + ... shifts the plot in y to match up with the raster data
+    lines(wnum - scaled_waves[,wnum],...)
+  }
 }
