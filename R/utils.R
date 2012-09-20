@@ -20,6 +20,16 @@ finder_colour<-function(filename){
   else NA
 }
 
+#' Query the colour label of a file in the MacOS X Finder
+#' 
+#' Note the colours are mapped according to my 10.6.8 system but see:
+#' http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
+#' Drops the file and gives a message if a file does not exist
+#' @param files Path to (a) file(s) 
+#' @return Named character vector (None when no colour is set)
+#' @family finder_colour
+#' @author jefferis
+#' @export
 
 finder_colour_fast<-function(files){
 	if(Sys.info()['sysname']!='Darwin') return(NA)
