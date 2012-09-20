@@ -20,6 +20,25 @@ finder_colour<-function(filename){
   else NA
 }
 
+
+finder_colour_fast<-function(files){
+	if(Sys.info()['sysname']!='Darwin') return(NA)
+	ow=options(warn=-1)
+	on.exit(options(ow))
+	cmd=paste("mdls -raw -name kMDItemFSLabel", paste(shQuote(files), collapse=" "), " | xargs -0 echo")
+	mdls=system(cmd,intern=T)
+	colors=scan(tc<-textConnection(mdls))
+	on.exit(close(tc))
+	assignColor<-function(num){
+		cols=c("None","Gray","Green","Purple","Blue","Yellow","Red","Orange")
+		color=cols[num+1]
+		color
+	}
+	colors<-assignColor(colors)
+	names(colors)=basename(files)
+	colors
+}
+
 #' Set the colour label of a file in the MacOS X Finder 
 #' See http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 #' @param filename Character vector of file(s) to add colour labels 
