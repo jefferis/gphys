@@ -78,6 +78,41 @@ split.spiketimes<-function(st,blocksize){
 	cc	
 }
 
+#' Merge two spiketimes lists with different ODD configs
+#'
+#' FIXME - figure out how to handle different numbers of repeats more gracefully
+#' @param x,y spiketimes objects to merge
+#' @param ... additional params (currently ignored)
+#' @return new spiketimes object
+#' @method merge spiketimes
+#' @export
+#' @seealso \code{\link{+.spiketimes}} for combining repeats from the same ODD config
+merge.spiketimes<-function(x,y,...){
+	if(!is.spiketimes(y)) stop("Can only merge two spiketimes objects")
+	if(length(x)!=length(y)) stop("Can only merge spiketimes objects with the same number of repeats")
+	maxlen=max(length(x),length(y))
+	
+	l=list()
+	# merge spike data frames
+	for(i in seq(maxlen)){
+		a=if(i<=length(x)) x[[i]] else NULL
+		b=if(i<=length(y)) y[[i]] else NULL
+		if(!is.null(b)){
+			b$Wave=max(a$Wave,0,na.rm=T)+1+b$Wave
+		}
+		ab=rbind(a,b)
+		l[[i]]=ab
+	}
+	
+	# bring over names etc
+	attributes_to_copy=if(length(x)>=length(y)) attributes(x) else attributes(y)
+	mostattributes(l)=attributes_to_copy
+	
+	# merge odd configs
+	attr(l,'oddconf')=rbind(attr(x,'oddconf'),attr(y,'oddconf'))
+	l
+}
+
 #' Make a new spiketimes object containing only sweeps for an odour subset
 #' 
 #' NB the sweeps will be in the specified odour/channel order. If an unnamed
