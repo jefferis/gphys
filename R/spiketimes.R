@@ -78,6 +78,7 @@ split.spiketimes<-function(st,blocksize){
 	cc
 }
 
+#' extract one or more spiketimes objects as a new spiketimes list
 "[.spiketimes" <- function(x,i,...) {
 	st=structure(NextMethod("["), class = class(x))
 	mostattributes(st) <- attributes(x)

@@ -23,7 +23,7 @@ finder_colour<-function(filename){
 #' Query the colour label of a file in the MacOS X Finder
 #' 
 #' Note this queries all the files in a single call to mdls, which can fail
-#' for very long file lists (~260k characters).
+#' for very long file lists (about 260k characters).
 #' Note the colours are mapped according to my 10.6.8 system but see:
 #' http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 #' Drops the file and gives a message if a file does not exist
