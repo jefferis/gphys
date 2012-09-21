@@ -107,6 +107,10 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 #' * fixChannels expects a named vector of any channels that need to have 
 #'   different odour names. This can be used to fix an error in the original ODD
 #'   config file.
+#' * If spike time txt files have been placed in a subdirectory, then that
+#'   subdirectory must be specified using the \code{subdir} argument.
+#' * However it is expected that the corresponding pxp and odd config files
+#'   remain in the top level directory for the cell.
 #' @param sweepdir directory containing Nclamp pxp sweep files
 #' @param sweeps Vector of sweeps to include (e.g. 1:7) or character regex which
 #'               sweeps must match.
