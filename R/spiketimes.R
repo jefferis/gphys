@@ -75,7 +75,7 @@ split.spiketimes<-function(st,blocksize){
 		if(!isTRUE(all.equal(oddconf1,oddconf2))) stop("odd configs do not match")
 	}
 	mostattributes(cc) <- attributes(e1)
-	cc	
+	cc
 }
 
 #' Merge two spiketimes lists with different ODD configs
@@ -85,6 +85,7 @@ split.spiketimes<-function(st,blocksize){
 #' @param ... additional params (currently ignored)
 #' @return new spiketimes object
 #' @method merge spiketimes
+#' @family spiketimes
 #' @export
 #' @seealso \code{\link{+.spiketimes}} for combining repeats from the same ODD config
 merge.spiketimes<-function(x,y,...){
