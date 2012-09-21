@@ -20,6 +20,39 @@ finder_colour<-function(filename){
   else NA
 }
 
+#' Query the colour label of a file in the MacOS X Finder
+#' 
+#' Note the colours are mapped according to my 10.6.8 system but see:
+#' http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
+#' Drops the file and gives a message if a file does not exist
+#' @param files Path to (a) file(s) 
+#' @return Named character vector (None when no colour is set)
+#' @family finder_colour
+#' @author jefferis
+#' @export
+
+finder_colour_fast<-function(files){
+	if(Sys.info()['sysname']!='Darwin') return(NA)
+	doNotExist=files[!file.exists(files)]
+	if (length(doNotExist)>0) message("The following files do not exist and have been dropped: ", doNotExist)
+	existingFiles=files[file.exists(files)]
+	if (length(existingFiles)==0) return(paste("No files to check"))
+	ow=options(warn=-1)
+	on.exit(options(ow))
+	cmd=paste("mdls -raw -name kMDItemFSLabel", paste(shQuote(path.expand(existingFiles)), collapse=" "), " | xargs -0 echo")
+	mdls=system(cmd,intern=T)
+	colors=scan(tc<-textConnection(mdls))
+	on.exit(close(tc))
+	assignColor<-function(num){
+		cols=c("None","Gray","Green","Purple","Blue","Yellow","Red","Orange")
+		color=cols[num+1]
+		color
+	}
+	colors<-assignColor(colors)
+	names(colors)=basename(existingFiles)
+	colors
+}
+
 #' Set the colour label of a file in the MacOS X Finder 
 #' See http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 #' @param filename Character vector of file(s) to add colour labels 
