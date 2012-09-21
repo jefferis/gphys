@@ -78,6 +78,14 @@ split.spiketimes<-function(st,blocksize){
 	cc
 }
 
+"[.spiketimes" <- function(x,i,...) {
+	st=structure(NextMethod("["), class = class(x))
+	mostattributes(st) <- attributes(x)
+	names(st)=names(x)[i]
+	attr(st,'sweeps')=names(st)
+	st
+}
+
 #' Merge two spiketimes lists with different ODD configs
 #'
 #' FIXME - figure out how to handle different numbers of repeats more gracefully
