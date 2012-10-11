@@ -240,10 +240,16 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 }
 
 #' Produce table of spiking responses (optionally subtracting baseline)
+#' 
+#' Details: If baseline window is of different duration to response window
+#' the baseline count is normalised to estimate the number of spikes that would have
+#' occurred during the response window. ie if you have a 1s response window and a
+#' 5s baseline window and you get 10 spikes in the response period and 5 spikes in
+#' the baseline period, the response will be returned as 10-5/5 = 9 spikes.
 #' @param spiketimes list of spiketimes collected by CollectSpikesFromSweeps
 #' @param responseWindow vector of start and end time of odour response (in ms)
 #' @param baselineWindow vector of start and end time of baseline period (in ms)
-#' @param freq Calculate Spike rate in Hz rather than  
+#' @param freq Calculate Spike rate in Hz rather than number of spikes per response window
 #' @return dataframe with a column for each odour and row for each sweep
 #' @author jefferis
 #' @export
