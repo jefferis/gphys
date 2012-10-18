@@ -1,3 +1,8 @@
+gphys 0.5-2
+===========
+* some documentation improvements
+  (PlotOdourResponseFromSpikes,[.spiketimes,finder_colour)
+
 gphys 0.5-1
 ===========
 * merge.spiketimes function for spiketimes objects with different odd configs
