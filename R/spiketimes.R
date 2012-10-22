@@ -78,7 +78,14 @@ split.spiketimes<-function(st,blocksize){
 	cc
 }
 
-#' extract one or more spiketimes objects as a new spiketimes list
+#' Extract one or more spiketimes objects as a new spiketimes list
+#' @param x spiketimes objec to subset
+#' @param i indices to uss in subsetting
+#' @param ... additional arguments (currently ignored)
+#' @export
+#' @rdname open-brace-spiketimes
+#' @family spiketimes
+#' @method "[" spiketimes
 "[.spiketimes" <- function(x,i,...) {
 	st=structure(NextMethod("["), class = class(x))
 	mostattributes(st) <- attributes(x)
