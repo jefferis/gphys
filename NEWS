@@ -1,3 +1,11 @@
+gphys 0.5-3
+===========
+* fix bug in visibility of "[.spiketimes" which was causing problems
+  for Aaron's mergeSpiketrain function (because subsetting a spiketrains
+  object produced a plain list rather than a new spiketimes object).
+* Option to plot spikes with rectangles of specified width in 
+  PlotRasterFromSweeps
+
 gphys 0.5-2
 ===========
 * some documentation improvements
