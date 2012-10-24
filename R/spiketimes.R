@@ -85,7 +85,7 @@ split.spiketimes<-function(st,blocksize){
 #' @export
 #' @rdname open-brace-spiketimes
 #' @family spiketimes
-#' @method "[" spiketimes
+#' @method [ spiketimes
 "[.spiketimes" <- function(x,i,...) {
 	st=structure(NextMethod("["), class = class(x))
 	mostattributes(st) <- attributes(x)
