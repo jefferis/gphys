@@ -209,6 +209,7 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
 #' @param x Object to test
 #' @return Logical indicating whether object is of class spiketimes
 #' @family spiketimes
+#' @export
 is.spiketimes<-function (x) {
 	inherits(x,'spiketimes')
 }
