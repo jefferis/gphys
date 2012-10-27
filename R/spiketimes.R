@@ -152,7 +152,7 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
   if(!is.null(odours)){
     if(any(duplicated(odours)))
       stop("Cannot handle duplicated odours")
-    if(any(duplicated(oddconf$odours)))
+    if(any(duplicated(oddconf$odour)))
       stop("Cannot handle duplicated odours in ODD config")
     rownames(oddconf)=as.character(oddconf$odour)
     newoddconf=oddconf[odours,]
