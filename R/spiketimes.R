@@ -134,7 +134,10 @@ merge.spiketimes<-function(x,y,...){
 #' 
 #' NB the sweeps will be in the specified odour/channel order. If an unnamed
 #' second parameter is specified it will be interpreted as vector of odours
-#' if character or channel ids if numeric.
+#' if character or channel ids if numeric. 
+#' NB If an odour name is duplicated in the oddconfig (e.g. ctr or oil, often)
+#' then it is not possible to use them in a subset expression and the channel
+#' number must be used instead.
 #' @param x The old spiketimes object
 #' @param odours A character vector of odours
 #' @param channels Integer vector of channels
@@ -152,9 +155,13 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
   if(!is.null(odours)){
     if(any(duplicated(odours)))
       stop("Cannot handle duplicated odours")
-    if(any(duplicated(oddconf$odour)))
-      stop("Cannot handle duplicated odours in ODD config")
-    rownames(oddconf)=as.character(oddconf$odour)
+    if(any(duplicated(oddconf$odour))){
+      dupodours<-unique(oddconf$odour[duplicated(oddconf$odour)])
+      if(any(odours%in%dupodours))
+        stop("Cannot subset using odours that are duplicated in ODD config (",
+            paste(dupodours,collapse=" "),")")
+    }
+    rownames(oddconf)=make.unique(as.character(oddconf$odour))
     newoddconf=oddconf[odours,]
   } else {
     if(is.null(channels))
