@@ -275,7 +275,7 @@ as.repeatedTrain<-function(x,...){
 #' psth(rt[['PAA']])
 as.repeatedTrain.spiketimes<-function(x,...){
   # number of sweeps for each odour
-  nsweeps=max(x[[1]]$Wave)
+  nsweeps=max(x[[1]]$Wave,na.rm=T)
   # TODO handle repeated block that Shahar uses
   nblocks=length(x)
   
@@ -285,7 +285,10 @@ as.repeatedTrain.spiketimes<-function(x,...){
   if(is.null(nn)) nn=as.character(seq(nsweeps))
   for(i in seq_along(nn)){
     # nb waves are 0 indexed in nclamp and time unit is ms not s
-    l[[nn[i]]]=as.repeatedTrain(lapply(x,function(s) subset(s,Wave==(i-1),Time)[[1]]/1000))
+    spikelist=lapply(x,function(s) subset(s,Wave==(i-1),Time)[[1]]/1000)
+    # remove any NAs (converting those trains to empty numeric vectors)
+    spikelist=lapply(spikelist,na.omit)
+    l[[nn[i]]]=as.repeatedTrain(spikelist)
   }
   l
 }
