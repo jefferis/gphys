@@ -3,7 +3,10 @@
 #' Note that can also give a spiketimes list from CollectSpikesFromSweeps
 #' By default the odour stimulus is represented by a pale red rectangle
 #'  in a layer behind the spikes.
-#' If pch takes the special value, rect then rectangles of width dotwidth are drawn
+#' If pch takes the special value "rect" then rectangles of width dotwidth are drawn.
+#' spikewidth will then specify the relative size of the spikes with 1 resulting
+#'   in the top of spikes from one line at the same height as the base of spikes
+#'   in the line above.
 #' @inheritParams CollectSpikesFromSweeps
 #' @param xlim x axis range of plot 
 #' @param main main title of plot (see \code{\link{title}}) 
@@ -12,10 +15,12 @@
 #' @param ylab axis label (default odour)
 #' @param xaxis (default TRUE)
 #' @param yaxis (default TRUE)
+#' @param frame.plot Plot a box around the whole plot (default TRUE)
+#' @param pch plotting character (default 22 is a square, see details for rect)
 #' @param dotcolour colour of dots in raster plot (default black)
 #' @param dotsize size of dots in raster plot (default 0.5)
 #' @param dotwidth Width in ms of rectangle when pch='rect' 
-#' @param pch plotting character (default 22 is a square, see details for rect)
+#' @param spikeheight Relative height of spike when pch='rect' (default 0.8)
 #' @param odourRange time window of odour delivery 
 #' @param odourCol colour of odour window (default pale red) 
 #' @param relabelfun function to apply to odour labels (default no relabelling)
@@ -46,8 +51,9 @@
 #' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
 #'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
-  xlim=NULL,xaxis=TRUE,yaxis=TRUE,main,sub,xlab='Time/ms', ylab='Odour',
-  dotcolour='black',dotsize=0.5,dotwidth=20,pch=22,
+  xlim=NULL,xaxis=TRUE,yaxis=TRUE,frame.plot=TRUE,
+  main,sub,xlab='Time/ms', ylab='Odour',
+  pch=22,dotcolour='black',dotsize=0.5,dotwidth=20,spikeheight=0.8,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
   relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,...){
   if(inherits(sweepdir,'spiketimes')){
@@ -72,7 +78,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 	}
 	
   # set up plot area (but don't plot anything
-	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,...)
+	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,frame.plot=frame.plot,...)
 	# show odour stim range
 	if(!is.null(odourRange) && !is.na(odourRange))
   	rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
@@ -94,15 +100,19 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
     df=rasterd[[i]]
     if(pch=='rect'){
       # find the right dot height
-      dotheight=1/(nreps+1)
+      dotheight=spikeheight/(nreps+1)
       rect(df$Time,df$Wave+yoff-dotheight/2,df$Time+dotwidth,df$Wave+yoff+dotheight/2,col=dotcolour,border=NA)
     }
     else points(x=df$Time,y=df$Wave+yoff,pch=pch,col=NA,bg=dotcolour,cex=dotsize)
   }
-  # plot boxes around each odour set
-  for(i in seq(last_wave+1)){
-    rect(xlim[1],i-1,xlim[2],i,col=NA,border='black')
+
+  # make dividers between waves if necessary
+  if(last_wave>0){
+    for(i in seq(last_wave)){
+      segments(xlim[1],i,xlim[2],i,col="black")
+    }
   }
+
   if(missing(main)) main=""
   if(missing(sub)) sub=paste("Cell:",basename(attr(rasterd,'sweepdir')),
     "sweeps:",paste(attr(rasterd,'sweeps'),collapse=","))
