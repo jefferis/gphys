@@ -7,6 +7,8 @@ gphys 0.5-4
   - new frame.plot option in PlotRasterFromSweeps to control whether a box
     surrounds he plot
   - xaxs and yaxs options to control whether the x and y axes are expanded.
+    the default is now to use exactly the specified xlim and ylim (which is
+    not R's default behaviour)
 * teach subset.spiketimes to cope with ODD configs that have repeated odour
   names (but note that you still can't subset any of these repeated odours 
   by name, only by channel number)
