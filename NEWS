@@ -1,5 +1,12 @@
 gphys 0.5-4
 ===========
+* Several small changes to PlotRasterFromSweeps
+  - with pch='rect' (ie spikes as rectangles rather than dots) then 
+    spikeheight option sets the relative spike height and defaults to much
+    prettier looking value of 0.8 than its previous implicit value of 1.
+  - new frame.plot option in PlotRasterFromSweeps to control whether a box
+    surrounds he plot
+  - xaxs and yaxs options to control whether the x and y axes are expanded.
 * teach subset.spiketimes to cope with ODD configs that have repeated odour
   names (but note that you still can't subset any of these repeated odours 
   by name, only by channel number)
