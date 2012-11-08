@@ -1,3 +1,11 @@
+gphys 0.5-4
+===========
+* teach subset.spiketimes to cope with ODD configs that have repeated odour
+  names (but note that you still can't subset any of these repeated odours 
+  by name, only by channel number)
+* Option to convert NAs to 0 in OdourResponseFromSpikes (default TRUE)
+* export is.spiketimes function
+
 gphys 0.5-3
 ===========
 * fix bug in visibility of "[.spiketimes" which was causing problems
