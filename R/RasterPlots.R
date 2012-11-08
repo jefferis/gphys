@@ -109,8 +109,10 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 
   # make dividers between waves if necessary
   if(last_wave>0){
+    # fetch the actual plot range (not always the same as xlim)
+    plot_xrange=par("usr")[1:2]
     for(i in seq(last_wave)){
-      segments(xlim[1],i,xlim[2],i,col="black")
+      segments(plot_xrange[1],i,plot_xrange[2],i,col="black")
     }
   }
 
