@@ -12,6 +12,7 @@
 #' @param ylab axis label (default odour)
 #' @param xaxis (default TRUE)
 #' @param yaxis (default TRUE)
+#' @param frame.plot Plot a box around the whole plot (default TRUE)
 #' @param dotcolour colour of dots in raster plot (default black)
 #' @param dotsize size of dots in raster plot (default 0.5)
 #' @param dotwidth Width in ms of rectangle when pch='rect' 
@@ -46,7 +47,8 @@
 #' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
 #'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
-  xlim=NULL,xaxis=TRUE,yaxis=TRUE,main,sub,xlab='Time/ms', ylab='Odour',
+  xlim=NULL,xaxis=TRUE,yaxis=TRUE,frame.plot=TRUE,
+  main,sub,xlab='Time/ms', ylab='Odour',
   dotcolour='black',dotsize=0.5,dotwidth=20,pch=22,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
   relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,...){
@@ -72,7 +74,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 	}
 	
   # set up plot area (but don't plot anything
-	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,...)
+	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,frame.plot=frame.plot,...)
 	# show odour stim range
 	if(!is.null(odourRange) && !is.na(odourRange))
   	rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
@@ -99,10 +101,14 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
     }
     else points(x=df$Time,y=df$Wave+yoff,pch=pch,col=NA,bg=dotcolour,cex=dotsize)
   }
-  # plot boxes around each odour set
-  for(i in seq(last_wave+1)){
-    rect(xlim[1],i-1,xlim[2],i,col=NA,border='black')
+
+  # make dividers between waves if necessary
+  if(last_wave>0){
+    for(i in seq(last_wave)){
+      segments(xlim[1],i,xlim[2],i,col="black")
+    }
   }
+
   if(missing(main)) main=""
   if(missing(sub)) sub=paste("Cell:",basename(attr(rasterd,'sweepdir')),
     "sweeps:",paste(attr(rasterd,'sweeps'),collapse=","))
