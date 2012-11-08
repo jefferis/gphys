@@ -16,6 +16,7 @@
 #' @param xaxis (default TRUE)
 #' @param yaxis (default TRUE)
 #' @param frame.plot Plot a box around the whole plot (default TRUE)
+#' @param xaxs,yaxs Whether to extend xlim,ylim by 4%% (see ?par, default FALSE)
 #' @param pch plotting character (default 22 is a square, see details for rect)
 #' @param dotcolour colour of dots in raster plot (default black)
 #' @param dotsize size of dots in raster plot (default 0.5)
@@ -24,7 +25,6 @@
 #' @param odourRange time window of odour delivery 
 #' @param odourCol colour of odour window (default pale red) 
 #' @param relabelfun function to apply to odour labels (default no relabelling)
-#' @inheritParams CollectSpikesFromSweeps
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
 #' @param ... Additional parameters passed to plot 
 #' @author jefferis
@@ -51,7 +51,7 @@
 #' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
 #'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
-  xlim=NULL,xaxis=TRUE,yaxis=TRUE,frame.plot=TRUE,
+  xlim=NULL,xaxis=TRUE,yaxis=TRUE,frame.plot=TRUE,xaxs='i',yaxs='i',
   main,sub,xlab='Time/ms', ylab='Odour',
   pch=22,dotcolour='black',dotsize=0.5,dotwidth=20,spikeheight=0.8,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
@@ -78,7 +78,8 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 	}
 	
   # set up plot area (but don't plot anything
-	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,frame.plot=frame.plot,...)
+	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,
+      frame.plot=frame.plot,xaxs=xaxs,yaxs=yaxs,...)
 	# show odour stim range
 	if(!is.null(odourRange) && !is.na(odourRange))
   	rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
