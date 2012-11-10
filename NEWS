@@ -1,3 +1,10 @@
+gphys 0.6
+=========
+* add smpsth function to generate smooth peristimulus time histogram using STAR
+  psth function from gphys spiketimes objects
+* add mspth class to handle lists of multiple STAR psth objects
+  (e.g. for different odours or for different neurons)
+
 gphys 0.5-4
 ===========
 * Several small changes to PlotRasterFromSweeps
