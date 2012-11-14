@@ -63,3 +63,21 @@ test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", 
     "met", "oil", "pra", "hxa", "oil", "ehb", "eta", "cit")
     expect_that(attr(c,'oddconf')$odour,equals(merged_odours))
     })
+
+test_that("Count spikes ", {
+  nmdir='../igor/spikes/nm20120413c0'
+  a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
+  csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
+
+  csa_baseline<-structure(list(IAA = c(4L, 1L, 2L, 1L, 3L, 1L, 4L), cVA = c(4L, 
+              7L, 6L, 8L, 8L, 7L, 10L), pro = c(1L, 1L, 4L, 2L, 3L, 3L, 5L), 
+          PAA = c(0, 0, 0, 0, 0, 0, 0), `4ol` = c(2L, 4L, 3L, 2L, 2L, 
+              3L, 3L), ctr = c(0, 0, 1, 0, 1, 1, 1), vin = c(0, 0, 0, 0, 
+              1, 1, 2), ctr.1 = c(0, 0, 0, 0, 0, 1, 0), fly = c(0, 0, 1, 
+              0, 0, 1, 0), far = c(0, 0, 0, 0, 1, 1, 1), oen = c(0, 0, 
+              2, 0, 1, 2, 1), pac = c(2, 0, 0, 0, 0, 1, 1), aac = c(0, 
+              0, 2, 1, 2, 1, 1)), .Names = c("IAA", "cVA", "pro", "PAA", 
+          "4ol", "ctr", "vin", "ctr.1", "fly", "far", "oen", "pac", "aac"
+      ), row.names = c(NA, -7L), class = "data.frame")
+  expect_that(csa,equals(csa_baseline))
+})
