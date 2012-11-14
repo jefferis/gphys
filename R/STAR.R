@@ -80,7 +80,15 @@ as.mpsth<-function(x,...){
 
 #' Plot PSTHs for multiple neurons (or multiple stimuli)
 #' @param x a list of psth objects (class mpsth)
-#' @param y ignored
+#' @param stimTimeCourse c(start,end) of stimulus
+#' @param colStim colour of stimulus
+#' @param colCI Colour of confidence interval (omitted when null)
+#' @param xlab,ylab Axis labels
+#' @param xlim, ylim Optional axis ranges
+#' @param lwd Line width
+#' @param col Vector of colours for lines in plot
+#' @param labels Optional labels for traces
+#' @param toplot Elements of plot to display
 #' @param ... additional params passed to plot methods
 #' @author jefferis
 #' @method plot mpsth
