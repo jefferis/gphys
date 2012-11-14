@@ -9,6 +9,7 @@
 #' @param ... ignored
 #' @method as.ts psth
 #' @family psth
+#' @importFrom stats as.ts
 #' @export
 as.ts.psth<-function(x,fieldsToConvert='freq',...){
   xtsp=tsp.psth(x)
@@ -135,6 +136,7 @@ plot.mpsth<-function(x,stimTimeCourse = NULL, colStim = "grey80",
 #' @method as.ts mpsth
 #' @export
 #' @family mpsth
+#' @importFrom stats as.ts
 #' @seealso ts as.ts.mpsth STAR::psth
 #' @examples
 #' data(CAL1V,package='STAR')
