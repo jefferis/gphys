@@ -272,6 +272,7 @@ as.repeatedTrain<-function(x,...){
 #' subdir='Block I',sweeps=0:4)
 #' rt=as.repeatedTrain(spikes)
 #' rt
+#' require(STAR)
 #' psth(rt[['PAA']])
 as.repeatedTrain.spiketimes<-function(x,...){
   # number of sweeps for each odour

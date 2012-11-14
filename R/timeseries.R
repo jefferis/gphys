@@ -36,6 +36,7 @@ tsp.nclamppxp<-function(path,pxpnum,WaveToCheck="RecordA0"){
 #' @method mean mts
 #' @seealso \code{\link{ts}}
 #' @examples
+#' require(IgorR)
 #' w<-read.pxp(system.file("igor","WedJul407c2_001.pxp",package="IgorR"))
 #' wts<-WaveToTimeSeries(w[c('RecordA0',"RecordA1")])
 #' wm<-mean(wts)
