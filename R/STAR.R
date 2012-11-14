@@ -32,22 +32,21 @@ tsp.psth<-function(x){
 }
 
 #' Generate smooth PSTHs for a set of spike trains
-#' @param spikes 
-#' @param breaks 
-#' @param CI 
-#' @param stimRange 
-#' @param stimCol 
-#' @param ... 
+#' @param spikes A spiketimes object
+#' @param breaks bins for psth or smoothing parameters (see \code{\link{STAR::psth}})
+#' @param CI Confidence interval to calculate (defaults to 95%)
+#' @param stimRange Stimulus time range c(start,end) in seconds
+#' @param ... Ignored
 #' @return list of psth objects
 #' @author jefferis
 #' @export
-#' @seealso STAR::psth, STAR::plot.psth
+#' @seealso STAR::psth, STAR::plot.psth, spiketimes
 #' @examples
 #' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20120917c1",
 #'   subdir="BLOCK A",stimRange=c(2000,2500))
 #' smpsth(spikes)
 smpsth<-function(spikes, breaks=c(bw=0.5,step=0.05), CI=0.95,
-    stimRange=NULL, stimCol, ...){
+    stimRange=NULL, ...){
   # Generate a smooth psth using the STAR package
   if(is.repeatedTrain(spikes)) rt=spikes
   else rt=as.repeatedTrain(spikes)
@@ -84,7 +83,7 @@ as.mpsth<-function(x,...){
 #' @param colStim colour of stimulus
 #' @param colCI Colour of confidence interval (omitted when null)
 #' @param xlab,ylab Axis labels
-#' @param xlim, ylim Optional axis ranges
+#' @param xlim,ylim Optional axis ranges
 #' @param lwd Line width
 #' @param col Vector of colours for lines in plot
 #' @param labels Optional labels for traces
