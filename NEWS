@@ -1,3 +1,9 @@
+gphys 0.6-1
+===========
+* merge.spiketimes can merge lists with different numbers of repeats
+* OdourResponseFromSpikes can cope with missing sweeps (they come back as NA)
+  and it will always convert sweeps that have no spikes to count 0.
+
 gphys 0.6
 =========
 * add smpsth function to generate smooth peristimulus time histogram using STAR
