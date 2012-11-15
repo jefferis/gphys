@@ -72,7 +72,7 @@ test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", 
     expect_that(attr(c,'oddconf')$odour,equals(merged_odours))
     })
 
-test_that("Count spikes ", {
+test_that("Count spikes - large reponse window", {
   nmdir='../igor/spikes/nm20120413c0'
   a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
   csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
@@ -89,3 +89,16 @@ test_that("Count spikes ", {
       ), row.names = c(NA, -7L), class = "data.frame")
   expect_that(csa,equals(csa_baseline))
 })
+
+test_that("Count spikes - with baseline", {
+      nmdir='../igor/spikes/nm20110914c4'
+      a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK I",sweeps=0:4)
+      od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
+      
+      od_baseline<-structure(list(ctr = c(-1.5, -0.25, 0, 0.75, -0.75), fly = c(-0.25, 
+                  -1.25, -0.75, -0.25, -0.75), `4ol` = c(-0.25, -0.5, -0.5, -1, 
+                  -1.5), cVA = c(0, -1.75, -0.5, -1, 0), IAA = c(-0.25, -0.25, 
+                  -1.25, 0.25, 2), PAA = c(24, 23, 20.5, 18, 20)), .Names = c("ctr", 
+              "fly", "4ol", "cVA", "IAA", "PAA"), row.names = c(NA, -5L), class = "data.frame")
+      expect_that(od,equals(od_baseline))
+    })
