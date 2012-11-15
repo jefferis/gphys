@@ -11,7 +11,7 @@ Description: This package provides functions to make spike time raster
     packages. See http://www.neuromatic.thinkrandom.com/ for details on
     Neuromatic.
 Version: 0.6
-Date: 2012-11-10
+Date: 2012-11-15
 Depends:
     tools,
     STAR,IgorR,stats
