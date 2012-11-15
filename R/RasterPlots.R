@@ -273,7 +273,6 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 #' @param responseWindow vector of start and end time of odour response (in ms)
 #' @param baselineWindow vector of start and end time of baseline period (in ms)
 #' @param freq Calculate Spike rate in Hz rather than number of spikes per response window
-#' @param ConvertNAToZero Convert NAs to 0 (default TRUE)
 #' @return dataframe with a column for each odour and row for each sweep
 #' @author jefferis
 #' @export
@@ -287,7 +286,7 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 #' # show baseline response frequency only (by treating that as response)
 #' od2=OdourResponseFromSpikes(spikes,response=c(0,2000),freq=TRUE)
 #' summary(od2)
-OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=FALSE,ConvertNAToZero=TRUE){
+OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=FALSE){
   nreps=length(spiketimes)
   last_wave=max(sapply(spiketimes,function(x) max(x$Wave,na.rm=TRUE)))
   # Want to collect a table which has rows for each odour
@@ -298,18 +297,31 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
   responsecount=by(spikess$Time,
       list(factor(spikess$Sweep),factor(spikess$Wave)),
       function(t) sum(t>responseWindow[1] &t<responseWindow[2]))
+  # replace NAs for each wave/sweep combo with an entry in empty_wave_sweeps
+  # but not those wave/sweep combinations where this signalling NA from
+  # Igor/NClamp is missing because those sweeps never actually happened
+  # ie the odour was not presented!
+  empty_wave_sweeps=subset(spikess,is.na(Time) & !is.na(Wave))
+  for(i in seq(nrow(empty_wave_sweeps))){
+    cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
+    cur_sweep=as.character(empty_wave_sweeps[i,'Sweep'])
+    responsecount[cur_sweep,cur_wave]=0
+  }
   if(!missing(baselineWindow)){
     baselinecount=by(spikess$Time,
         list(factor(spikess$Sweep),factor(spikess$Wave)),
         function(t) sum(t>baselineWindow[1] &t<baselineWindow[2]))
+    for(i in seq(nrow(empty_wave_sweeps))){
+      cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
+      cur_sweep=as.chracter(empty_wave_sweeps[i,'Sweep'])
+      baselinecount[cur_sweep,cur_wave]=0
+    }
     baselineTime=diff(baselineWindow)
     responsecount=responsecount-baselinecount*responseTime/baselineTime
   }
   bbdf=as.data.frame(matrix(responsecount,ncol=ncol(responsecount)))
   colnames(bbdf)=make.unique(attr(spiketimes,'oddconf')$odour)
   if(freq) bbdf=bbdf/(responseTime/1000)
-  if(ConvertNAToZero)
-    bbdf[is.na(bbdf)]=0
   bbdf
 }
 
