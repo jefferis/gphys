@@ -298,24 +298,23 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
   responsecount=by(spikess$Time,
       list(factor(spikess$Sweep),factor(spikess$Wave)),
       function(t) sum(t>responseWindow[1] &t<responseWindow[2]))
-  # TODO replace NAs for each wave/sweep combo that has an entry here
-  # subset(spikess,is.na(Time) & !is.na(Wave))
+  # replace NAs for each wave/sweep combo with an entry in empty_wave_sweeps
   # but not those wave/sweep combinations where this signalling NA from
   # Igor/NClamp is missing because those sweeps never actually happened
   # ie the odour was not presented!
   empty_wave_sweeps=subset(spikess,is.na(Time) & !is.na(Wave))
-  for(i in seq(empty_wave_sweeps)){
-    cur_wave=empty_wave_sweeps[i,'Wave']
-    cur_sweep=empty_wave_sweeps[i,'Sweep']
+  for(i in seq(nrow(empty_wave_sweeps))){
+    cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
+    cur_sweep=as.character(empty_wave_sweeps[i,'Sweep'])
     responsecount[cur_sweep,cur_wave]=0
   }
   if(!missing(baselineWindow)){
     baselinecount=by(spikess$Time,
         list(factor(spikess$Sweep),factor(spikess$Wave)),
         function(t) sum(t>baselineWindow[1] &t<baselineWindow[2]))
-    for(i in seq(empty_wave_sweeps)){
-      cur_wave=empty_wave_sweeps[i,'Wave']
-      cur_sweep=empty_wave_sweeps[i,'Sweep']
+    for(i in seq(nrow(empty_wave_sweeps))){
+      cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
+      cur_sweep=as.chracter(empty_wave_sweeps[i,'Sweep'])
       baselinecount[cur_sweep,cur_wave]=0
     }
     baselineTime=diff(baselineWindow)
