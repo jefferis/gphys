@@ -34,7 +34,7 @@ tsp.psth<-function(x){
 #' Generate smooth PSTHs for a set of spike trains
 #' @param spikes A spiketimes object
 #' @param breaks bins for psth or smoothing parameters (see \code{\link{STAR::psth}})
-#' @param CI Confidence interval to calculate (defaults to 95%)
+#' @param CI Confidence interval to calculate (defaults to 95 percent)
 #' @param stimRange Stimulus time range c(start,end) in seconds
 #' @param ... Ignored
 #' @return list of psth objects
