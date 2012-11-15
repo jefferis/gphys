@@ -302,7 +302,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
   # Igor/NClamp is missing because those sweeps never actually happened
   # ie the odour was not presented!
   empty_wave_sweeps=subset(spikess,is.na(Time) & !is.na(Wave))
-  for(i in seq(nrow(empty_wave_sweeps))){
+  for(i in seq_len(nrow(empty_wave_sweeps))){
     cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
     cur_sweep=as.character(empty_wave_sweeps[i,'Sweep'])
     responsecount[cur_sweep,cur_wave]=0
@@ -311,7 +311,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
     baselinecount=by(spikess$Time,
         list(factor(spikess$Sweep),factor(spikess$Wave)),
         function(t) sum(t>baselineWindow[1] &t<baselineWindow[2]))
-    for(i in seq(nrow(empty_wave_sweeps))){
+    for(i in seq_len(nrow(empty_wave_sweeps))){
       cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
       cur_sweep=as.chracter(empty_wave_sweeps[i,'Sweep'])
       baselinecount[cur_sweep,cur_wave]=0
