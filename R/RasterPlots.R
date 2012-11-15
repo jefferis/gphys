@@ -273,7 +273,6 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 #' @param responseWindow vector of start and end time of odour response (in ms)
 #' @param baselineWindow vector of start and end time of baseline period (in ms)
 #' @param freq Calculate Spike rate in Hz rather than number of spikes per response window
-#' @param ConvertNAToZero Convert NAs to 0 (default TRUE)
 #' @return dataframe with a column for each odour and row for each sweep
 #' @author jefferis
 #' @export
@@ -287,7 +286,7 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 #' # show baseline response frequency only (by treating that as response)
 #' od2=OdourResponseFromSpikes(spikes,response=c(0,2000),freq=TRUE)
 #' summary(od2)
-OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=FALSE,ConvertNAToZero=TRUE){
+OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=FALSE){
   nreps=length(spiketimes)
   last_wave=max(sapply(spiketimes,function(x) max(x$Wave,na.rm=TRUE)))
   # Want to collect a table which has rows for each odour
@@ -323,8 +322,6 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
   bbdf=as.data.frame(matrix(responsecount,ncol=ncol(responsecount)))
   colnames(bbdf)=make.unique(attr(spiketimes,'oddconf')$odour)
   if(freq) bbdf=bbdf/(responseTime/1000)
-  if(ConvertNAToZero)
-    bbdf[is.na(bbdf)]=0
   bbdf
 }
 

@@ -44,6 +44,14 @@ test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", 
     # should count the same number of spike for odours in b in merged list c
     # EXCEPT for the last line, which we ignore in this test
     expect_that(csc[rownames(csb),colnames(csb)],equals(csb))
+    seven_nas=structure(list(ger = NA_real_, lin = NA_real_, bty = NA_real_, 
+            hxe = NA_real_, ben = NA_real_, met = NA_real_, oil = NA_real_, 
+            pra = NA_real_, hxa = NA_real_, oil.1 = NA_real_, ehb = NA_real_, 
+            eta = NA_real_, cit = NA_real_), .Names = c("ger", "lin", 
+            "bty", "hxe", "ben", "met", "oil", "pra", "hxa", "oil.1", "ehb", 
+            "eta", "cit"), row.names = 7L, class = "data.frame")
+    expect_that(csc[7,colnames(csb)],equals(seven_nas))
+    
     })
     
 test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", {
