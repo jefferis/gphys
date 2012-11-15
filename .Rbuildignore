@@ -3,3 +3,4 @@
 .settings
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.Rhistory
