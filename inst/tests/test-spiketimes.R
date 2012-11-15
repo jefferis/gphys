@@ -92,7 +92,7 @@ test_that("Count spikes - large reponse window", {
 
 test_that("Count spikes - with baseline", {
       nmdir='../igor/spikes/nm20110914c4'
-      a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK I",sweeps=0:4)
+      spikes=CollectSpikesFromSweeps(nmdir,subdir="BLOCK I",sweeps=0:4)
       od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
       
       od_baseline<-structure(list(ctr = c(-1.5, -0.25, 0, 0.75, -0.75), fly = c(-0.25, 
