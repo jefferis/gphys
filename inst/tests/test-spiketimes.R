@@ -22,9 +22,6 @@ test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", 
     nmdir='../igor/spikes/nm20120413c0'
     a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
     b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
-
-    la=length(a)
-    lb=length(b)
     c=merge(a,b)
 
     expect_true(is.spiketimes(c))
@@ -34,6 +31,10 @@ test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", 
     "far", "oen", "pac", "aac", "ger", "lin", "bty", "hxe", "ben", 
     "met", "oil", "pra", "hxa", "oil", "ehb", "eta", "cit")
     expect_that(attr(c,'oddconf')$odour,equals(merged_odours))
+    merged_sweeps=c("000", "001", "002", "003", "004", "005", "006", "007", "008", 
+        "009", "010", "011", "012")
+    expect_that(attr(c,'sweeps'),equals(merged_sweeps),
+        "Check that merged record includes all input sweeps as attribute")
     
     # count spikes
     csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))

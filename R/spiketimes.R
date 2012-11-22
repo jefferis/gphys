@@ -130,6 +130,10 @@ merge.spiketimes<-function(x,y,...){
 	# bring over names etc
 	attributes_to_copy=if(length(x)>=length(y)) attributes(x) else attributes(y)
 	mostattributes(l)=attributes_to_copy
+	# merge simple attributes that it makes to sense merge
+	for(att in c("sweeps",'sweepdir')){
+		attr(l,att)=unique(c(attr(x,att),attr(y,att)))
+	}
 	
 	# merge odd configs
 	attr(l,'oddconf')=rbind(attr(x,'oddconf'),attr(y,'oddconf'))
