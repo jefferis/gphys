@@ -289,6 +289,13 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=FALSE){
   nreps=length(spiketimes)
   last_wave=max(sapply(spiketimes,function(x) max(x$Wave,na.rm=TRUE)))
+  # note it would be preferable if we didn't have to invent sweep names here
+  # but it is more robust to make them up now 
+  if(is.null(names(spiketimes))) {
+    names(spiketimes)=seq_along(spiketimes)
+    warning("Making up fake sweep names for spiketimes",
+            " (but don't worry this won't affect spike rates)")
+  }
   # Want to collect a table which has rows for each odour
   spikess=do.call(rbind,spiketimes)
   spikess$Sweep=rep(names(spiketimes),sapply(spiketimes,nrow))
