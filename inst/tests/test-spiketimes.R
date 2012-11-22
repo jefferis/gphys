@@ -194,4 +194,8 @@ test_that("Split spiketimes with n presentations into n separate dataframes",{
                   8L), class = "data.frame"), sweeps = "008", sweepdir = "/Volumes/JData/JPeople/Shahar/Data/120906/nm20120906c0", stimRange = c(500, 
               1000), xlim = c(0, 3000), class = c("spiketimes", "list"))
       expect_that(b8s,is_equivalent_to(b8s_baseline))
+      
+      names_baseline=c("008.000", "008.001", "008.002", "008.003")
+      expect_that(names(b8s),equals(names_baseline),
+          "Check that after splitting we make sensible names for each block")
     })

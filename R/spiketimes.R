@@ -41,6 +41,10 @@ split.spiketimes<-function(st,blocksize){
 	
 	stnew=split(st1,st1$Rep)
 	mostattributes(stnew)=attributes(st)
+	# We will have to make new names now that the list has more elements
+	# Nb new names will look like 008.000,008.001 
+	# (ie still 0-indexed for second part)
+	names(stnew)=sprintf("%s.%03d",names(st),seq_along(stnew)-1)
 	if(!is.null(attr(stnew,'oddconf'))){
 		attr(stnew,'oddconf')=attr(stnew,'oddconf')[1:blocksize,]
 	}
