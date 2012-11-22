@@ -23,3 +23,5 @@ Collate:
     'spiketimes.R'
     'timeseries.R'
     'STAR.R'
+Suggests:
+    testthat
