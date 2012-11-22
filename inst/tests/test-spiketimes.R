@@ -59,11 +59,8 @@ test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", 
     nmdir='../igor/spikes/nm20121020c2'
     a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
     b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
-    
-    la=length(a)
-    lb=length(b)
-
     c=merge(a,b)
+
     expect_true(is.spiketimes(c))
     expect_true(length(c)==8)
     
@@ -199,4 +196,22 @@ test_that("Split spiketimes with n presentations into n separate dataframes",{
       names_baseline=c("008.000", "008.001", "008.002", "008.003")
       expect_that(names(b8s),equals(names_baseline),
           "Check that after splitting we make sensible names for each block")
+    })
+
+test_that("Merge 2 blocks that have been split",{
+      nmdir='../igor/spikes/nm20120906c0'
+      b8=CollectSpikesFromSweeps(nmdir,8,xlim=c(0,3000),stimRange=c(500,1000))
+      # split into separate data frames for each repeat
+      b8s=split(b8)
+      b10=CollectSpikesFromSweeps(nmdir,10,xlim=c(0,3000),stimRange=c(500,1000))
+      b10s=split(b10)
+      bs=merge(b8s,b10s)
+      merged_names=c("008.000,010.000", "008.001,010.001", "008.002,010.002", 
+          "008.003,010.003")
+      expect_that(names(bs),equals(merged_names),
+          "Check that we get sensible names after split and merge")
+      merged_lengths=c(56,52,68,63)
+      expect_that(sapply(bs,nrow),is_equivalent_to(merged_lengths),
+          "Check that we get the right number of spikes in the right blocks")
+      
     })

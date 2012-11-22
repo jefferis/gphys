@@ -130,6 +130,18 @@ merge.spiketimes<-function(x,y,...){
 	# bring over names etc
 	attributes_to_copy=if(length(x)>=length(y)) attributes(x) else attributes(y)
 	mostattributes(l)=attributes_to_copy
+	# fix names to conform to show that they look like 000,008 to show that they
+	# contain data from 2 pxp files
+	nx=names(x)
+	ny=names(y)
+	lx=length(x)
+	ly=length(y)
+	if(lx>ly){
+		ny=c(ny,rep("",lx-ly))
+	} else if(ly>lx){
+		nx=c(nx,rep("",ly-lx))
+	}
+	names(l)=paste(nx,ny,sep=",")
 	# merge simple attributes that it makes to sense merge
 	for(att in c("sweeps",'sweepdir')){
 		attr(l,att)=unique(c(attr(x,att),attr(y,att)))
