@@ -313,7 +313,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
         function(t) sum(t>baselineWindow[1] &t<baselineWindow[2]))
     for(i in seq_len(nrow(empty_wave_sweeps))){
       cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
-      cur_sweep=as.chracter(empty_wave_sweeps[i,'Sweep'])
+      cur_sweep=as.character(empty_wave_sweeps[i,'Sweep'])
       baselinecount[cur_sweep,cur_wave]=0
     }
     baselineTime=diff(baselineWindow)
