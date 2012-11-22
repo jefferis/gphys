@@ -102,3 +102,19 @@ test_that("Count spikes - with baseline", {
               "fly", "4ol", "cVA", "IAA", "PAA"), row.names = c(NA, -5L), class = "data.frame")
       expect_that(od,equals(od_baseline))
     })
+
+test_that("Count spikes - Shahar data with repeated block", {
+      nmdir='../igor/spikes/nm20120906c0'
+      b8=CollectSpikesFromSweeps(nmdir,8,xlim=c(0,3000),stimRange=c(500,1000))
+      # split into separate data frames for each repeat
+      b8s=split(b8)
+      b10=CollectSpikesFromSweeps(nmdir,10,xlim=c(0,3000),stimRange=c(500,1000))
+      od8=OdourResponseFromSpikes(b8s,response=c(700,1500))
+      od8_baseline=structure(list(OilBl = c(0, 0, 0, 0), BeZal = c(0, 0, 0, 0), 
+              bCitr = c(0, 0, 1, 2), `1HxOl` = c(0, 0, 1, 0), Frnsl = c(1, 
+                  0, 1, 1), WatBl = c(0, 2, 0, 1), Cdvrn = c(10, 7, 9, 9), 
+              Sprmn = c(8, 8, 14, 9)), .Names = c("OilBl", "BeZal", "bCitr", 
+              "1HxOl", "Frnsl", "WatBl", "Cdvrn", "Sprmn"), row.names = c(NA, 
+              -4L), class = "data.frame")
+      expect_that(od8,equals(od8_baseline))
+    })
