@@ -1,3 +1,14 @@
+gphys 0.6-2
+===========
+* split.spiketimes now gives each new block a name of form <pxpnum>.<repeatnum>
+  So if experiment 008 contains 4 repeats we will get:
+  c("008.000","008.001","008.002","008.003")
+* merge.spiketimes now gives each merged block a name of form <pxpnuma>,<pxpnumb>
+  So if we merge experiments 001,002,003 with experiments 004,005 we'll get
+  c("001,004","002,005","003,")
+* OdourResponseFromSpikes can now cope with spiketimes lists that do not have
+  names (this is defensive since splitting and merging produce sensible names).
+
 gphys 0.6-1
 ===========
 * merge.spiketimes can merge lists with different numbers of repeats
