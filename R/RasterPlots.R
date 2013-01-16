@@ -353,12 +353,19 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
 #' avgwavests=ts(avgwaves,start=0,freq=10)
 #' AddLinesToRasterPlot(avgwavests,col='red')
 #' }
-AddLinesToRasterPlot<-function(waves,ylim,...){
+AddLinesToRasterPlot<-function(waves,ylim,col='black',...){
   scaled_waves=scale.ts(waves,yrange=ylim)
+  nwaves=ncol(scaled_waves)
+  if(is.function(col)) col=col(nwaves)
+  else if(length(col)==1 && nwaves>1){
+    col=rep(col,nwaves)
+  } else if(length(col)<nwaves){
+    stop ("More waves (",nwaves,") than colours (",length(col),')')
+  }
   # iterate over individual waves
-  for(wnum in 1:ncol(scaled_waves)){
+  for(wnum in 1:nwaves){
     # nb - ... flips the y axis
     # wnum + ... shifts the plot in y to match up with the raster data
-    lines(wnum - scaled_waves[,wnum],...)
+    lines(wnum - scaled_waves[,wnum],col=col[wnum],...)
   }
 }
