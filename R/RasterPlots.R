@@ -28,8 +28,8 @@
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
 #' @param PlotSpikes Whether to plot the spikes (default TRUE)
 #' @param PlotDividers Plot the dividing lines between odours (default TRUE)
-#' @param panel.first An ‘expression’ to be evaluated after the plot axes are set up but before any plotting takes place
-#' @param panel.last An ‘expression’ to be evaluated after spikes have been plotted
+#' @param panel.first An \code{expression} to be evaluated after the plot axes are set up but before any plotting takes place
+#' @param panel.last An \code{expression} to be evaluated after spikes have been plotted
 #' @param ... Additional parameters passed to plot 
 #' @author jefferis
 #' @seealso \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and \code{\link{plot.default}}
@@ -351,8 +351,10 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
 #' First thing this does is scale waves to 0-1 range using scale.ts
 #' Assumes that number of waves and number of boxes (odours)
 #' on spike raster plot actually match. It doesn't check!
+#' @details If col is a function then it will be called with the number of waves
 #' @param waves an mts object
 #' @param ylim min and max value to plot y axis of wave data (eg voltage)
+#' @param col vector or function of colours that will be passed to \code{\link{lines}}
 #' @param ... additional arguments passed to lines.ts function
 #' @export
 #' @seealso \code{\link{PlotRasterFromSweeps}},\code{\link{lines}}
