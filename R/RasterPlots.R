@@ -31,6 +31,7 @@
 #' @seealso \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and \code{\link{plot.default}}
 #'   for graphical parameters
 #' @export
+#' @aliases plot.spiketimes
 #' @examples
 #' ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
 #' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
@@ -121,6 +122,10 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
     "sweeps:",paste(attr(rasterd,'sweeps'),collapse=","))
   title(main=main,sub=sub)
 }
+
+#' @export
+#' @method plot spiketimes
+plot.spiketimes<-PlotRasterFromSweeps
 
 #' Read in Igor Pro exported text file of Nclamp spike times
 #'
