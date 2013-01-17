@@ -361,6 +361,14 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
 #' avgwaves=read.table('/Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',header=T)
 #' avgwavests=ts(avgwaves,start=0,freq=10)
 #' AddLinesToRasterPlot(avgwavests,col='red')
+#' # same but with rainbow colouring
+#' PlotRasterFromSweeps (spike8_split)
+#' AddLinesToRasterPlot(avgwavests,col='red')
+#' # same but voltage lines underneath spikes
+#' PlotRasterFromSweeps (spike8_split, panel.first=AddLinesToRasterPlot(avgwavests,col='red'))
+#' # same but without spikes or dividers
+#' PlotRasterFromSweeps (spike8_split,PlotSpikes=FALSE,PlotDividers=FALSE)
+#' AddLinesToRasterPlot(avgwavests,col='red')
 #' }
 AddLinesToRasterPlot<-function(waves,ylim,col='black',...){
   scaled_waves=scale.ts(waves,yrange=ylim)
