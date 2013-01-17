@@ -282,7 +282,6 @@ as.repeatedTrain<-function(x,...){
 #' element will correspond to one pxp file and will have trials for different 
 #' odours. We now want to turn this into a list of repeatedTrain objects, 
 #' one for each odour.
-#' @param x Object to convert (list of dataframes)
 #' @inheritParams as.repeatedTrain
 #' @export
 #' @rdname as.repeatedTrain

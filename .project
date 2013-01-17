@@ -15,4 +15,15 @@
 		<nature>de.walware.statet.base.StatetNature</nature>
 		<nature>de.walware.statet.r.RNature</nature>
 	</natures>
+	<filteredResources>
+		<filter>
+			<id>1355156761828</id>
+			<name></name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*.Rproj</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
 </projectDescription>
