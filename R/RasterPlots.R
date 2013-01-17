@@ -26,6 +26,10 @@
 #' @param odourCol colour of odour window (default pale red) 
 #' @param relabelfun function to apply to odour labels (default no relabelling)
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
+#' @param PlotSpikes Whether to plot the spikes (default TRUE)
+#' @param PlotDividers Plot the dividing lines between odours (default TRUE)
+#' @param panel.first An ‘expression’ to be evaluated after the plot axes are set up but before any plotting takes place
+#' @param panel.last An ‘expression’ to be evaluated after spikes have been plotted
 #' @param ... Additional parameters passed to plot 
 #' @author jefferis
 #' @seealso \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and \code{\link{plot.default}}
@@ -56,7 +60,9 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
   main,sub,xlab='Time/ms', ylab='Odour',
   pch=22,dotcolour='black',dotsize=0.5,dotwidth=20,spikeheight=0.8,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
-  relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,...){
+  relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,
+  PlotSpikes=TRUE,PlotDividers=TRUE,
+  panel.first=NULL,panel.last=NULL,...){
   if(inherits(sweepdir,'spiketimes')){
     rasterd=sweepdir
     if(!is.null(subset))
@@ -97,19 +103,22 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
   if(xaxis)
     axis(1)
   nreps=length(rasterd)
-  for(i in seq(rasterd)){
-    yoff=i/(nreps+1)
-    df=rasterd[[i]]
-    if(pch=='rect'){
-      # find the right dot height
-      dotheight=spikeheight/(nreps+1)
-      rect(df$Time,df$Wave+yoff-dotheight/2,df$Time+dotwidth,df$Wave+yoff+dotheight/2,col=dotcolour,border=NA)
+  panel.first
+  if(PlotSpikes){
+    for(i in seq(rasterd)){
+      yoff=i/(nreps+1)
+      df=rasterd[[i]]
+      if(pch=='rect'){
+        # find the right dot height
+        dotheight=spikeheight/(nreps+1)
+        rect(df$Time,df$Wave+yoff-dotheight/2,df$Time+dotwidth,df$Wave+yoff+dotheight/2,col=dotcolour,border=NA)
+      }
+      else points(x=df$Time,y=df$Wave+yoff,pch=pch,col=NA,bg=dotcolour,cex=dotsize)
     }
-    else points(x=df$Time,y=df$Wave+yoff,pch=pch,col=NA,bg=dotcolour,cex=dotsize)
   }
-
+  panel.last
   # make dividers between waves if necessary
-  if(last_wave>0){
+  if(last_wave>0 && PlotDividers){
     # fetch the actual plot range (not always the same as xlim)
     plot_xrange=par("usr")[1:2]
     for(i in seq(last_wave)){
@@ -357,13 +366,28 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
 #' avgwaves=read.table('/Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',header=T)
 #' avgwavests=ts(avgwaves,start=0,freq=10)
 #' AddLinesToRasterPlot(avgwavests,col='red')
+#' # same but with rainbow colouring
+#' PlotRasterFromSweeps (spike8_split)
+#' AddLinesToRasterPlot(avgwavests,col='red')
+#' # same but voltage lines underneath spikes
+#' PlotRasterFromSweeps (spike8_split, panel.first=AddLinesToRasterPlot(avgwavests,col='red'))
+#' # same but without spikes or dividers
+#' PlotRasterFromSweeps (spike8_split,PlotSpikes=FALSE,PlotDividers=FALSE)
+#' AddLinesToRasterPlot(avgwavests,col='red')
 #' }
-AddLinesToRasterPlot<-function(waves,ylim,...){
+AddLinesToRasterPlot<-function(waves,ylim,col='black',...){
   scaled_waves=scale.ts(waves,yrange=ylim)
+  nwaves=ncol(scaled_waves)
+  if(is.function(col)) col=col(nwaves)
+  else if(length(col)==1 && nwaves>1){
+    col=rep(col,nwaves)
+  } else if(length(col)<nwaves){
+    stop ("More waves (",nwaves,") than colours (",length(col),')')
+  }
   # iterate over individual waves
-  for(wnum in 1:ncol(scaled_waves)){
+  for(wnum in 1:nwaves){
     # nb - ... flips the y axis
     # wnum + ... shifts the plot in y to match up with the raster data
-    lines(wnum - scaled_waves[,wnum],...)
+    lines(wnum - scaled_waves[,wnum],col=col[wnum],...)
   }
 }
