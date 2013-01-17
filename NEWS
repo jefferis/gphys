@@ -1,3 +1,12 @@
+gphys 0.6-3
+===========
+* AddLinesToRasterPlot can now cope with multiple colours
+* PlotRastersFromSweeps can be told not to plot spikes or dividing lines 
+  so that it can be used to set up an empty plot to which AddLinesToRasterPlot
+  can then add lines. See ?AddLinesToRasterPlot for examples.
+* new plot.spiketimes function allows plot() to be called directly on a 
+  spiketimes object.
+
 gphys 0.6-2
 ===========
 * split.spiketimes now gives each new block a name of form <pxpnum>.<repeatnum>
