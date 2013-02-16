@@ -1,12 +1,14 @@
 #' Make a raster plot from a set of Nclamp sweeps recording odour responses
 #'
-#' Note that can also give a spiketimes list from CollectSpikesFromSweeps
+#' @details Note that can also give a spiketimes list from CollectSpikesFromSweeps
 #' By default the odour stimulus is represented by a pale red rectangle
 #'  in a layer behind the spikes.
 #' If pch takes the special value "rect" then rectangles of width dotwidth are drawn.
 #' spikewidth will then specify the relative size of the spikes with 1 resulting
 #'   in the top of spikes from one line at the same height as the base of spikes
 #'   in the line above.
+#' If more than one stimulus is required, odourRange can be specified as a vector
+#'   of successive start,stop times e.g. c(start1,stop1,start2,stop2).
 #' @inheritParams CollectSpikesFromSweeps
 #' @param xlim x axis range of plot 
 #' @param main main title of plot (see \code{\link{title}}) 
@@ -55,6 +57,9 @@
 #' fixVec=c(empty=31,IAA=30,cVA=29,PAA=27,`4ol`=26,ctr=25)
 #' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
 #'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
+#' ## Imagine a double odour stimulation
+#' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
+#'   subdir='BLOCK I',odourRange=c(2000,2500,3000,3250),xlim=c(0,5000),fixChannels=fixVec)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
   xlim=NULL,xaxis=TRUE,yaxis=TRUE,frame.plot=TRUE,xaxs='i',yaxs='i',
   main,sub,xlab='Time/ms', ylab='Odour',
@@ -88,8 +93,10 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,
       frame.plot=frame.plot,xaxs=xaxs,yaxs=yaxs,...)
 	# show odour stim range
-  if(!is.null(odourRange) && !is.na(odourRange))
-    rect(odourRange[1],par('usr')[3],odourRange[2],par('usr')[4],col=odourCol,border=NA)
+  if(!is.null(odourRange) && !is.na(odourRange)){
+    if(!is.matrix(odourRange)) odourRange=matrix(odourRange,nrow=2)
+    rect(odourRange[1,],par('usr')[3],odourRange[2,],par('usr')[4],col=odourCol,border=NA)
+  }
   
   labels=relabelfun(attr(rasterd,'oddconf')$odour)
   if(IncludeChannels) labels=paste(labels,attr(rasterd,'oddconf')$chan)
