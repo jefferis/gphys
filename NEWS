@@ -1,3 +1,10 @@
+gphys 0.6-4
+===========
+* Allow multiple stimulus bars on raster plots
+  Specified as c(start1,stop1,start2,stop2)
+* Fix bug in plotting stimulus bar 
+  (extended outside y axis; usually invisible but obvious in svg format)
+
 gphys 0.6-3
 ===========
 * AddLinesToRasterPlot can now cope with multiple colours
