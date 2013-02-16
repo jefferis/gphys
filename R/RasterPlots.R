@@ -88,9 +88,9 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
 	plot(NA,xlim=xlim,ylim=c(last_wave+1,0),ylab=ylab,xlab=xlab,axes=F,
       frame.plot=frame.plot,xaxs=xaxs,yaxs=yaxs,...)
 	# show odour stim range
-	if(!is.null(odourRange) && !is.na(odourRange))
-  	rect(odourRange[1],-0.5,odourRange[2],last_wave+1.5,col=odourCol,border=NA)
-	
+  if(!is.null(odourRange) && !is.na(odourRange))
+    rect(odourRange[1],par('usr')[3],odourRange[2],par('usr')[4],col=odourCol,border=NA)
+  
   labels=relabelfun(attr(rasterd,'oddconf')$odour)
   if(IncludeChannels) labels=paste(labels,attr(rasterd,'oddconf')$chan)
 	if(length(labels)>(last_wave+1))
