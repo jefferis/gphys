@@ -1,3 +1,9 @@
+gphys 0.6-5
+===========
+* Give smooth_decimate a sides option (that is passed on to stats::filter)
+* Return call in smooth_decimate result
+* Better example for smooth_decimate (that is actually run)
+
 gphys 0.6-4
 ===========
 * Allow multiple stimulus bars on raster plots
