@@ -81,21 +81,25 @@ scale.ts<-function(waves,yrange){
 
 #' Boxcar smooth and decimate a time series
 #'
-#' Details
+#' @details See \link[stats]{filter} for details about \code{sides} argument.
+#' sides=1 (ie backwards) makes sense if you want to measure the start of a
+#' peak (latency). sides=2 (centred, the default) makes sense if you want to 
+#' measure the mid-timepoint of the peak itself.
 #' @param x time series to smooth (ts or mts)
 #' @param filterlength Size of smoothing kernel (in points)
 #' @param downsamplefactor Factor to reduce number of points
 #' @param start,end Defined start and end to remove NAs after filtering (units of time)
+#' @param sides 1=>convolution for past values, default 2=>centred on lag=0
 #' @return time series object 
 #' @export
-#' @seealso \code{\link{window},\link{filter}}
+#' @seealso \code{\link{window},\link[stats]{filter}}
 #' @examples
 #' \dontrun{
 #'   smooth_decimate(x,filterlength=1000,downsamplefactor=100,start=0.05,end=3.9)
 #' }
-smooth_decimate<-function(x,filterlength,downsamplefactor,start,end){
+smooth_decimate<-function(x,filterlength,downsamplefactor,start,end,sides=2){
   filt=rep(1/filterlength,filterlength)
-  filtx=stats::filter(x,filt)
+  filtx=stats::filter(x,filt,sides=sides)
   wfiltx=window(filtx,start,end,freq=frequency(filtx)/downsamplefactor)
   wfiltx
 }
