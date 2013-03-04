@@ -94,9 +94,14 @@ scale.ts<-function(waves,yrange){
 #' @export
 #' @seealso \code{\link{window},\link[stats]{filter}}
 #' @examples
-#' \dontrun{
-#'   smooth_decimate(x,filterlength=1000,downsamplefactor=100,start=0.05,end=3.9)
-#' }
+#' x=ts(rnorm(10000)+sin(1:10000/100),start=0,deltat=0.01)
+#' # smoothed
+#' xs=smooth_decimate(x,filterlength=100,downsamplefactor=10,start=1,end=99)
+#' # smoothed with causal filter (past values only)
+#' xsc=smooth_decimate(x,filterlength=100,downsamplefactor=10,start=1,end=99,sides=1)
+#' plot(x)
+#' lines(xs,col='magenta')
+#' lines(xsc,col='green')
 smooth_decimate<-function(x,filterlength,downsamplefactor,start,end,sides=2){
   filt=rep(1/filterlength,filterlength)
   filtx=stats::filter(x,filt,sides=sides)
