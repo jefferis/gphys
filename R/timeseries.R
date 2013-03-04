@@ -90,7 +90,7 @@ scale.ts<-function(waves,yrange){
 #' @param downsamplefactor Factor to reduce number of points
 #' @param start,end Defined start and end to remove NAs after filtering (units of time)
 #' @param sides 1=>convolution for past values, default 2=>centred on lag=0
-#' @return time series object 
+#' @return time series object with call attribute
 #' @export
 #' @seealso \code{\link{window},\link[stats]{filter}}
 #' @examples
@@ -106,5 +106,6 @@ smooth_decimate<-function(x,filterlength,downsamplefactor,start,end,sides=2){
   filt=rep(1/filterlength,filterlength)
   filtx=stats::filter(x,filt,sides=sides)
   wfiltx=window(filtx,start,end,freq=frequency(filtx)/downsamplefactor)
+  attr(wfiltx,'call')=match.call()
   wfiltx
 }
