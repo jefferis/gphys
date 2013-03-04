@@ -81,21 +81,31 @@ scale.ts<-function(waves,yrange){
 
 #' Boxcar smooth and decimate a time series
 #'
-#' Details
+#' @details See \link[stats]{filter} for details about \code{sides} argument.
+#' sides=1 (ie backwards) makes sense if you want to measure the start of a
+#' peak (latency). sides=2 (centred, the default) makes sense if you want to 
+#' measure the mid-timepoint of the peak itself.
 #' @param x time series to smooth (ts or mts)
 #' @param filterlength Size of smoothing kernel (in points)
 #' @param downsamplefactor Factor to reduce number of points
 #' @param start,end Defined start and end to remove NAs after filtering (units of time)
-#' @return time series object 
+#' @param sides 1=>convolution for past values, default 2=>centred on lag=0
+#' @return time series object with call attribute
 #' @export
-#' @seealso \code{\link{window},\link{filter}}
+#' @seealso \code{\link{window},\link[stats]{filter}}
 #' @examples
-#' \dontrun{
-#'   smooth_decimate(x,filterlength=1000,downsamplefactor=100,start=0.05,end=3.9)
-#' }
-smooth_decimate<-function(x,filterlength,downsamplefactor,start,end){
+#' x=ts(rnorm(10000)+sin(1:10000/100),start=0,deltat=0.01)
+#' # smoothed
+#' xs=smooth_decimate(x,filterlength=100,downsamplefactor=10,start=1,end=99)
+#' # smoothed with causal filter (past values only)
+#' xsc=smooth_decimate(x,filterlength=100,downsamplefactor=10,start=1,end=99,sides=1)
+#' plot(x)
+#' lines(xs,col='magenta')
+#' lines(xsc,col='green')
+smooth_decimate<-function(x,filterlength,downsamplefactor,start,end,sides=2){
   filt=rep(1/filterlength,filterlength)
-  filtx=stats::filter(x,filt)
+  filtx=stats::filter(x,filt,sides=sides)
   wfiltx=window(filtx,start,end,freq=frequency(filtx)/downsamplefactor)
+  attr(wfiltx,'call')=match.call()
   wfiltx
 }
