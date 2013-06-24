@@ -81,6 +81,8 @@ scale.ts<-function(waves,yrange){
 
 #' Boxcar smooth and decimate a time series
 #'
+#' @details One of \code{downsamplefactor, frequency} or \code{deltat} must be specified. 
+#' \code{downsamplefactor} will take priority when available.
 #' @details See \link[stats]{filter} for details about \code{sides} argument.
 #' sides=1 (ie backwards) makes sense if you want to measure the start of a
 #' peak (latency). sides=2 (centred, the default) makes sense if you want to 
@@ -89,6 +91,10 @@ scale.ts<-function(waves,yrange){
 #' @param filterlength Size of smoothing kernel (in points)
 #' @param downsamplefactor Factor to reduce number of points
 #' @param start,end Defined start and end to remove NAs after filtering (units of time)
+#' @param frequency,deltat New frequency can be specified by either 
+#'  (or both if they are consistent).
+#' @param extend Logical. If true, the start and end values are allowed to extend
+#'  the series. If false, attempts to extend the series give a warning and are ignored.
 #' @param sides 1=>convolution for past values, default 2=>centred on lag=0
 #' @return time series object with call attribute
 #' @export
@@ -102,10 +108,17 @@ scale.ts<-function(waves,yrange){
 #' plot(x)
 #' lines(xs,col='magenta')
 #' lines(xsc,col='green')
-smooth_decimate<-function(x,filterlength,downsamplefactor,start,end,sides=2){
+smooth_decimate<-function(x,filterlength,downsamplefactor=NULL,start=NULL,end=NULL,
+    frequency = NULL, deltat = NULL, extend=FALSE,sides=2){
+  if(is.null(downsamplefactor) && is.null(frequency) && is.null(deltat)) 
+    stop("Must supply at least one of downsamplefactor, frequency or deltat")
   filt=rep(1/filterlength,filterlength)
   filtx=stats::filter(x,filt,sides=sides)
-  wfiltx=window(filtx,start,end,freq=frequency(filtx)/downsamplefactor)
+  if(!is.null(downsamplefactor)){
+    frequency=frequency(filtx)/downsamplefactor
+    deltat=NULL
+  }
+  wfiltx=window(filtx,start,end,frequency=frequency,deltat=deltat,extend=extend)
   attr(wfiltx,'call')=match.call()
   wfiltx
 }
