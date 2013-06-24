@@ -1,3 +1,10 @@
+gphys 0.6-6
+===========
+* Give smooth_decimate an extend option (that is passed on to stats::filter)
+  to allow padding of data to end.
+* Give smooth_decimate frequency and deltat options that can be used instead of
+  downsamplefactor. Again passed to stats::filter.
+
 gphys 0.6-5
 ===========
 * Give smooth_decimate a sides option (that is passed on to stats::filter)
