@@ -323,7 +323,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
   
   responseTime=diff(responseWindow)
   responsecount=by(spikess$Time,
-      list(factor(spikess$Sweep),factor(spikess$Wave)),
+      list(factor(spikess$Sweep,levels=names(spiketimes)),factor(spikess$Wave)),
       function(t) sum(t>responseWindow[1] &t<responseWindow[2]))
   # replace NAs for each wave/sweep combo with an entry in empty_wave_sweeps
   # but not those wave/sweep combinations where this signalling NA from
