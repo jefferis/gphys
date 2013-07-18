@@ -23,6 +23,7 @@ test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", 
     a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
     b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
     c=merge(a,b)
+    d=merge(b,a)
 
     expect_true(is.spiketimes(c))
     expect_true(length(c)==7)
@@ -53,6 +54,11 @@ test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", 
             "eta", "cit"), row.names = 7L, class = "data.frame")
     expect_that(csc[7,colnames(csb)],equals(seven_nas))
     
+    # check that merge in the oppposite order is identical
+    csd=OdourResponseFromSpikes(d,responseWindow=c(0,4000))
+    expect_that(csd[,colnames(csc)],equals(csc),
+        'merge unequal number sweeps in opposite order gives same result')
+    
     })
     
 test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", {
@@ -60,6 +66,7 @@ test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", 
     a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
     b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
     c=merge(a,b)
+    d=merge(b,a)
 
     expect_true(is.spiketimes(c))
     expect_true(length(c)==8)
@@ -68,6 +75,18 @@ test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", 
     "far", "oen", "pac", "aac", "ger", "lin", "bty", "hxe", "ben", 
     "met", "oil", "pra", "hxa", "oil", "ehb", "eta", "cit")
     expect_that(attr(c,'oddconf')$odour,equals(merged_odours))
+    
+    # count spikes
+    csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
+    csb=OdourResponseFromSpikes(b,responseWindow=c(0,4000))
+    csc=OdourResponseFromSpikes(c,responseWindow=c(0,4000))
+    csd=OdourResponseFromSpikes(c,responseWindow=c(0,4000))
+    # should count the same number of spike for odours in b in merged list c
+    expect_that(csc[,colnames(csb)],equals(csb))
+    expect_that(csd[,colnames(csb)],equals(csb))
+    # and for a (excluding the last lines(s) with NAs
+    expect_that(csc[1:nrow(csa),colnames(csa)],equals(csa))
+    expect_that(csd[1:nrow(csa),colnames(csa)],equals(csa))
     })
 
 test_that("Count spikes - large reponse window", {
@@ -87,6 +106,15 @@ test_that("Count spikes - large reponse window", {
       ), row.names = c(NA, -7L), class = "data.frame")
   expect_that(csa,equals(csa_baseline))
 })
+
+test_that("Count spikes - NULL baseline", {
+      nmdir='../igor/spikes/nm20120413c0'
+      a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
+      csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
+      csa.nb=OdourResponseFromSpikes(a,responseWindow=c(0,4000),baselineWindow = NULL)
+      
+      expect_that(csa.nb,equals(csa))
+    })
 
 test_that("Count spikes - with baseline", {
       nmdir='../igor/spikes/nm20110914c4'
