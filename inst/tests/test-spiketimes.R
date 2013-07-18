@@ -88,6 +88,15 @@ test_that("Count spikes - large reponse window", {
   expect_that(csa,equals(csa_baseline))
 })
 
+test_that("Count spikes - NULL baseline", {
+      nmdir='../igor/spikes/nm20120413c0'
+      a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
+      csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
+      csa.nb=OdourResponseFromSpikes(a,responseWindow=c(0,4000),baselineWindow = NULL)
+      
+      expect_that(csa.nb,equals(csa))
+    })
+
 test_that("Count spikes - with baseline", {
       nmdir='../igor/spikes/nm20110914c4'
       spikes=CollectSpikesFromSweeps(nmdir,subdir="BLOCK I",sweeps=0:4)
