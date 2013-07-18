@@ -307,7 +307,7 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 #' # show baseline response frequency only (by treating that as response)
 #' od2=OdourResponseFromSpikes(spikes,response=c(0,2000),freq=TRUE)
 #' summary(od2)
-OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=FALSE){
+OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,freq=FALSE){
   nreps=length(spiketimes)
   last_wave=max(sapply(spiketimes,function(x) max(x$Wave,na.rm=TRUE)))
   # note it would be preferable if we didn't have to invent sweep names here
@@ -335,7 +335,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,freq=
     cur_sweep=as.character(empty_wave_sweeps[i,'Sweep'])
     responsecount[cur_sweep,cur_wave]=0
   }
-  if(!missing(baselineWindow)){
+  if(!is.null(baselineWindow)){
     baselinecount=by(spikess$Time,
         list(factor(spikess$Sweep),factor(spikess$Wave)),
         function(t) sum(t>baselineWindow[1] &t<baselineWindow[2]))
