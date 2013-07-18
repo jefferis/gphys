@@ -1,6 +1,13 @@
+gphys 0.7
+===========
+* Fix bug in OdourResponseFromSpikes() when counting spikes from a merged 
+  spiketimes object in which the block fewer trials was merged with a block
+  with more trials. Resulted in sweeps for the two blocks being mismatched
+  / misordered.
+
 gphys 0.6-7
 ===========
-* Make baselineWindow=NULL the defalt in OdourResponseFromSpikes() so that it is
+* Make baselineWindow=NULL the default in OdourResponseFromSpikes() so that it is
   easier for wrapper functions to switch between specifying a baseline window
   or not having one.
 
