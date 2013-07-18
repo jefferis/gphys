@@ -1,3 +1,9 @@
+gphys 0.6-7
+===========
+* Make baselineWindow=NULL the defalt in OdourResponseFromSpikes() so that it is
+  easier for wrapper functions to switch between specifying a baseline window
+  or not having one.
+
 gphys 0.6-6
 ===========
 * Give smooth_decimate an extend option (that is passed on to stats::filter)
