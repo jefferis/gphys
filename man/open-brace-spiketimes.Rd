@@ -1,0 +1,25 @@
+\name{[.spiketimes}
+\alias{[.spiketimes}
+\title{Extract one or more spiketimes objects as a new spiketimes list}
+\usage{
+  \method{[}{spiketimes} (x, i, ...)
+}
+\arguments{
+  \item{x}{spiketimes objec to subset}
+
+  \item{i}{indices to uss in subsetting}
+
+  \item{...}{additional arguments (currently ignored)}
+}
+\description{
+  Extract one or more spiketimes objects as a new
+  spiketimes list
+}
+\seealso{
+  Other spiketimes: \code{\link{+.spiketimes}},
+  \code{\link{as.spiketimes}}, \code{\link{is.spiketimes}},
+  \code{\link{merge.spiketimes}}, \code{\link{spiketimes}},
+  \code{\link{split.spiketimes}},
+  \code{\link{subset.spiketimes}}
+}
+

@@ -1,0 +1,37 @@
+\name{+.spiketimes}
+\alias{+.spiketimes}
+\title{Combine multiple compatible spiketimes series (to plot as single raster)}
+\usage{
+  \method{+}{spiketimes} (e1, e2)
+}
+\arguments{
+  \item{e1,e2}{spiketimes objects}
+}
+\value{
+  a new spiketimes objects
+}
+\description{
+  Details: this is designed for the case where you have
+  loaded in multiple pxp files into separate spiketimes
+  lists, BUT the pxp files were all acquired with the same
+  ODD config (and presumably Igor protocol). It does not
+  matter if they have the same or a different number of
+  repeats (ie individual data frames), but they must have
+  the same number of rows in the odd config. Example use:
+  Igor crashed and you ended up with one recording split
+  into 2 cell folders XXXc0 and XXXc1. Use
+  CollectSpikesFromSweeps to read spike files from both
+  folders independently and then join them together with
+  this function.
+}
+\author{
+  jefferis
+}
+\seealso{
+  Other spiketimes: \code{\link{[.spiketimes}},
+  \code{\link{as.spiketimes}}, \code{\link{is.spiketimes}},
+  \code{\link{merge.spiketimes}}, \code{\link{spiketimes}},
+  \code{\link{split.spiketimes}},
+  \code{\link{subset.spiketimes}}
+}
+

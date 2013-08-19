@@ -1,0 +1,44 @@
+\name{plot.mpsth}
+\alias{plot.mpsth}
+\title{Plot PSTHs for multiple neurons (or multiple stimuli)}
+\usage{
+  \method{plot}{mpsth} (x, stimTimeCourse = NULL,
+    colStim = "grey80", colCI = NULL, xlab = "Time /s",
+    ylab = "Spike Freq /Hz", xlim, ylim, lwd = 2, col = 1,
+    labels = NULL, toplot = c("lines", "CI", "legend"),
+    ...)
+}
+\arguments{
+  \item{x}{a list of psth objects (class mpsth)}
+
+  \item{stimTimeCourse}{c(start,end) of stimulus}
+
+  \item{colStim}{colour of stimulus}
+
+  \item{colCI}{Colour of confidence interval (omitted when
+  null)}
+
+  \item{xlab,ylab}{Axis labels}
+
+  \item{xlim,ylim}{Optional axis ranges}
+
+  \item{lwd}{Line width}
+
+  \item{col}{Vector of colours for lines in plot}
+
+  \item{labels}{Optional labels for traces}
+
+  \item{toplot}{Elements of plot to display}
+
+  \item{...}{additional params passed to plot methods}
+}
+\description{
+  Plot PSTHs for multiple neurons (or multiple stimuli)
+}
+\author{
+  jefferis
+}
+\seealso{
+  STAR::psth, STAR::plot.psth
+}
+

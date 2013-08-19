@@ -1,0 +1,39 @@
+\name{smpsth}
+\alias{smpsth}
+\title{Generate smooth PSTHs for a set of spike trains}
+\usage{
+  smpsth(spikes, breaks = c(bw = 0.5, step = 0.05),
+    CI = 0.95, stimRange = NULL, ...)
+}
+\arguments{
+  \item{spikes}{A spiketimes object}
+
+  \item{breaks}{bins for psth or smoothing parameters (see
+  STAR::psth)}
+
+  \item{CI}{Confidence interval to calculate (defaults to
+  95 percent)}
+
+  \item{stimRange}{Stimulus time range c(start,end) in
+  seconds}
+
+  \item{...}{Ignored}
+}
+\value{
+  list of psth objects
+}
+\description{
+  Generate smooth PSTHs for a set of spike trains
+}
+\examples{
+spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20120917c1",
+  subdir="BLOCK A",stimRange=c(2000,2500))
+smpsth(spikes)
+}
+\author{
+  jefferis
+}
+\seealso{
+  STAR::psth, STAR::plot.psth, spiketimes
+}
+

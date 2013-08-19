@@ -1,0 +1,21 @@
+\name{[.mpsth}
+\alias{[.mpsth}
+\title{Extract one or more psth objects to make a new mpsth list}
+\usage{
+  \method{[}{mpsth} (x, i, ...)
+}
+\arguments{
+  \item{x}{mpsth objec to subset}
+
+  \item{i}{indices to use in subsetting}
+
+  \item{...}{additional arguments (currently ignored)}
+}
+\description{
+  Extract one or more psth objects to make a new mpsth list
+}
+\seealso{
+  Other mpsth: \code{\link{as.mpsth}},
+  \code{\link{as.ts.mpsth}}
+}
+

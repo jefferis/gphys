@@ -1,0 +1,21 @@
+\name{as.ts.psth}
+\alias{as.ts.psth}
+\title{Convert a STAR psth into a (multi) time series object}
+\usage{
+  \method{as.ts}{psth} (x, fieldsToConvert = "freq", ...)
+}
+\arguments{
+  \item{x}{STAR psth}
+
+  \item{fieldsToConvert}{name of fields to convert (freq,
+  ciUp, ciLow)}
+
+  \item{...}{ignored}
+}
+\description{
+  Convert a STAR psth into a (multi) time series object
+}
+\seealso{
+  Other psth: \code{\link{tsp.psth}}
+}
+
