@@ -243,3 +243,17 @@ test_that("Merge 2 blocks that have been split",{
           "Check that we get the right number of spikes in the right blocks")
       
     })
+
+
+test_that("subset spikes by odour or channel",{
+  fixVec=structure(c(31, 30, 29, 27, 26, 25), .Names = c("empty", "IAA", "cVA", "PAA", "4ol", "ctr"))
+  a=CollectSpikesFromSweeps("../igor/spikes/nm20110907c3/",subdir='BLOCKI',fixChannels=fixVec)
+  b=CollectSpikesFromSweeps("../igor/spikes/nm20110907c3/",subdir='BLOCKII')
+  ab=merge(a,b)
+  
+  cVAPAA=subset(ab,c("cVA","PAA"))
+  chs2927=subset(ab,c(29,27))
+  
+  expect_that(chs2927,is_equivalent_to(cVAPAA),
+              "Check that we get the same result subsetting by odour or channel")
+})

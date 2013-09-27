@@ -1,0 +1,42 @@
+\name{as.repeatedTrain}
+\alias{as.repeatedTrain}
+\alias{as.repeatedTrain.spiketimes}
+\title{Generic function to convert spikes to STAR as.repeatedTrain objects}
+\usage{
+  as.repeatedTrain(x, ...)
+
+  \method{as.repeatedTrain}{spiketimes} (x, ...)
+}
+\arguments{
+  \item{x}{Object containing spikes to convert}
+
+  \item{...}{further arguments to be passed to or from
+  other methods.}
+}
+\value{
+  repeatedTrain object (list of numeric vectors)
+}
+\description{
+  Generic function to convert spikes to STAR
+  as.repeatedTrain objects
+
+  The STAR (Spike Train Analysis with R) package has a
+  large number of useful functions for e.g. PSTH analysis.
+  Note that the spiketimes objects are a list of data
+  frames, where each list element will correspond to one
+  pxp file and will have trials for different odours. We
+  now want to turn this into a list of repeatedTrain
+  objects, one for each odour.
+}
+\examples{
+spikes<-CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
+subdir='Block I',sweeps=0:4)
+rt=as.repeatedTrain(spikes)
+rt
+require(STAR)
+psth(rt[['PAA']])
+}
+\seealso{
+  \code{\link[STAR]{as.repeatedTrain}}
+}
+

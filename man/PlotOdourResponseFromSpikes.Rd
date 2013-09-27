@@ -1,0 +1,55 @@
+\name{PlotOdourResponseFromSpikes}
+\alias{PlotOdourResponseFromSpikes}
+\title{Boxplot of spikes within a window (optionally less a baseline)}
+\usage{
+  PlotOdourResponseFromSpikes(spiketimes, responseWindow,
+    baselineWindow, PlotFrequency = FALSE,
+    PLOTFUN = stripchart, ...)
+}
+\arguments{
+  \item{PlotFrequency}{Plot spike rate in Hz rather than
+  counts (default FALSE)}
+
+  \item{PLOTFUN}{stripchart, boxplot or similar function
+  (default stripchart)}
+
+  \item{...}{Additional arguments passed on to PLOTFUN}
+
+  \item{spiketimes}{list of spiketimes collected by
+  CollectSpikesFromSweeps}
+
+  \item{responseWindow}{vector of start and end time of
+  odour response (in ms)}
+
+  \item{baselineWindow}{vector of start and end time of
+  baseline period (in ms)}
+}
+\value{
+  results of plotfun (if any)
+}
+\description{
+  Boxplot of spikes within a window (optionally less a
+  baseline)
+}
+\examples{
+\dontrun{
+spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
+ subdir='Block I',sweeps=0:4)
+## stripchart
+PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
+ col=1:6)
+## boxplot, in Hz
+PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,
+ PLOTFUN=boxplot)
+}
+}
+\author{
+  jefferis
+}
+\seealso{
+  CollectSpikesFromSweeps
+
+  Other OdourResponse:
+  \code{\link{OdourResponseFromSpikes}}
+}
+
