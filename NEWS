@@ -1,3 +1,8 @@
+gphys 0.7-2
+===========
+* Allow subset.spiketimes to use even dupliacted channels but warn that only
+  the first sweep will be used in this case.
+
 gphys 0.7-1
 ===========
 * Allow subset.spiketimes to use channels even when some (other) channels are
