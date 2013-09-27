@@ -256,4 +256,7 @@ test_that("subset spikes by odour or channel",{
   
   expect_that(chs2927,is_equivalent_to(cVAPAA),
               "Check that we get the same result subsetting by odour or channel")
+  
+  expect_warning(subset(ab,c(29,21)),regex='Will use first sweep for duplicated channels',
+                 info="Check that we get a warning when subsetting using a duplicated channel")
 })

@@ -191,10 +191,13 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
     if(any(duplicated(channels)))
       stop("Cannot handle duplicated channels")
     if(any(duplicated(oddconf$chan))){
-      # check if the channels we want are among the duplicates. If yes, barf
+      # check if the channels we want are among the duplicates. If yes, warn
       duplicated_channels=unique(oddconf$chan[duplicated(oddconf$chan)])
-      if(any(channels%in%duplicated_channels))
-        stop("Cannot handle requests for channels that are duplicated in ODD config")
+      duplicated_channels_we_want=intersect(duplicated_channels,channels)
+      if(length(duplicated_channels_we_want)){
+        warning("Will use first sweep for duplicated channels: ",
+                duplicated_channels_we_want)
+      }
     }
     if(!all(channels%in%oddconf$chan)){
       channels=intersect(channels,oddconf$chan)
