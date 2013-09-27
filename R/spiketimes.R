@@ -190,8 +190,12 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
       stop("Must supply either odours or channels")
     if(any(duplicated(channels)))
       stop("Cannot handle duplicated channels")
-    if(any(duplicated(oddconf$chan)))
-      stop("Cannot handle duplicated channels in ODD config")
+    if(any(duplicated(oddconf$chan))){
+      # check if the channels we want are among the duplicates. If yes, barf
+      duplicated_channels=unique(oddconf$chan[duplicated(oddconf$chan)])
+      if(any(channels%in%duplicated_channels))
+        stop("Cannot handle requests for channels that are duplicated in ODD config")
+    }
     if(!all(channels%in%oddconf$chan)){
       channels=intersect(channels,oddconf$chan)
       if(length(channels))
@@ -202,8 +206,9 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
         stop("None of the channels that you gave me are in this ODD config")
       }
     }
-    
-    rownames(oddconf)=as.character(oddconf$chan)
+    # nb we have checked that we are not intersted in any of the non-unique
+    # row names
+    rownames(oddconf)=make.unique(as.character(oddconf$chan))
     newoddconf=oddconf[as.character(channels),]
   }
   # Note that waves come in 0-indexed from Igor so we'll do the same
