@@ -147,6 +147,20 @@ merge.spiketimes<-function(x,y,...){
     attr(l,att)=unique(c(attr(x,att),attr(y,att)))
   }
   
+  # add a new attribute that specifies the set of pxps for each wave
+  # using the new numbering
+  aWaves=seq(from=0,to=xLastWave)
+  yLastWave=max(y[[1]]$Wave,na.rm=T)
+  bWavesOld=seq(from=0,to=yLastWave)
+  bWavesNew=bWavesOld+xLastWave+1
+  pxps4wave=list()
+  for(w in aWaves) pxps4wave[[as.character(w)]]=names(x)
+  for(w in bWavesNew) pxps4wave[[as.character(w)]]=names(y)
+  mergedwaveinfo=cbind(merged=as.integer(names(pxps4wave)),
+                       original=c(aWaves,bWavesOld),
+                       pxps=pxps4wave)
+  attr(l,'mergedwaveinfo')=mergedwaveinfo
+
   # merge odd configs
   attr(l,'oddconf')=rbind(attr(x,'oddconf'),attr(y,'oddconf'))
   l

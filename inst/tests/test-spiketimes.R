@@ -1,22 +1,34 @@
 context("Test handling of spike times files saved by Igor/Neuromatic")
 
 test_that("merge two blocks of spikes, ", {
-    nmdir='../igor/spikes/nm20120413c0'
-    a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
-    b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
-    
-    la=length(a)
-    lb=length(b)
-    shortest=ifelse(la>lb,lb,la)
-    c=merge(a[1:shortest],b[1:shortest])
-    expect_true(is.spiketimes(c))
-    expect_true(length(c)==shortest)
-    
-    merged_odours=c("IAA", "cVA", "pro", "PAA", "4ol", "ctr", "vin", "ctr", "fly", 
-    "far", "oen", "pac", "aac", "ger", "lin", "bty", "hxe", "ben", 
-    "met", "oil", "pra", "hxa", "oil", "ehb", "eta", "cit")
-    expect_that(attr(c,'oddconf')$odour,equals(merged_odours))
-    })
+  nmdir='../igor/spikes/nm20120413c0'
+  a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
+  b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
+  
+  la=length(a)
+  lb=length(b)
+  shortest=ifelse(la>lb,lb,la)
+  c=merge(a[1:shortest],b[1:shortest])
+  expect_true(is.spiketimes(c))
+  expect_true(length(c)==shortest)
+  
+  merged_odours=c("IAA", "cVA", "pro", "PAA", "4ol", "ctr", "vin", "ctr", "fly", 
+                  "far", "oen", "pac", "aac", "ger", "lin", "bty", "hxe", "ben", 
+                  "met", "oil", "pra", "hxa", "oil", "ehb", "eta", "cit")
+  expect_that(attr(c,'oddconf')$odour,equals(merged_odours))
+  
+  mwi=attr(c,'mergedwaveinfo')
+  expect_false(is.null(mwi),
+               "Check that merged wave has mergedwaveinfo attribute")
+  
+  expect_that(mwi[[1,'pxps']],equals(c("000","001","002","003","004","005")))
+  expect_that(mwi[[14,'pxps']],equals(c("007","008","009","010","011","012")))
+  expect_that(mwi[["0",'pxps']],equals(c("000","001","002","003","004","005")))
+  expect_that(mwi[["13",'pxps']],equals(c("007","008","009","010","011","012")))
+  expect_equivalent(unlist(mwi[1:13,"merged"]),0:12)
+  expect_equivalent(unlist(mwi[14:26,"original"]),0:12)
+  expect_equivalent(unlist(mwi[14:26,"merged"]),0:12+12+1)
+})
     
 test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", {
     nmdir='../igor/spikes/nm20120413c0'
