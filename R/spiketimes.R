@@ -29,26 +29,26 @@ NULL
 #' @export
 #' @family spiketimes
 split.spiketimes<-function(st,blocksize){
-	if(length(st)>1) stop("Don't know how to split a spike time list of > length 1")
-	st1=st[[1]]
-	st1$OldWave=st1$Wave
-	odd=attr(st,'oddconf')
-	if(missing(blocksize))
-		blocksize=length(unique(odd$odour))
-	# Find 0 indexed repetition number
-	st1$Rep=floor(st1$OldWave/blocksize)
-	st1$Wave=st1$OldWave%%blocksize
-	
-	stnew=split(st1,st1$Rep)
-	mostattributes(stnew)=attributes(st)
-	# We will have to make new names now that the list has more elements
-	# Nb new names will look like 008.000,008.001 
-	# (ie still 0-indexed for second part)
-	names(stnew)=sprintf("%s.%03d",names(st),seq_along(stnew)-1)
-	if(!is.null(attr(stnew,'oddconf'))){
-		attr(stnew,'oddconf')=attr(stnew,'oddconf')[1:blocksize,]
-	}
-	stnew
+  if(length(st)>1) stop("Don't know how to split a spike time list of > length 1")
+  st1=st[[1]]
+  st1$OldWave=st1$Wave
+  odd=attr(st,'oddconf')
+  if(missing(blocksize))
+    blocksize=length(unique(odd$odour))
+  # Find 0 indexed repetition number
+  st1$Rep=floor(st1$OldWave/blocksize)
+  st1$Wave=st1$OldWave%%blocksize
+  
+  stnew=split(st1,st1$Rep)
+  mostattributes(stnew)=attributes(st)
+  # We will have to make new names now that the list has more elements
+  # Nb new names will look like 008.000,008.001 
+  # (ie still 0-indexed for second part)
+  names(stnew)=sprintf("%s.%03d",names(st),seq_along(stnew)-1)
+  if(!is.null(attr(stnew,'oddconf'))){
+    attr(stnew,'oddconf')=attr(stnew,'oddconf')[1:blocksize,]
+  }
+  stnew
 }
 
 #' Combine multiple compatible spiketimes series (to plot as single raster)
@@ -70,16 +70,16 @@ split.spiketimes<-function(st,blocksize){
 #' @export
 #' @family spiketimes
 "+.spiketimes" <- function(e1,e2) {
-	cc=c(e1,e2)
-	oddconf1=attr(e1,'oddconf')
-	oddconf2=attr(e2,'oddconf')
-	if(!is.null(oddconf1)){
-		# the first one has an odd config
-		if(is.null(oddconf2)) stop("Both spikeimes lists must have oddconf attributes")
-		if(!isTRUE(all.equal(oddconf1,oddconf2))) stop("odd configs do not match")
-	}
-	mostattributes(cc) <- attributes(e1)
-	cc
+  cc=c(e1,e2)
+  oddconf1=attr(e1,'oddconf')
+  oddconf2=attr(e2,'oddconf')
+  if(!is.null(oddconf1)){
+    # the first one has an odd config
+    if(is.null(oddconf2)) stop("Both spikeimes lists must have oddconf attributes")
+    if(!isTRUE(all.equal(oddconf1,oddconf2))) stop("odd configs do not match")
+  }
+  mostattributes(cc) <- attributes(e1)
+  cc
 }
 
 #' Extract one or more spiketimes objects as a new spiketimes list
@@ -91,11 +91,11 @@ split.spiketimes<-function(st,blocksize){
 #' @family spiketimes
 #' @method [ spiketimes
 "[.spiketimes" <- function(x,i,...) {
-	st=structure(NextMethod("["), class = class(x))
-	mostattributes(st) <- attributes(x)
-	names(st)=names(x)[i]
-	attr(st,'sweeps')=names(st)
-	st
+  st=structure(NextMethod("["), class = class(x))
+  mostattributes(st) <- attributes(x)
+  names(st)=names(x)[i]
+  attr(st,'sweeps')=names(st)
+  st
 }
 
 #' Merge two spiketimes lists with different ODD configs
@@ -109,47 +109,47 @@ split.spiketimes<-function(st,blocksize){
 #' @export
 #' @seealso \code{\link{+.spiketimes}} for combining repeats from the same ODD config
 merge.spiketimes<-function(x,y,...){
-	if(!is.spiketimes(y)) stop("Can only merge two spiketimes objects")
-	maxlen=max(length(x),length(y))
-	
-	l=list()
-	
-	# Figure out how many waves we have in x
-	xLastWave=max(x[[1]]$Wave,na.rm=T)
-	# merge spike data frames
-	for(i in seq(maxlen)){
-		a=if(i<=length(x)) x[[i]] else NULL
-		b=if(i<=length(y)) y[[i]] else NULL
-		if(!is.null(b)){
-			b$Wave=xLastWave+1+b$Wave
-		}
-		ab=rbind(a,b)
-		l[[i]]=ab
-	}
-	
-	# bring over names etc
-	attributes_to_copy=if(length(x)>=length(y)) attributes(x) else attributes(y)
-	mostattributes(l)=attributes_to_copy
-	# fix names to conform to show that they look like 000,008 to show that they
-	# contain data from 2 pxp files
-	nx=names(x)
-	ny=names(y)
-	lx=length(x)
-	ly=length(y)
-	if(lx>ly){
-		ny=c(ny,rep("",lx-ly))
-	} else if(ly>lx){
-		nx=c(nx,rep("",ly-lx))
-	}
-	names(l)=paste(nx,ny,sep=",")
-	# merge simple attributes that it makes to sense merge
-	for(att in c("sweeps",'sweepdir')){
-		attr(l,att)=unique(c(attr(x,att),attr(y,att)))
-	}
-	
-	# merge odd configs
-	attr(l,'oddconf')=rbind(attr(x,'oddconf'),attr(y,'oddconf'))
-	l
+  if(!is.spiketimes(y)) stop("Can only merge two spiketimes objects")
+  maxlen=max(length(x),length(y))
+  
+  l=list()
+  
+  # Figure out how many waves we have in x
+  xLastWave=max(x[[1]]$Wave,na.rm=T)
+  # merge spike data frames
+  for(i in seq(maxlen)){
+    a=if(i<=length(x)) x[[i]] else NULL
+    b=if(i<=length(y)) y[[i]] else NULL
+    if(!is.null(b)){
+      b$Wave=xLastWave+1+b$Wave
+    }
+    ab=rbind(a,b)
+    l[[i]]=ab
+  }
+  
+  # bring over names etc
+  attributes_to_copy=if(length(x)>=length(y)) attributes(x) else attributes(y)
+  mostattributes(l)=attributes_to_copy
+  # fix names to conform to show that they look like 000,008 to show that they
+  # contain data from 2 pxp files
+  nx=names(x)
+  ny=names(y)
+  lx=length(x)
+  ly=length(y)
+  if(lx>ly){
+    ny=c(ny,rep("",lx-ly))
+  } else if(ly>lx){
+    nx=c(nx,rep("",ly-lx))
+  }
+  names(l)=paste(nx,ny,sep=",")
+  # merge simple attributes that it makes to sense merge
+  for(att in c("sweeps",'sweepdir')){
+    attr(l,att)=unique(c(attr(x,att),attr(y,att)))
+  }
+  
+  # merge odd configs
+  attr(l,'oddconf')=rbind(attr(x,'oddconf'),attr(y,'oddconf'))
+  l
 }
 
 #' Make a new spiketimes object containing only sweeps for an odour subset
@@ -163,7 +163,7 @@ merge.spiketimes<-function(x,y,...){
 #' @param x The old spiketimes object
 #' @param odours A character vector of odours
 #' @param channels Integer vector of channels
-#' @param ...	further arguments to be passed to or from other methods.
+#' @param ... further arguments to be passed to or from other methods.
 #' @return spiketimes object restricted to specified odours or channels
 #' @method subset spiketimes
 #' @author jefferis
@@ -248,7 +248,7 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
 #' @family spiketimes
 #' @export
 is.spiketimes<-function (x) {
-	inherits(x,'spiketimes')
+  inherits(x,'spiketimes')
 }
 
 #' Convert list of dataframes to spiketimes object
@@ -262,21 +262,21 @@ is.spiketimes<-function (x) {
 #' @export
 #' @family spiketimes
 as.spiketimes<-function (x,xlim,stimRange) {
-	if(!is.spiketimes(x)){
-		class(x)=c('spiketimes',class(x))
-	}
-	if(!missing(stimRange)) 
-		attr(x,'stimRange')=stimRange
-	x
-	if(!missing(xlim)) 
-		attr(x,'xlim')=xlim
-	x
+  if(!is.spiketimes(x)){
+    class(x)=c('spiketimes',class(x))
+  }
+  if(!missing(stimRange)) 
+    attr(x,'stimRange')=stimRange
+  x
+  if(!missing(xlim)) 
+    attr(x,'xlim')=xlim
+  x
 }
 
 #' Generic function to convert spikes to STAR as.repeatedTrain objects
 #' @param x Object containing spikes to convert
 #' @return repeatedTrain object (list of numeric vectors)
-#' @param ...	further arguments to be passed to or from other methods.
+#' @param ... further arguments to be passed to or from other methods.
 #' @export
 as.repeatedTrain<-function(x,...){
   UseMethod("as.repeatedTrain")
