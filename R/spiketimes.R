@@ -100,10 +100,10 @@ split.spiketimes<-function(st,blocksize){
 
 #' Merge two spiketimes lists with different ODD configs
 #'
-#' FIXME - figure out how to handle different numbers of repeats more gracefully
 #' @param x,y spiketimes objects to merge
 #' @param ... additional params (currently ignored)
-#' @return new spiketimes object
+#' @return new spiketimes object with original attributes merged as appropriate
+#'    and additional mergedwaveinfo attribute indicating origin of waves.
 #' @method merge spiketimes
 #' @family spiketimes
 #' @export

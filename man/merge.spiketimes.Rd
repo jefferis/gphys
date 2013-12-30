@@ -10,11 +10,12 @@
   \item{...}{additional params (currently ignored)}
 }
 \value{
-  new spiketimes object
+  new spiketimes object with original attributes merged as
+  appropriate and additional mergedwaveinfo attribute
+  indicating origin of waves.
 }
 \description{
-  FIXME - figure out how to handle different numbers of
-  repeats more gracefully
+  Merge two spiketimes lists with different ODD configs
 }
 \seealso{
   \code{\link{+.spiketimes}} for combining repeats from the
