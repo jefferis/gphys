@@ -33,7 +33,9 @@ spikes8=CollectSpikesFromSweeps('/Volumes/JData/JPeople/Shahar/Data/120308/nm201
 spike8_split=split(spikes8)
 PlotRasterFromSweeps (spike8_split)
 # Now plot the voltages
-avgwaves=read.table('/Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',header=T)
+avgwaves=read.table(
+  /Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',
+  header=T)
 avgwavests=ts(avgwaves,start=0,freq=10)
 AddLinesToRasterPlot(avgwavests,col='red')
 # same but with rainbow colouring

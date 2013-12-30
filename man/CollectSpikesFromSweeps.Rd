@@ -47,7 +47,8 @@
 \examples{
 \dontrun{
 # Collect from absolute path (what you will probably typically do)
-spikes=CollectSpikesFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
+spikes=CollectSpikesFromSweeps(
+  '/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
 }
 # If you have your data in a single folder hierarchy, you can that as the
 # data directory.

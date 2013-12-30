@@ -13,6 +13,8 @@
     fixChannels = NULL, IncludeChannels = FALSE,
     PlotSpikes = TRUE, PlotDividers = TRUE,
     panel.first = NULL, panel.last = NULL, ...)
+
+  \method{plot}{spiketimes} (x, ...)
 }
 \arguments{
   \item{xlim}{x axis range of plot}
@@ -74,6 +76,8 @@
 
   \item{...}{Additional parameters passed to plot}
 
+  \item{x}{A spiketimes object}
+
   \item{sweepdir}{directory containing Nclamp pxp sweep
   files}
 
@@ -93,6 +97,9 @@
 \description{
   Make a raster plot from a set of Nclamp sweeps recording
   odour responses
+
+  This overloads base R's plot and calls
+  PlotRasterFromSweeps
 }
 \details{
   Note that can also give a spiketimes list from
@@ -137,6 +144,9 @@ PlotRasterFromSweeps(
   system.file('igor','spikes','nm20110907c3',package='gphys'),
   subdir='BLOCKI',odourRange=c(2000,2500,3000,3250),xlim=c(0,5000),
   fixChannels=fixVec)
+options(gphys.datadir=system.file('igor','spikes',package='gphys'))
+spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
+plot(spikes)
 }
 \author{
   jefferis
@@ -144,5 +154,7 @@ PlotRasterFromSweeps(
 \seealso{
   \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and
   \code{\link{plot.default}} for graphical parameters
+
+  \code{\link{PlotRasterFromSweeps}, \link{spiketimes}}
 }
 

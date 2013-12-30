@@ -149,9 +149,19 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
   title(main=main,sub=sub)
 }
 
+#' Plot raster from spiketimes object
+#' 
+#' This overloads base R's plot and calls PlotRasterFromSweeps
 #' @export
+#' @param x A spiketimes object
 #' @method plot spiketimes
-plot.spiketimes<-PlotRasterFromSweeps
+#' @rdname PlotRasterFromSweeps
+#' @seealso \code{\link{PlotRasterFromSweeps}, \link{spiketimes}}
+#' @examples
+#' options(gphys.datadir=system.file('igor','spikes',package='gphys'))
+#' spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
+#' plot(spikes)
+plot.spiketimes<-function(x, ...) PlotRasterFromSweeps(x, ...)
 
 #' Read in Igor Pro exported text file of Nclamp spike times
 #' 
@@ -179,7 +189,8 @@ plot.spiketimes<-PlotRasterFromSweeps
 #' @examples
 #' \dontrun{
 #' # Collect from absolute path (what you will probably typically do)
-#' spikes=CollectSpikesFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
+#' spikes=CollectSpikesFromSweeps(
+#'   '/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
 #' }
 #' # If you have your data in a single folder hierarchy, you can that as the
 #' # data directory.
@@ -390,7 +401,9 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
 #' spike8_split=split(spikes8)
 #' PlotRasterFromSweeps (spike8_split)
 #' # Now plot the voltages
-#' avgwaves=read.table('/Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',header=T)
+#' avgwaves=read.table(
+#'   /Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',
+#'   header=T)
 #' avgwavests=ts(avgwaves,start=0,freq=10)
 #' AddLinesToRasterPlot(avgwavests,col='red')
 #' # same but with rainbow colouring
