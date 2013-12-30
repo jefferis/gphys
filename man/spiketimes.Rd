@@ -1,6 +1,21 @@
 \name{spiketimes}
 \alias{spiketimes}
-\title{spiketimes class to store times of spikes with stimulus information}
+\title{Make spiketimes object (spike times + stimulus info) from list of dataframes}
+\usage{
+  spiketimes(x, xlim, stimRange)
+}
+\arguments{
+  \item{x}{object to convert to spiketimes list (normally
+  already a list(}
+
+  \item{xlim}{recording time window for each sweep}
+
+  \item{stimRange}{time window over which stimulus was
+  delivered}
+}
+\value{
+  spiketimes object
+}
 \description{
   spiketimes objects consist of a list of dataframes
   reporting the time of spikes. the data frames have two
@@ -19,11 +34,15 @@
   split a spiketimes object loaded from a pxp file with
   repeated blocks and \code{\link{+.spiketimes}} to combine
   compatible blocks.
+
+  \code{\link{CollectSpikesFromSweeps}} will generate a
+  spiketimes object for you, so this function will only
+  needed if you are constructing \code{\link{spiketimes}}
+  objects from scratch.
 }
 \seealso{
   Other spiketimes: \code{\link{+.spiketimes}},
-  \code{\link{[.spiketimes}}, \code{\link{as.spiketimes}},
-  \code{\link{is.spiketimes}},
+  \code{\link{[.spiketimes}}, \code{\link{is.spiketimes}},
   \code{\link{merge.spiketimes}},
   \code{\link{split.spiketimes}},
   \code{\link{subset.spiketimes}}

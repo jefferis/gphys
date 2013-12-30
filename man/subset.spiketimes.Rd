@@ -33,8 +33,7 @@
 }
 \seealso{
   Other spiketimes: \code{\link{+.spiketimes}},
-  \code{\link{[.spiketimes}}, \code{\link{as.spiketimes}},
-  \code{\link{is.spiketimes}},
+  \code{\link{[.spiketimes}}, \code{\link{is.spiketimes}},
   \code{\link{merge.spiketimes}}, \code{\link{spiketimes}},
   \code{\link{split.spiketimes}}
 }
