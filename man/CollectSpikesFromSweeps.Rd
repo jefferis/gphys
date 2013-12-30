@@ -45,13 +45,19 @@
   level directory for the cell.
 }
 \examples{
-spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3))
-PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
-# example of collecting only from one of Jonny's subdirectories
+\dontrun{
+# Collect from absolute path (what you will probably typically do)
 spikes=CollectSpikesFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
-# example of setting data directory
-options(gphys.datadir='/Volumes/JData/JPeople/Jonny/physiology/data')
-spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCK B')
+}
+# If you have your data in a single folder hierarchy, you can that as the
+# data directory.
+# Here we set the data directory to folder containing gphys example data
+options(gphys.datadir=system.file('igor','spikes',package='gphys'))
+spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
+# Finally an example specifying the exact sweeps to load
+spikes=CollectSpikesFromSweeps("nm20110811c0",c(0,1,3))
+# and plotting them
+plot(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 }
 \author{
   jefferis

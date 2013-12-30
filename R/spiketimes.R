@@ -306,8 +306,9 @@ as.repeatedTrain<-function(x,...){
 #' @aliases as.repeatedTrain
 #' @seealso \code{\link[STAR]{as.repeatedTrain}}
 #' @examples
-#' spikes<-CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
-#' subdir='Block I',sweeps=0:4)
+#' spikes<-CollectSpikesFromSweeps(
+#'   system.file('igor','spikes','nm20110914c4',package='gphys'),
+#'   subdir='BlockI',sweeps=0:4)
 #' rt=as.repeatedTrain(spikes)
 #' rt
 #' require(STAR)

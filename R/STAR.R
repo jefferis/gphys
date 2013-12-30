@@ -42,8 +42,9 @@ tsp.psth<-function(x){
 #' @export
 #' @seealso STAR::psth, STAR::plot.psth, spiketimes
 #' @examples
-#' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20120917c1",
-#'   subdir="BLOCK A",stimRange=c(2000,2500))
+#' spikes=CollectSpikesFromSweeps(
+#'   system.file('igor','spikes','nm20120917c1',package='gphys'),
+#'   subdir="BLOCKA",stimRange=c(2000,2500))
 #' smpsth(spikes)
 smpsth<-function(spikes, breaks=c(bw=0.5,step=0.05), CI=0.95,
     stimRange=NULL, ...){

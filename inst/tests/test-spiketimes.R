@@ -2,8 +2,8 @@ context("Test handling of spike times files saved by Igor/Neuromatic")
 
 test_that("merge two blocks of spikes, ", {
   nmdir='../igor/spikes/nm20120413c0'
-  a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
-  b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
+  a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
+  b=CollectSpikesFromSweeps(nmdir,subdir="BLOCKB")
   
   la=length(a)
   lb=length(b)
@@ -32,8 +32,8 @@ test_that("merge two blocks of spikes, ", {
     
 test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", {
     nmdir='../igor/spikes/nm20120413c0'
-    a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
-    b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
+    a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
+    b=CollectSpikesFromSweeps(nmdir,subdir="BLOCKB")
     c=merge(a,b)
     d=merge(b,a)
 
@@ -75,8 +75,8 @@ test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", 
     
 test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", {
     nmdir='../igor/spikes/nm20121020c2'
-    a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
-    b=CollectSpikesFromSweeps(nmdir,subdir="BLOCK B")
+    a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
+    b=CollectSpikesFromSweeps(nmdir,subdir="BLOCKB")
     c=merge(a,b)
     d=merge(b,a)
 
@@ -103,7 +103,7 @@ test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", 
 
 test_that("Count spikes - large reponse window", {
   nmdir='../igor/spikes/nm20120413c0'
-  a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
+  a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
   csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
 
   csa_baseline<-structure(list(IAA = c(4L, 1L, 2L, 1L, 3L, 1L, 4L), cVA = c(4L, 
@@ -121,7 +121,7 @@ test_that("Count spikes - large reponse window", {
 
 test_that("Count spikes - NULL baseline", {
       nmdir='../igor/spikes/nm20120413c0'
-      a=CollectSpikesFromSweeps(nmdir,subdir="BLOCK A")
+      a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
       csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
       csa.nb=OdourResponseFromSpikes(a,responseWindow=c(0,4000),baselineWindow = NULL)
       
@@ -130,7 +130,7 @@ test_that("Count spikes - NULL baseline", {
 
 test_that("Count spikes - with baseline", {
       nmdir='../igor/spikes/nm20110914c4'
-      spikes=CollectSpikesFromSweeps(nmdir,subdir="BLOCK I",sweeps=0:4)
+      spikes=CollectSpikesFromSweeps(nmdir,subdir="BLOCKI",sweeps=0:4)
       od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
       
       od_baseline<-structure(list(ctr = c(-1.5, -0.25, 0, 0.75, -0.75), fly = c(-0.25, 
@@ -229,7 +229,7 @@ test_that("Split spiketimes with n presentations into n separate dataframes",{
                       0, 0, 0, 0, 0, 0, 0)), .Names = c("odour", "del", "dur", 
                   "chan", "del.1", "dur.1", "chan.1", "del.2", "dur.2", "chan.2", 
                   "del.3", "dur.3", "chan.3", "del.4", "dur.4", "chan.4"), row.names = c(NA, 
-                  8L), class = "data.frame"), sweeps = "008", sweepdir = "/Volumes/JData/JPeople/Shahar/Data/120906/nm20120906c0", stimRange = c(500, 
+                  8L), class = "data.frame"), sweeps = "008", sweepdir = "../igor/spikes/nm20120906c0", stimRange = c(500, 
               1000), xlim = c(0, 3000), class = c("spiketimes", "list"))
       expect_that(b8s,is_equivalent_to(b8s_baseline))
       

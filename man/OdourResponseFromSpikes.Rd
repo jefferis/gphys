@@ -32,7 +32,9 @@
   the response will be returned as 10-5/5 = 9 spikes.
 }
 \examples{
-spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",subdir='Block I',sweeps=0:4)
+spikes=CollectSpikesFromSweeps(
+  system.file('igor','spikes','nm20110914c4',package='gphys'),
+  subdir='BlockI',sweeps=0:4)
 od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
 summary(od)
 apply(od,2,function(x) c(mean=mean(x),sd=sd(x)))
