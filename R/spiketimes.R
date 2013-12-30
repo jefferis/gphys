@@ -50,7 +50,7 @@ split.spiketimes<-function(st,blocksize){
 #' @method + spiketimes
 #' @export
 #' @family spiketimes
-"+.spiketimes" <- function(e1,e2) {
+`+.spiketimes` <- function(e1,e2) {
   cc=c(e1,e2)
   oddconf1=attr(e1,'oddconf')
   oddconf2=attr(e2,'oddconf')
@@ -71,7 +71,7 @@ split.spiketimes<-function(st,blocksize){
 #' @rdname open-brace-spiketimes
 #' @family spiketimes
 #' @method [ spiketimes
-"[.spiketimes" <- function(x,i,...) {
+`[.spiketimes` <- function(x,i,...) {
   st=structure(NextMethod("["), class = class(x))
   mostattributes(st) <- attributes(x)
   names(st)=names(x)[i]
