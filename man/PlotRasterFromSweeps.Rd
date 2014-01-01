@@ -13,6 +13,8 @@
     fixChannels = NULL, IncludeChannels = FALSE,
     PlotSpikes = TRUE, PlotDividers = TRUE,
     panel.first = NULL, panel.last = NULL, ...)
+
+  \method{plot}{spiketimes} (x, ...)
 }
 \arguments{
   \item{xlim}{x axis range of plot}
@@ -74,6 +76,8 @@
 
   \item{...}{Additional parameters passed to plot}
 
+  \item{x}{A spiketimes object}
+
   \item{sweepdir}{directory containing Nclamp pxp sweep
   files}
 
@@ -93,6 +97,9 @@
 \description{
   Make a raster plot from a set of Nclamp sweeps recording
   odour responses
+
+  This overloads base R's plot and calls
+  PlotRasterFromSweeps
 }
 \details{
   Note that can also give a spiketimes list from
@@ -109,26 +116,37 @@
 }
 \examples{
 ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
-PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
+PlotRasterFromSweeps(
+  system.file('igor','spikes','nm20110811c0',package='gphys'),
   c(0,1,3),xlim=c(2000,4000),odourRange=c(2000,3000))
 # Use rectangles for spikes instead
-PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
+PlotRasterFromSweeps(
+  system.file('igor','spikes','nm20110811c0',package='gphys'),
   c(0,1,3),xlim=c(0,4000),odourRange=c(2000,3000),dotwidth=20,pch='rect')
 ## Fix a bad label, first define a function
 relabel=function(labels) {labels[labels=="fly"]="empty";labels}
 ## and then use it
-PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
+PlotRasterFromSweeps(
+  system.file('igor','spikes','nm20110811c0',package='gphys'),
   c(0,1,3),relabelfun=relabel)
-## Example for Jonny's block based organisation (spike files sorted into subdirs)
-PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',
-  subdir='BLOCK A',odourRange=c(2000,2500),xlim=c(0,5000))
+## Example with block based organisation
+## i.e. spike files sorted into different subdirs for each stimulus protocol
+PlotRasterFromSweeps(
+  system.file('igor','spikes','nm20120514c2',package='gphys'),
+  subdir='BLOCKA',odourRange=c(2000,2500),xlim=c(0,5000))
 ## Example of fixing one of Jonny's traces when channels were mixed up
 fixVec=c(empty=31,IAA=30,cVA=29,PAA=27,`4ol`=26,ctr=25)
-PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
-  subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
+PlotRasterFromSweeps(
+  system.file('igor','spikes','nm20110907c3',package='gphys'),
+  subdir='BLOCKI',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
 ## Imagine a double odour stimulation
-PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
-  subdir='BLOCK I',odourRange=c(2000,2500,3000,3250),xlim=c(0,5000),fixChannels=fixVec)
+PlotRasterFromSweeps(
+  system.file('igor','spikes','nm20110907c3',package='gphys'),
+  subdir='BLOCKI',odourRange=c(2000,2500,3000,3250),xlim=c(0,5000),
+  fixChannels=fixVec)
+options(gphys.datadir=system.file('igor','spikes',package='gphys'))
+spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
+plot(spikes)
 }
 \author{
   jefferis
@@ -136,5 +154,7 @@ PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3'
 \seealso{
   \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and
   \code{\link{plot.default}} for graphical parameters
+
+  \code{\link{PlotRasterFromSweeps}, \link{spiketimes}}
 }
 

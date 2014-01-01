@@ -33,8 +33,9 @@
 }
 \examples{
 \dontrun{
-spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
- subdir='Block I',sweeps=0:4)
+spikes=CollectSpikesFromSweeps(
+  system.file('igor','spikes','nm20110914c4',package='gphys'),
+  subdir='Block I',sweeps=0:4)
 ## stripchart
 PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
  col=1:6)

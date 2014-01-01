@@ -33,25 +33,25 @@ finder_colour<-function(filename){
 #' @author jefferis
 #' @export
 finder_colour_fast<-function(files){
-	if(Sys.info()['sysname']!='Darwin') return(NA)
-	doNotExist=files[!file.exists(files)]
-	if (length(doNotExist)>0) message("The following files do not exist and have been dropped: ", doNotExist)
-	existingFiles=files[file.exists(files)]
-	if (length(existingFiles)==0) return(paste("No files to check"))
-	ow=options(warn=-1)
-	on.exit(options(ow))
-	cmd=paste("mdls -raw -name kMDItemFSLabel", paste(shQuote(path.expand(existingFiles)), collapse=" "), " | xargs -0 echo")
-	mdls=system(cmd,intern=T)
-	colors=scan(tc<-textConnection(mdls))
-	on.exit(close(tc))
-	assignColor<-function(num){
-		cols=c("None","Gray","Green","Purple","Blue","Yellow","Red","Orange")
-		color=cols[num+1]
-		color
-	}
-	colors<-assignColor(colors)
-	names(colors)=basename(existingFiles)
-	colors
+  if(Sys.info()['sysname']!='Darwin') return(NA)
+  doNotExist=files[!file.exists(files)]
+  if (length(doNotExist)>0) message("The following files do not exist and have been dropped: ", doNotExist)
+  existingFiles=files[file.exists(files)]
+  if (length(existingFiles)==0) return(paste("No files to check"))
+  ow=options(warn=-1)
+  on.exit(options(ow))
+  cmd=paste("mdls -raw -name kMDItemFSLabel", paste(shQuote(path.expand(existingFiles)), collapse=" "), " | xargs -0 echo")
+  mdls=system(cmd,intern=T)
+  colors=scan(tc<-textConnection(mdls))
+  on.exit(close(tc))
+  assignColor<-function(num){
+    cols=c("None","Gray","Green","Purple","Blue","Yellow","Red","Orange")
+    color=cols[num+1]
+    color
+  }
+  colors<-assignColor(colors)
+  names(colors)=basename(existingFiles)
+  colors
 }
 
 #' Set the colour label of a file in the MacOS X Finder 

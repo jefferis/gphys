@@ -1,17 +1,17 @@
 #' Make a raster plot from a set of Nclamp sweeps recording odour responses
-#'
-#' @details Note that can also give a spiketimes list from CollectSpikesFromSweeps
-#' By default the odour stimulus is represented by a pale red rectangle
-#'  in a layer behind the spikes.
-#' If pch takes the special value "rect" then rectangles of width dotwidth are drawn.
-#' spikewidth will then specify the relative size of the spikes with 1 resulting
-#'   in the top of spikes from one line at the same height as the base of spikes
-#'   in the line above.
-#' If more than one stimulus is required, odourRange can be specified as a vector
-#'   of successive start,stop times e.g. c(start1,stop1,start2,stop2).
+#' 
+#' @details Note that can also give a spiketimes list from 
+#'   CollectSpikesFromSweeps By default the odour stimulus is represented by a 
+#'   pale red rectangle in a layer behind the spikes. If pch takes the special 
+#'   value "rect" then rectangles of width dotwidth are drawn. spikewidth will 
+#'   then specify the relative size of the spikes with 1 resulting in the top of
+#'   spikes from one line at the same height as the base of spikes in the line 
+#'   above. If more than one stimulus is required, odourRange can be specified 
+#'   as a vector of successive start,stop times e.g. 
+#'   c(start1,stop1,start2,stop2).
 #' @inheritParams CollectSpikesFromSweeps
-#' @param xlim x axis range of plot 
-#' @param main main title of plot (see \code{\link{title}}) 
+#' @param xlim x axis range of plot
+#' @param main main title of plot (see \code{\link{title}})
 #' @param sub subtitle of plot
 #' @param xlab axis label (default Time/ms)
 #' @param ylab axis label (default odour)
@@ -22,44 +22,54 @@
 #' @param pch plotting character (default 22 is a square, see details for rect)
 #' @param dotcolour colour of dots in raster plot (default black)
 #' @param dotsize size of dots in raster plot (default 0.5)
-#' @param dotwidth Width in ms of rectangle when pch='rect' 
+#' @param dotwidth Width in ms of rectangle when pch='rect'
 #' @param spikeheight Relative height of spike when pch='rect' (default 0.8)
-#' @param odourRange time window of odour delivery 
-#' @param odourCol colour of odour window (default pale red) 
+#' @param odourRange time window of odour delivery
+#' @param odourCol colour of odour window (default pale red)
 #' @param relabelfun function to apply to odour labels (default no relabelling)
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
 #' @param PlotSpikes Whether to plot the spikes (default TRUE)
 #' @param PlotDividers Plot the dividing lines between odours (default TRUE)
-#' @param panel.first An \code{expression} to be evaluated after the plot axes are set up but before any plotting takes place
-#' @param panel.last An \code{expression} to be evaluated after spikes have been plotted
-#' @param ... Additional parameters passed to plot 
+#' @param panel.first An \code{expression} to be evaluated after the plot axes 
+#'   are set up but before any plotting takes place
+#' @param panel.last An \code{expression} to be evaluated after spikes have been
+#'   plotted
+#' @param ... Additional parameters passed to plot
 #' @author jefferis
-#' @seealso \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and \code{\link{plot.default}}
-#'   for graphical parameters
+#' @seealso \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and 
+#'   \code{\link{plot.default}} for graphical parameters
 #' @export
 #' @aliases plot.spiketimes
 #' @examples
 #' ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
-#' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
+#' PlotRasterFromSweeps(
+#'   system.file('igor','spikes','nm20110811c0',package='gphys'),
 #'   c(0,1,3),xlim=c(2000,4000),odourRange=c(2000,3000))
 #' # Use rectangles for spikes instead
-#' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
+#' PlotRasterFromSweeps(
+#'   system.file('igor','spikes','nm20110811c0',package='gphys'),
 #'   c(0,1,3),xlim=c(0,4000),odourRange=c(2000,3000),dotwidth=20,pch='rect')
 #' ## Fix a bad label, first define a function 
 #' relabel=function(labels) {labels[labels=="fly"]="empty";labels}
 #' ## and then use it
-#' PlotRasterFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",
+#' PlotRasterFromSweeps(
+#'   system.file('igor','spikes','nm20110811c0',package='gphys'),
 #'   c(0,1,3),relabelfun=relabel)
-#' ## Example for Jonny's block based organisation (spike files sorted into subdirs)
-#' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',
-#'   subdir='BLOCK A',odourRange=c(2000,2500),xlim=c(0,5000))
+#' ## Example with block based organisation 
+#' ## i.e. spike files sorted into different subdirs for each stimulus protocol
+#' PlotRasterFromSweeps(
+#'   system.file('igor','spikes','nm20120514c2',package='gphys'),
+#'   subdir='BLOCKA',odourRange=c(2000,2500),xlim=c(0,5000))
 #' ## Example of fixing one of Jonny's traces when channels were mixed up
 #' fixVec=c(empty=31,IAA=30,cVA=29,PAA=27,`4ol`=26,ctr=25)
-#' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
-#'   subdir='BLOCK I',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
+#' PlotRasterFromSweeps(
+#'   system.file('igor','spikes','nm20110907c3',package='gphys'),
+#'   subdir='BLOCKI',odourRange=c(2000,2500),xlim=c(0,5000),fixChannels=fixVec)
 #' ## Imagine a double odour stimulation
-#' PlotRasterFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20110907c3',
-#'   subdir='BLOCK I',odourRange=c(2000,2500,3000,3250),xlim=c(0,5000),fixChannels=fixVec)
+#' PlotRasterFromSweeps(
+#'   system.file('igor','spikes','nm20110907c3',package='gphys'),
+#'   subdir='BLOCKI',odourRange=c(2000,2500,3000,3250),xlim=c(0,5000),
+#'   fixChannels=fixVec)
 PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
   xlim=NULL,xaxis=TRUE,yaxis=TRUE,frame.plot=TRUE,xaxs='i',yaxs='i',
   main,sub,xlab='Time/ms', ylab='Odour',
@@ -139,43 +149,59 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
   title(main=main,sub=sub)
 }
 
+#' Plot raster from spiketimes object
+#' 
+#' This overloads base R's plot and calls PlotRasterFromSweeps
 #' @export
+#' @param x A spiketimes object
 #' @method plot spiketimes
-plot.spiketimes<-PlotRasterFromSweeps
+#' @rdname PlotRasterFromSweeps
+#' @seealso \code{\link{PlotRasterFromSweeps}, \link{spiketimes}}
+#' @examples
+#' options(gphys.datadir=system.file('igor','spikes',package='gphys'))
+#' spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
+#' plot(spikes)
+plot.spiketimes<-function(x, ...) PlotRasterFromSweeps(x, ...)
 
 #' Read in Igor Pro exported text file of Nclamp spike times
-#'
-#' The list of spiketimes has two columns, Time and Wave, where wave is 
-#' the number of the wave within each sweepfile containing the spike.
-#' xlim and stimRange are kept as attributes that will be used for plots
-#' * fixChannels expects a named vector of any channels that need to have 
-#'   different odour names. This can be used to fix an error in the original ODD
-#'   config file.
-#' * If spike time txt files have been placed in a subdirectory, then that
-#'   subdirectory must be specified using the \code{subdir} argument.
-#' * However it is expected that the corresponding pxp and odd config files
-#'   remain in the top level directory for the cell.
+#' 
+#' The list of spiketimes has two columns, Time and Wave, where wave is the
+#' number of the wave within each sweepfile containing the spike. xlim and
+#' stimRange are kept as attributes that will be used for plots * fixChannels
+#' expects a named vector of any channels that need to have different odour
+#' names. This can be used to fix an error in the original ODD config file. * If
+#' spike time txt files have been placed in a subdirectory, then that 
+#' subdirectory must be specified using the \code{subdir} argument. * However it
+#' is expected that the corresponding pxp and odd config files remain in the top
+#' level directory for the cell.
 #' @param sweepdir directory containing Nclamp pxp sweep files
 #' @param sweeps Vector of sweeps to include (e.g. 1:7) or character regex which
-#'               sweeps must match.
+#'   sweeps must match.
 #' @param subdir subdirectory containing group of spike times txt files
 #' @param xlim time range of sweeps
 #' @param stimRange time range of stimulus
-#' @param fixChannels Optional named integer vector that remaps some bad numeric 
+#' @param fixChannels Optional named integer vector that remaps some bad numeric
 #'   channels to correct odours. FIXME shouldn't we fix channels as well.
 #' @param subset Numeric vector of channels or character vector of odours
 #' @return list (with class spiketimes) containing times for each sweep
 #' @author jefferis
 #' @export
 #' @examples
-#' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110811c0",c(0,1,3))
-#' PlotRasterFromSweeps(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
-#' # example of collecting only from one of Jonny's subdirectories
-#' spikes=CollectSpikesFromSweeps('/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
-#' # example of setting data directory
-#' options(gphys.datadir='/Volumes/JData/JPeople/Jonny/physiology/data')
-#' spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCK B')
-#' @importFrom tools md5sum 
+#' \dontrun{
+#' # Collect from absolute path (what you will probably typically do)
+#' spikes=CollectSpikesFromSweeps(
+#'   '/Volumes/JData/JPeople/Jonny/physiology/data/nm20120514c2',subdir='BLOCK B')
+#' }
+#' # If you have your data in a single folder hierarchy, you can that as the
+#' # data directory.
+#' # Here we set the data directory to folder containing gphys example data
+#' options(gphys.datadir=system.file('igor','spikes',package='gphys'))
+#' spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
+#' # Finally an example specifying the exact sweeps to load
+#' spikes=CollectSpikesFromSweeps("nm20110811c0",c(0,1,3))
+#' # and plotting them
+#' plot(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
+#' @importFrom tools md5sum
 CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
     fixChannels=NULL,subset=NULL){
   if(!file.exists(sweepdir)){
@@ -262,8 +288,9 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 #' @seealso CollectSpikesFromSweeps
 #' @examples
 #' \dontrun{ 
-#' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",
-#'  subdir='Block I',sweeps=0:4)
+#' spikes=CollectSpikesFromSweeps(
+#'   system.file('igor','spikes','nm20110914c4',package='gphys'),
+#'   subdir='Block I',sweeps=0:4)
 #' ## stripchart
 #' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
 #'  col=1:6)
@@ -299,7 +326,9 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
 #' @export
 #' @family OdourResponse
 #' @examples 
-#' spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20110914c4",subdir='Block I',sweeps=0:4)
+#' spikes=CollectSpikesFromSweeps(
+#'   system.file('igor','spikes','nm20110914c4',package='gphys'),
+#'   subdir='BlockI',sweeps=0:4)
 #' od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
 #' summary(od)
 #' apply(od,2,function(x) c(mean=mean(x),sd=sd(x)))
@@ -372,7 +401,9 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
 #' spike8_split=split(spikes8)
 #' PlotRasterFromSweeps (spike8_split)
 #' # Now plot the voltages
-#' avgwaves=read.table('/Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',header=T)
+#' avgwaves=read.table(
+#'   /Volumes/JData/JPeople/Shahar/Data/120308/nm20120308c0/008_Avg_RG0_A0++.txt',
+#'   header=T)
 #' avgwavests=ts(avgwaves,start=0,freq=10)
 #' AddLinesToRasterPlot(avgwavests,col='red')
 #' # same but with rainbow colouring

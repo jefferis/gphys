@@ -26,8 +26,9 @@
   Generate smooth PSTHs for a set of spike trains
 }
 \examples{
-spikes=CollectSpikesFromSweeps("/Volumes/JData/JPeople/Jonny/physiology/data/nm20120917c1",
-  subdir="BLOCK A",stimRange=c(2000,2500))
+spikes=CollectSpikesFromSweeps(
+  system.file('igor','spikes','nm20120917c1',package='gphys'),
+  subdir="BLOCKA",stimRange=c(2000,2500))
 smpsth(spikes)
 }
 \author{
