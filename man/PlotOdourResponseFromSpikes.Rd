@@ -2,9 +2,8 @@
 \alias{PlotOdourResponseFromSpikes}
 \title{Boxplot of spikes within a window (optionally less a baseline)}
 \usage{
-  PlotOdourResponseFromSpikes(spiketimes, responseWindow,
-    baselineWindow, PlotFrequency = FALSE,
-    PLOTFUN = stripchart, ...)
+PlotOdourResponseFromSpikes(spiketimes, responseWindow, baselineWindow,
+  PlotFrequency = FALSE, PLOTFUN = stripchart, ...)
 }
 \arguments{
   \item{PlotFrequency}{Plot spike rate in Hz rather than
@@ -25,11 +24,11 @@
   baseline period (in ms)}
 }
 \value{
-  results of plotfun (if any)
+results of plotfun (if any)
 }
 \description{
-  Boxplot of spikes within a window (optionally less a
-  baseline)
+Boxplot of spikes within a window (optionally less a
+baseline)
 }
 \examples{
 \dontrun{
@@ -45,12 +44,11 @@ PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,
 }
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  CollectSpikesFromSweeps
+CollectSpikesFromSweeps
 
-  Other OdourResponse:
-  \code{\link{OdourResponseFromSpikes}}
+Other OdourResponse: \code{\link{OdourResponseFromSpikes}}
 }
 

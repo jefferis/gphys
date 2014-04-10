@@ -2,8 +2,8 @@
 \alias{smpsth}
 \title{Generate smooth PSTHs for a set of spike trains}
 \usage{
-  smpsth(spikes, breaks = c(bw = 0.5, step = 0.05),
-    CI = 0.95, stimRange = NULL, ...)
+smpsth(spikes, breaks = c(bw = 0.5, step = 0.05), CI = 0.95,
+  stimRange = NULL, ...)
 }
 \arguments{
   \item{spikes}{A spiketimes object}
@@ -20,10 +20,10 @@
   \item{...}{Ignored}
 }
 \value{
-  list of psth objects
+list of psth objects
 }
 \description{
-  Generate smooth PSTHs for a set of spike trains
+Generate smooth PSTHs for a set of spike trains
 }
 \examples{
 spikes=CollectSpikesFromSweeps(
@@ -32,9 +32,9 @@ spikes=CollectSpikesFromSweeps(
 smpsth(spikes)
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  STAR::psth, STAR::plot.psth, spiketimes
+STAR::psth, STAR::plot.psth, spiketimes
 }
 

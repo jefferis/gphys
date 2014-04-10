@@ -2,7 +2,7 @@
 \alias{as.mpsth}
 \title{Convert a list of STAR psth objects into an mpsth object}
 \usage{
-  as.mpsth(x, ...)
+as.mpsth(x, ...)
 }
 \arguments{
   \item{x}{list of psth objects}
@@ -10,18 +10,18 @@
   \item{...}{ignored}
 }
 \value{
-  list of class mpsth
+list of class mpsth
 }
 \description{
-  Convert a list of STAR psth objects into an mpsth object
+Convert a list of STAR psth objects into an mpsth object
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  \code{\link{psth}}
+\code{\link{psth}}
 
-  Other mpsth: \code{\link{[.mpsth}},
-  \code{\link{as.ts.mpsth}}
+Other mpsth: \code{\link{[.mpsth}};
+\code{\link{as.ts.mpsth}}
 }
 

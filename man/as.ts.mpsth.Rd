@@ -2,7 +2,7 @@
 \alias{as.ts.mpsth}
 \title{Convert a multi-psth list into a (multi) time series object}
 \usage{
-  \method{as.ts}{mpsth} (x, ...)
+\method{as.ts}{mpsth}(x, ...)
 }
 \arguments{
   \item{x}{multi-psth list}
@@ -10,11 +10,10 @@
   \item{...}{ignored}
 }
 \value{
-  time series or multi-time series object
+time series or multi-time series object
 }
 \description{
-  Convert a multi-psth list into a (multi) time series
-  object
+Convert a multi-psth list into a (multi) time series object
 }
 \examples{
 data(CAL1V,package='STAR')
@@ -25,12 +24,11 @@ z=as.ts(as.mpsth(list(psth1,psth2)))
 plot(z,plot.type='single',col=1:2,ylab='Frequency /Hz')
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  ts as.ts.mpsth STAR::psth
+ts as.ts.mpsth STAR::psth
 
-  Other mpsth: \code{\link{[.mpsth}},
-  \code{\link{as.mpsth}}
+Other mpsth: \code{\link{[.mpsth}}; \code{\link{as.mpsth}}
 }
 

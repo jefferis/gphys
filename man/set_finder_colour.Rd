@@ -3,8 +3,8 @@
 \title{Set the colour label of a file in the MacOS X Finder
 See http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts}
 \usage{
-  set_finder_colour(filename,
-    col = c("None", "Gray", "Grey", "Green", "Purple", "Blue", "Yellow", "Red", "Orange"))
+set_finder_colour(filename, col = c("None", "Gray", "Grey", "Green", "Purple",
+  "Blue", "Yellow", "Red", "Orange"))
 }
 \arguments{
   \item{filename}{Character vector of file(s) to add colour
@@ -13,17 +13,17 @@ See http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x
   \item{col}{Character vector of colour(s)}
 }
 \value{
-  Logical indicating success or failure
+Logical indicating success or failure
 }
 \description{
-  Set the colour label of a file in the MacOS X Finder See
-  http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
+Set the colour label of a file in the MacOS X Finder See
+http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  Other finder_colour: \code{\link{finder_colour}},
-  \code{\link{finder_colour_fast}}
+Other finder_colour: \code{\link{finder_colour_fast}};
+\code{\link{finder_colour}}
 }
 

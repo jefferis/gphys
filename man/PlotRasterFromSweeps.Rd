@@ -3,18 +3,16 @@
 \alias{plot.spiketimes}
 \title{Make a raster plot from a set of Nclamp sweeps recording odour responses}
 \usage{
-  PlotRasterFromSweeps(sweepdir, sweeps, subdir = "",
-    subset = NULL, xlim = NULL, xaxis = TRUE, yaxis = TRUE,
-    frame.plot = TRUE, xaxs = "i", yaxs = "i", main, sub,
-    xlab = "Time/ms", ylab = "Odour", pch = 22,
-    dotcolour = "black", dotsize = 0.5, dotwidth = 20,
-    spikeheight = 0.8, odourRange = NULL,
-    odourCol = rgb(1, 0.8, 0.8, 1), relabelfun = identity,
-    fixChannels = NULL, IncludeChannels = FALSE,
-    PlotSpikes = TRUE, PlotDividers = TRUE,
-    panel.first = NULL, panel.last = NULL, ...)
+PlotRasterFromSweeps(sweepdir, sweeps, subdir = "", subset = NULL,
+  xlim = NULL, xaxis = TRUE, yaxis = TRUE, frame.plot = TRUE,
+  xaxs = "i", yaxs = "i", main, sub, xlab = "Time/ms", ylab = "Odour",
+  pch = 22, dotcolour = "black", dotsize = 0.5, dotwidth = 20,
+  spikeheight = 0.8, odourRange = NULL, odourCol = rgb(1, 0.8, 0.8, 1),
+  relabelfun = identity, fixChannels = NULL, IncludeChannels = FALSE,
+  PlotSpikes = TRUE, PlotDividers = TRUE, panel.first = NULL,
+  panel.last = NULL, ...)
 
-  \method{plot}{spiketimes} (x, ...)
+\method{plot}{spiketimes}(x, ...)
 }
 \arguments{
   \item{xlim}{x axis range of plot}
@@ -95,24 +93,23 @@
   shouldn't we fix channels as well.}
 }
 \description{
-  Make a raster plot from a set of Nclamp sweeps recording
-  odour responses
+Make a raster plot from a set of Nclamp sweeps recording
+odour responses
 
-  This overloads base R's plot and calls
-  PlotRasterFromSweeps
+This overloads base R's plot and calls PlotRasterFromSweeps
 }
 \details{
-  Note that can also give a spiketimes list from
-  CollectSpikesFromSweeps By default the odour stimulus is
-  represented by a pale red rectangle in a layer behind the
-  spikes. If pch takes the special value "rect" then
-  rectangles of width dotwidth are drawn. spikewidth will
-  then specify the relative size of the spikes with 1
-  resulting in the top of spikes from one line at the same
-  height as the base of spikes in the line above. If more
-  than one stimulus is required, odourRange can be
-  specified as a vector of successive start,stop times e.g.
-  c(start1,stop1,start2,stop2).
+Note that can also give a spiketimes list from
+CollectSpikesFromSweeps By default the odour stimulus is
+represented by a pale red rectangle in a layer behind the
+spikes. If pch takes the special value "rect" then
+rectangles of width dotwidth are drawn. spikewidth will
+then specify the relative size of the spikes with 1
+resulting in the top of spikes from one line at the same
+height as the base of spikes in the line above. If more
+than one stimulus is required, odourRange can be specified
+as a vector of successive start,stop times e.g.
+c(start1,stop1,start2,stop2).
 }
 \examples{
 ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
@@ -149,12 +146,12 @@ spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
 plot(spikes)
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and
-  \code{\link{plot.default}} for graphical parameters
+\code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and
+\code{\link{plot.default}} for graphical parameters
 
-  \code{\link{PlotRasterFromSweeps}, \link{spiketimes}}
+\code{\link{PlotRasterFromSweeps}, \link{spiketimes}}
 }
 

@@ -2,7 +2,7 @@
 \alias{split.spiketimes}
 \title{Split a spiketimes object with multiple repeats into list with one entry per repeat}
 \usage{
-  \method{split}{spiketimes} (st, blocksize)
+\method{split}{spiketimes}(st, blocksize)
 }
 \arguments{
   \item{st}{The spiketimes object}
@@ -11,21 +11,21 @@
   odour names if missing}
 }
 \value{
-  new spiketimes object (list) with one entry for each
-  block of odours
+new spiketimes object (list) with one entry for each block
+of odours
 }
 \description{
-  Only works for spiketimes from single pxp file FIXME
-  Teach this to cope with repeat blocks with different
-  odours in different order
+Only works for spiketimes from single pxp file FIXME Teach
+this to cope with repeat blocks with different odours in
+different order
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  Other spiketimes: \code{\link{+.spiketimes}},
-  \code{\link{[.spiketimes}}, \code{\link{is.spiketimes}},
-  \code{\link{merge.spiketimes}}, \code{\link{spiketimes}},
-  \code{\link{subset.spiketimes}}
+Other spiketimes: \code{\link{+.spiketimes}};
+\code{\link{[.spiketimes}}; \code{\link{is.spiketimes}};
+\code{\link{merge.spiketimes}}; \code{\link{spiketimes}};
+\code{\link{subset.spiketimes}}
 }
 

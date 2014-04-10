@@ -2,25 +2,25 @@
 \alias{finder_colour}
 \title{Query the colour label of a file in the MacOS X Finder}
 \usage{
-  finder_colour(filename)
+finder_colour(filename)
 }
 \arguments{
   \item{filename}{Path to a file}
 }
 \value{
-  Character string (None when no colour is set) or NA on
-  error
+Character string (None when no colour is set) or NA on
+error
 }
 \description{
-  Note the colours are mapped according to my 10.6.8 system
-  but see:
-  http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
+Note the colours are mapped according to my 10.6.8 system
+but see:
+http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  Other finder_colour: \code{\link{finder_colour_fast}},
-  \code{\link{set_finder_colour}}
+Other finder_colour: \code{\link{finder_colour_fast}};
+\code{\link{set_finder_colour}}
 }
 
