@@ -2,13 +2,19 @@
 \alias{scale.ts}
 \title{Rescale the y values of a (multi-)time series (ts) object}
 \usage{
-\method{scale}{ts}(waves, yrange)
+\method{scale}{ts}(x, center = yrange[1], scale = diff(yrange),
+  yrange = range(x))
 }
 \arguments{
-  \item{waves}{an mts object}
+  \item{x}{A \code{ts} or\code{mts} object}
 
-  \item{yrange}{- the y range, defaults to full scale of
-  all waves}
+  \item{center}{Value to map to 0 (defaults to the minimum
+  value of yrange)}
+
+  \item{scale}{Defaults to \code{ymax-ymin}}
+
+  \item{yrange}{The y range, defaults to full scale of all
+  waves}
 }
 \value{
 return value Single time series (ts)

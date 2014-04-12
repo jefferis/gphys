@@ -52,8 +52,10 @@ mean.mts<-function(x,...){
 #' 
 #' Linearly rescale y values to map range[1] to 0 and
 #' range[2] to 1. Values outside this range will be <0 and >1 respectively.
-#' @param waves an mts object
-#' @param yrange - the y range, defaults to full scale of all waves
+#' @param x A \code{ts} or\code{mts} object
+#' @param center Value to map to 0 (defaults to the minimum value of yrange)
+#' @param scale Defaults to \code{ymax-ymin}
+#' @param yrange The y range, defaults to full scale of all waves
 #' @return return value Single time series (ts)
 #' @export
 #' @seealso \code{\link{ts}}
@@ -61,18 +63,16 @@ mean.mts<-function(x,...){
 #' w<-read.pxp(system.file("igor","WedJul407c2_001.pxp",package="IgorR"))
 #' wts<-WaveToTimeSeries(w[c('RecordA0',"RecordA1")])
 #' ws<-scale.ts(wts,yrange=c(-200,200))
-scale.ts<-function(waves,yrange){
-  if(missing(yrange))
-    yrange=range(waves)
-  centers=yrange[1] # the y value to map to 0
-  scales=diff(yrange)
+scale.ts<-function(x, center = yrange[1], scale=diff(yrange), yrange=range(x)){
+  centers=center # the y value to map to 0
+  scales=scale
   # nb need ncol center and scale values if there is
   # more than 1 column (wave)
-  if(!is.null(ncol(waves))){
-    centers=rep(centers,ncol(waves))
-    scales=rep(scales,ncol(waves))
+  if(!is.null(ncol(x))){
+    center=rep(centers,ncol(x))
+    scales=rep(scales,ncol(x))
   }
-  scaled_waves=scale.default(waves,center=centers,scale=scales)
+  scaled_waves=scale.default(x,center=centers,scale=scales)
   # extract time parameters (start,end,freq)
   tspw=tsp(waves)
   # turn scaled data back into time series using tsp
