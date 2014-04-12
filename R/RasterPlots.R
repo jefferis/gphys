@@ -298,7 +298,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 #' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,
 #'  PLOTFUN=boxplot)
 #' }
-PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
+PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
   PlotFrequency=FALSE,PLOTFUN=stripchart,...){
   # stack(bbdf)
   bbdf=OdourResponseFromSpikes(spiketimes = spiketimes,responseWindow = responseWindow,

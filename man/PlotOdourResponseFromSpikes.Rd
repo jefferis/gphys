@@ -2,7 +2,7 @@
 \alias{PlotOdourResponseFromSpikes}
 \title{Boxplot of spikes within a window (optionally less a baseline)}
 \usage{
-PlotOdourResponseFromSpikes(spiketimes, responseWindow, baselineWindow,
+PlotOdourResponseFromSpikes(spiketimes, responseWindow, baselineWindow = NULL,
   PlotFrequency = FALSE, PLOTFUN = stripchart, ...)
 }
 \arguments{
