@@ -3,11 +3,11 @@
 \title{Boxplot of spikes within a window (optionally less a baseline)}
 \usage{
 PlotOdourResponseFromSpikes(spiketimes, responseWindow, baselineWindow = NULL,
-  PlotFrequency = FALSE, PLOTFUN = stripchart, ...)
+  freq = FALSE, PLOTFUN = stripchart, ...)
 }
 \arguments{
-  \item{PlotFrequency}{Plot spike rate in Hz rather than
-  counts (default FALSE)}
+  \item{freq}{Plot spike rate in Hz rather than counts
+  (default FALSE)}
 
   \item{PLOTFUN}{stripchart, boxplot or similar function
   (default stripchart)}
@@ -39,7 +39,7 @@ spikes=CollectSpikesFromSweeps(
 PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
  col=1:6)
 ## boxplot, in Hz
-PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,
+PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),freq=TRUE,
  PLOTFUN=boxplot)
 }
 }

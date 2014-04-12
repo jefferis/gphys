@@ -278,7 +278,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 
 #' Boxplot of spikes within a window (optionally less a baseline)
 #' @inheritParams OdourResponseFromSpikes
-#' @param PlotFrequency Plot spike rate in Hz rather than counts (default FALSE)
+#' @param freq Plot spike rate in Hz rather than counts (default FALSE)
 #' @param PLOTFUN stripchart, boxplot or similar function (default stripchart)
 #' @param ... Additional arguments passed on to PLOTFUN
 #' @return results of plotfun (if any)
@@ -295,19 +295,15 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 #' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
 #'  col=1:6)
 #' ## boxplot, in Hz
-#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,
+#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),freq=TRUE,
 #'  PLOTFUN=boxplot)
 #' }
 PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
-  PlotFrequency=FALSE,PLOTFUN=stripchart,...){
+  freq=FALSE,PLOTFUN=stripchart,...){
   # stack(bbdf)
   bbdf=OdourResponseFromSpikes(spiketimes = spiketimes,responseWindow = responseWindow,
-      baselineWindow = baselineWindow, freq=PlotFrequency)
-  if(PlotFrequency) {
-    PLOTFUN(bbdf,xlab='Spike Frequency /Hz',las=2,...)
-  } else {
-    PLOTFUN(bbdf,xlab='Spike Count',las=2,...)
-  }
+      baselineWindow = baselineWindow, freq=freq)
+  PLOTFUN(bbdf, xlab=ifelse(freq, 'Spike Frequency /Hz', 'Spike Count'), las=2, ...)
 }
 
 #' Produce table of spiking responses (optionally subtracting baseline)
