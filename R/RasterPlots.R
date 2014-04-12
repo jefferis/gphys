@@ -412,7 +412,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
 #' AddLinesToRasterPlot(avgwavests,col='red')
 #' }
 AddLinesToRasterPlot<-function(waves,ylim,col='black',...){
-  scaled_waves=scale.ts(waves,yrange=ylim)
+  scaled_waves=scale(waves, center=ylim[1], scale=diff(ylim))
   nwaves=ncol(scaled_waves)
   if(is.function(col)) col=col(nwaves)
   else if(length(col)==1 && nwaves>1){
