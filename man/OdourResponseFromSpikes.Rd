@@ -2,8 +2,8 @@
 \alias{OdourResponseFromSpikes}
 \title{Produce table of spiking responses (optionally subtracting baseline)}
 \usage{
-  OdourResponseFromSpikes(spiketimes, responseWindow,
-    baselineWindow = NULL, freq = FALSE)
+OdourResponseFromSpikes(spiketimes, responseWindow, baselineWindow = NULL,
+  freq = FALSE)
 }
 \arguments{
   \item{spiketimes}{list of spiketimes collected by
@@ -19,17 +19,17 @@
   of spikes per response window}
 }
 \value{
-  dataframe with a column for each odour and row for each
-  sweep
+dataframe with a column for each odour and row for each
+sweep
 }
 \description{
-  Details: If baseline window is of different duration to
-  response window the baseline count is normalised to
-  estimate the number of spikes that would have occurred
-  during the response window. ie if you have a 1s response
-  window and a 5s baseline window and you get 10 spikes in
-  the response period and 5 spikes in the baseline period,
-  the response will be returned as 10-5/5 = 9 spikes.
+Details: If baseline window is of different duration to
+response window the baseline count is normalised to
+estimate the number of spikes that would have occurred
+during the response window. ie if you have a 1s response
+window and a 5s baseline window and you get 10 spikes in
+the response period and 5 spikes in the baseline period,
+the response will be returned as 10-5/5 = 9 spikes.
 }
 \examples{
 spikes=CollectSpikesFromSweeps(
@@ -44,10 +44,10 @@ od2=OdourResponseFromSpikes(spikes,response=c(0,2000),freq=TRUE)
 summary(od2)
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  Other OdourResponse:
-  \code{\link{PlotOdourResponseFromSpikes}}
+Other OdourResponse:
+\code{\link{PlotOdourResponseFromSpikes}}
 }
 

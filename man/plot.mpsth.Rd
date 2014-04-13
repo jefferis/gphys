@@ -2,11 +2,10 @@
 \alias{plot.mpsth}
 \title{Plot PSTHs for multiple neurons (or multiple stimuli)}
 \usage{
-  \method{plot}{mpsth} (x, stimTimeCourse = NULL,
-    colStim = "grey80", colCI = NULL, xlab = "Time /s",
-    ylab = "Spike Freq /Hz", xlim, ylim, lwd = 2, col = 1,
-    labels = NULL, toplot = c("lines", "CI", "legend"),
-    ...)
+\method{plot}{mpsth}(x, stimTimeCourse = NULL, colStim = "grey80",
+  colCI = NULL, xlab = "Time /s", ylab = "Spike Freq /Hz", xlim, ylim,
+  lwd = 2, col = 1, labels = NULL, toplot = c("lines", "CI", "legend"),
+  ...)
 }
 \arguments{
   \item{x}{a list of psth objects (class mpsth)}
@@ -33,12 +32,12 @@
   \item{...}{additional params passed to plot methods}
 }
 \description{
-  Plot PSTHs for multiple neurons (or multiple stimuli)
+Plot PSTHs for multiple neurons (or multiple stimuli)
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  STAR::psth, STAR::plot.psth
+STAR::psth, STAR::plot.psth
 }
 

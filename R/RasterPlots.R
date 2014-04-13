@@ -278,7 +278,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 
 #' Boxplot of spikes within a window (optionally less a baseline)
 #' @inheritParams OdourResponseFromSpikes
-#' @param PlotFrequency Plot spike rate in Hz rather than counts (default FALSE)
+#' @param freq Plot spike rate in Hz rather than counts (default FALSE)
 #' @param PLOTFUN stripchart, boxplot or similar function (default stripchart)
 #' @param ... Additional arguments passed on to PLOTFUN
 #' @return results of plotfun (if any)
@@ -295,19 +295,15 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 #' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
 #'  col=1:6)
 #' ## boxplot, in Hz
-#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),PlotFrequency=TRUE,
+#' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),freq=TRUE,
 #'  PLOTFUN=boxplot)
 #' }
-PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow,
-  PlotFrequency=FALSE,PLOTFUN=stripchart,...){
+PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
+  freq=FALSE,PLOTFUN=stripchart,...){
   # stack(bbdf)
   bbdf=OdourResponseFromSpikes(spiketimes = spiketimes,responseWindow = responseWindow,
-      baselineWindow = baselineWindow, freq=PlotFrequency)
-  if(PlotFrequency) {
-    PLOTFUN(bbdf,xlab='Spike Frequency /Hz',las=2,...)
-  } else {
-    PLOTFUN(bbdf,xlab='Spike Count',las=2,...)
-  }
+      baselineWindow = baselineWindow, freq=freq)
+  PLOTFUN(bbdf, xlab=ifelse(freq, 'Spike Frequency /Hz', 'Spike Count'), las=2, ...)
 }
 
 #' Produce table of spiking responses (optionally subtracting baseline)
@@ -416,7 +412,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
 #' AddLinesToRasterPlot(avgwavests,col='red')
 #' }
 AddLinesToRasterPlot<-function(waves,ylim,col='black',...){
-  scaled_waves=scale.ts(waves,yrange=ylim)
+  scaled_waves=scale(waves, center=ylim[1], scale=diff(ylim))
   nwaves=ncol(scaled_waves)
   if(is.function(col)) col=col(nwaves)
   else if(length(col)==1 && nwaves>1){

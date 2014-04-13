@@ -2,9 +2,9 @@
 \alias{smooth_decimate}
 \title{Boxcar smooth and decimate a time series}
 \usage{
-  smooth_decimate(x, filterlength, downsamplefactor = NULL,
-    start = NULL, end = NULL, frequency = NULL,
-    deltat = NULL, extend = FALSE, sides = 2)
+smooth_decimate(x, filterlength, downsamplefactor = NULL, start = NULL,
+  end = NULL, frequency = NULL, deltat = NULL, extend = FALSE,
+  sides = 2)
 }
 \arguments{
   \item{x}{time series to smooth (ts or mts)}
@@ -28,15 +28,15 @@
   2=>centred on lag=0}
 }
 \value{
-  time series object with call attribute
+time series object with call attribute
 }
 \description{
-  Boxcar smooth and decimate a time series
+Boxcar smooth and decimate a time series
 }
 \details{
-  One of \code{downsamplefactor, frequency} or
-  \code{deltat} must be specified. \code{downsamplefactor}
-  will take priority when available.
+One of \code{downsamplefactor, frequency} or \code{deltat}
+must be specified. \code{downsamplefactor} will take
+priority when available.
 }
 \examples{
 x=ts(rnorm(10000)+sin(1:10000/100),start=0,deltat=0.01)
@@ -49,6 +49,6 @@ lines(xs,col='magenta')
 lines(xsc,col='green')
 }
 \seealso{
-  \code{\link{window},\link[stats]{filter}}
+\code{\link{window},\link[stats]{filter}}
 }
 

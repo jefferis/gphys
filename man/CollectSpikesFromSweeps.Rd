@@ -2,8 +2,8 @@
 \alias{CollectSpikesFromSweeps}
 \title{Read in Igor Pro exported text file of Nclamp spike times}
 \usage{
-  CollectSpikesFromSweeps(sweepdir, sweeps, subdir = "",
-    xlim, stimRange, fixChannels = NULL, subset = NULL)
+CollectSpikesFromSweeps(sweepdir, sweeps, subdir = "", xlim, stimRange,
+  fixChannels = NULL, subset = NULL)
 }
 \arguments{
   \item{sweepdir}{directory containing Nclamp pxp sweep
@@ -27,22 +27,22 @@
   vector of odours}
 }
 \value{
-  list (with class spiketimes) containing times for each
-  sweep
+list (with class spiketimes) containing times for each
+sweep
 }
 \description{
-  The list of spiketimes has two columns, Time and Wave,
-  where wave is the number of the wave within each
-  sweepfile containing the spike. xlim and stimRange are
-  kept as attributes that will be used for plots *
-  fixChannels expects a named vector of any channels that
-  need to have different odour names. This can be used to
-  fix an error in the original ODD config file. * If spike
-  time txt files have been placed in a subdirectory, then
-  that subdirectory must be specified using the
-  \code{subdir} argument. * However it is expected that the
-  corresponding pxp and odd config files remain in the top
-  level directory for the cell.
+The list of spiketimes has two columns, Time and Wave,
+where wave is the number of the wave within each sweepfile
+containing the spike. xlim and stimRange are kept as
+attributes that will be used for plots * fixChannels
+expects a named vector of any channels that need to have
+different odour names. This can be used to fix an error in
+the original ODD config file. * If spike time txt files
+have been placed in a subdirectory, then that subdirectory
+must be specified using the \code{subdir} argument. *
+However it is expected that the corresponding pxp and odd
+config files remain in the top level directory for the
+cell.
 }
 \examples{
 \dontrun{
@@ -61,6 +61,6 @@ spikes=CollectSpikesFromSweeps("nm20110811c0",c(0,1,3))
 plot(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 }
 \author{
-  jefferis
+jefferis
 }
 

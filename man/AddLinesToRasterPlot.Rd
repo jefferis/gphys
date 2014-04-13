@@ -2,7 +2,7 @@
 \alias{AddLinesToRasterPlot}
 \title{Add eg voltage traces to existing spike raster plot}
 \usage{
-  AddLinesToRasterPlot(waves, ylim, col = "black", ...)
+AddLinesToRasterPlot(waves, ylim, col = "black", ...)
 }
 \arguments{
   \item{waves}{an mts object}
@@ -17,14 +17,14 @@
   function}
 }
 \description{
-  First thing this does is scale waves to 0-1 range using
-  scale.ts Assumes that number of waves and number of boxes
-  (odours) on spike raster plot actually match. It doesn't
-  check!
+First thing this does is scale waves to 0-1 range using
+scale.ts Assumes that number of waves and number of boxes
+(odours) on spike raster plot actually match. It doesn't
+check!
 }
 \details{
-  If col is a function then it will be called with the
-  number of waves
+If col is a function then it will be called with the number
+of waves
 }
 \examples{
 \dontrun{
@@ -49,6 +49,6 @@ AddLinesToRasterPlot(avgwavests,col='red')
 }
 }
 \seealso{
-  \code{\link{PlotRasterFromSweeps}},\code{\link{lines}}
+\code{\link{PlotRasterFromSweeps}},\code{\link{lines}}
 }
 

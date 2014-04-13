@@ -2,28 +2,27 @@
 \alias{finder_colour_fast}
 \title{Query the colour label of a file in the MacOS X Finder}
 \usage{
-  finder_colour_fast(files)
+finder_colour_fast(files)
 }
 \arguments{
   \item{files}{Path to (a) file(s)}
 }
 \value{
-  Named character vector (None when no colour is set)
+Named character vector (None when no colour is set)
 }
 \description{
-  Note this queries all the files in a single call to mdls,
-  which can fail for very long file lists (about 260k
-  characters). Note the colours are mapped according to my
-  10.6.8 system but see:
-  http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
-  Drops the file and gives a message if a file does not
-  exist
+Note this queries all the files in a single call to mdls,
+which can fail for very long file lists (about 260k
+characters). Note the colours are mapped according to my
+10.6.8 system but see:
+http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
+Drops the file and gives a message if a file does not exist
 }
 \author{
-  jefferis
+jefferis
 }
 \seealso{
-  Other finder_colour: \code{\link{finder_colour}},
-  \code{\link{set_finder_colour}}
+Other finder_colour: \code{\link{finder_colour}};
+\code{\link{set_finder_colour}}
 }
 

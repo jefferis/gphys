@@ -3,21 +3,21 @@
 \title{Find start, end and frequency of a STAR psth object
 Checks that it is regularly sampled}
 \usage{
-  tsp.psth(x)
+tsp.psth(x)
 }
 \arguments{
   \item{x}{STAR psth object}
 }
 \value{
-  numeric vector with start, end and frequency
+numeric vector with start, end and frequency
 }
 \description{
-  Find start, end and frequency of a STAR psth object
-  Checks that it is regularly sampled
+Find start, end and frequency of a STAR psth object Checks
+that it is regularly sampled
 }
 \seealso{
-  tsp
+tsp
 
-  Other psth: \code{\link{as.ts.psth}}
+Other psth: \code{\link{as.ts.psth}}
 }
 
