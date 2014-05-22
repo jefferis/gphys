@@ -55,7 +55,7 @@ smpsth<-function(spikes, breaks=c(bw=0.5,step=0.05), CI=0.95,
     # nb these come in in ms but we are using seconds with STAR
     stimRange=attr(spikes,'stimRange')/1000
   }
-  x=lapply(rt,psth,breaks=breaks,CI=CI,plot=FALSE)
+  x=lapply(rt,psth,breaks=breaks,CI=CI,plot=FALSE,...)
   if(!is.null(stimRange)) attr(x,'stimTimeCourse')=stimRange
   class(x)=c("mpsth",class(x))
   x
