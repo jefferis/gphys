@@ -18,7 +18,7 @@
 #' @param xaxis (default TRUE)
 #' @param yaxis (default TRUE)
 #' @param frame.plot Plot a box around the whole plot (default TRUE)
-#' @param xaxs,yaxs Whether to extend xlim,ylim by 4%% (see ?par, default FALSE)
+#' @param xaxs,yaxs Whether to extend xlim,ylim by 4 percent (see ?par, default FALSE)
 #' @param pch plotting character (default 22 is a square, see details for rect)
 #' @param dotcolour colour of dots in raster plot (default black)
 #' @param dotsize size of dots in raster plot (default 0.5)

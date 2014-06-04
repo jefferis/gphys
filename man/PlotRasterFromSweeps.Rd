@@ -32,7 +32,7 @@ PlotRasterFromSweeps(sweepdir, sweeps, subdir = "", subset = NULL,
 
 \item{frame.plot}{Plot a box around the whole plot (default TRUE)}
 
-\item{xaxs,yaxs}{Whether to extend xlim,ylim by 4%% (see ?par, default FALSE)}
+\item{xaxs,yaxs}{Whether to extend xlim,ylim by 4 percent (see ?par, default FALSE)}
 
 \item{pch}{plotting character (default 22 is a square, see details for rect)}
 
