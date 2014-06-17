@@ -30,6 +30,8 @@
 #' @param IncludeChannels include numeric id of odour channel (e.g. for blanks)
 #' @param PlotSpikes Whether to plot the spikes (default TRUE)
 #' @param PlotDividers Plot the dividing lines between odours (default TRUE)
+#' @param DividerCol the colour with which to plot dividing lines between odours
+#'   (default black)
 #' @param panel.first An \code{expression} to be evaluated after the plot axes 
 #'   are set up but before any plotting takes place
 #' @param panel.last An \code{expression} to be evaluated after spikes have been
@@ -76,7 +78,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
   pch=22,dotcolour='black',dotsize=0.5,dotwidth=20,spikeheight=0.8,
   odourRange=NULL,odourCol=rgb(1,0.8,0.8,1),
   relabelfun=identity,fixChannels=NULL,IncludeChannels=FALSE,
-  PlotSpikes=TRUE,PlotDividers=TRUE,
+  PlotSpikes=TRUE,PlotDividers=TRUE,DividerCol='black',
   panel.first=NULL,panel.last=NULL,...){
   if(inherits(sweepdir,'spiketimes')){
     rasterd=sweepdir
@@ -139,7 +141,7 @@ PlotRasterFromSweeps<-function(sweepdir,sweeps,subdir='',subset=NULL,
     # fetch the actual plot range (not always the same as xlim)
     plot_xrange=par("usr")[1:2]
     for(i in seq(last_wave)){
-      segments(plot_xrange[1],i,plot_xrange[2],i,col="black")
+      segments(plot_xrange[1],i,plot_xrange[2],i,col=DividerCol)
     }
   }
 
