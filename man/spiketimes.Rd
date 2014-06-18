@@ -36,7 +36,9 @@ you, so this function will only needed if you are constructing
 }
 \seealso{
 Other spiketimes: \code{\link{+.spiketimes}};
-  \code{\link{[.spiketimes}}; \code{\link{is.spiketimes}};
+  \code{\link{[.spiketimes}}; \code{\link{divide}},
+  \code{\link{divide.spiketimes}};
+  \code{\link{is.spiketimes}};
   \code{\link{merge.spiketimes}};
   \code{\link{split.spiketimes}};
   \code{\link{subset.spiketimes}}

@@ -29,7 +29,7 @@ one for each odour.
 \examples{
 spikes<-CollectSpikesFromSweeps(
   system.file('igor','spikes','nm20110914c4',package='gphys'),
-  subdir='BlockI',sweeps=0:4)
+  subdir='BLOCKI',sweeps=0:4)
 rt=as.repeatedTrain(spikes)
 rt
 require(STAR)

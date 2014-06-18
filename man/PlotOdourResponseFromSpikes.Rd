@@ -29,7 +29,7 @@ Boxplot of spikes within a window (optionally less a baseline)
 \dontrun{
 spikes=CollectSpikesFromSweeps(
   system.file('igor','spikes','nm20110914c4',package='gphys'),
-  subdir='Block I',sweeps=0:4)
+  subdir='BLOCKI',sweeps=0:4)
 ## stripchart
 PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
  col=1:6)

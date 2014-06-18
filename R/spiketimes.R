@@ -1,19 +1,28 @@
-#' Split a spiketimes object with multiple repeats into list with one entry per repeat
+#' @export
+#' @param ... Additional arguments (currently ignored)
+divide<-function(x, ...) UseMethod("divide")
+
+#' Divide spiketimes object with multiple repeats into list with one entry per 
+#' repeat
 #' 
-#' Only works for spiketimes from single pxp file
-#' FIXME Teach this to cope with repeat blocks with different odours in different order
-#' @param st The spiketimes object
-#' @param blocksize number of waves per block - deduced from odour names if missing
+#' divide.spiketimes is designed for the situation where a single pxp file
+#' contains multiple repeats for the same stimulus set.
+#' 
+#' @details Only works for spiketimes from single pxp file. FIXME Teach this to
+#'   cope with repeat blocks with different odours in different order
+#' @param x The spiketimes object
+#' @param blocksize number of waves per block - deduced from odour names if 
+#'   missing
 #' @return new spiketimes object (list) with one entry for each block of odours
 #' @author jefferis
-#' @method split spiketimes
 #' @export
 #' @family spiketimes
-split.spiketimes<-function(st,blocksize){
-  if(length(st)>1) stop("Don't know how to split a spike time list of > length 1")
-  st1=st[[1]]
+#' @rdname divide
+divide.spiketimes<-function(x, blocksize, ...){
+  if(length(x)>1) stop("Don't know how to divide a spike time list of > length 1")
+  st1=x[[1]]
   st1$OldWave=st1$Wave
-  odd=attr(st,'oddconf')
+  odd=attr(x,'oddconf')
   if(missing(blocksize))
     blocksize=length(unique(odd$odour))
   # Find 0 indexed repetition number
@@ -21,15 +30,37 @@ split.spiketimes<-function(st,blocksize){
   st1$Wave=st1$OldWave%%blocksize
   
   stnew=split(st1,st1$Rep)
-  mostattributes(stnew)=attributes(st)
+  mostattributes(stnew)=attributes(x)
   # We will have to make new names now that the list has more elements
   # Nb new names will look like 008.000,008.001 
   # (ie still 0-indexed for second part)
-  names(stnew)=sprintf("%s.%03d",names(st),seq_along(stnew)-1)
+  names(stnew)=sprintf("%s.%03d",names(x),seq_along(stnew)-1)
   if(!is.null(attr(stnew,'oddconf'))){
     attr(stnew,'oddconf')=attr(stnew,'oddconf')[1:blocksize,]
   }
   stnew
+}
+
+#' Split a spiketimes object with multiple repeats into list with one entry per 
+#' repeat
+#' 
+#' \emph{Deprecated} as of gphys 0.9 and will be removed from gphys 1.0 (CRAN 
+#' release).
+#' 
+#' Only works for spiketimes from single pxp file. FIXME Teach this to cope with
+#' repeat blocks with different odours in different order
+#' @param x The spiketimes object
+#' @param f number of waves per block - deduced from odour names if missing
+#' @param drop IGNORED
+#' @param ... IGNORED
+#' @return new spiketimes object (list) with one entry for each block of odours
+#' @author jefferis
+#' @method split spiketimes
+#' @export
+#' @family spiketimes
+split.spiketimes<-function(x, f, drop, ...){
+  .Deprecated('divide',msg = "Please switch to new gphys::divide function!")
+  divide(x=x, blocksize=f)
 }
 
 #' Combine multiple compatible spiketimes series (to plot as single raster)
@@ -221,7 +252,7 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
         x$OldWave=x$Wave;
         y=data.frame(Time=numeric(0), Wave=integer(0),OldWave=integer(0))
         for(i in seq_along(new_waves)){
-          ssx=subset(x,Wave==sel_oldwaves[i],c(Time,Wave,OldWave))
+          ssx=x[x$Wave==sel_oldwaves[i], c("Time", "Wave", "OldWave")]
           if(nrow(ssx)>0){
             ssx$Wave=new_waves[i]
             y=rbind(y,ssx) 
@@ -308,7 +339,7 @@ as.repeatedTrain<-function(x,...){
 #' @examples
 #' spikes<-CollectSpikesFromSweeps(
 #'   system.file('igor','spikes','nm20110914c4',package='gphys'),
-#'   subdir='BlockI',sweeps=0:4)
+#'   subdir='BLOCKI',sweeps=0:4)
 #' rt=as.repeatedTrain(spikes)
 #' rt
 #' require(STAR)
@@ -325,7 +356,7 @@ as.repeatedTrain.spiketimes<-function(x,...){
   if(is.null(nn)) nn=as.character(seq(nsweeps))
   for(i in seq_along(nn)){
     # nb waves are 0 indexed in nclamp and time unit is ms not s
-    spikelist=lapply(x,function(s) subset(s,Wave==(i-1),Time)[[1]]/1000)
+    spikelist=lapply(x,function(s) s[s$Wave==(i-1) & !is.na(s$Wave),'Time']/1000)
     # remove any NAs (converting those trains to empty numeric vectors)
     spikelist=lapply(spikelist,na.omit)
     l[[nn[i]]]=as.repeatedTrain(spikelist)

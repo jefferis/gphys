@@ -27,6 +27,7 @@ jefferis
 }
 \seealso{
 Other spiketimes: \code{\link{[.spiketimes}};
+  \code{\link{divide}}, \code{\link{divide.spiketimes}};
   \code{\link{is.spiketimes}};
   \code{\link{merge.spiketimes}}; \code{\link{spiketimes}};
   \code{\link{split.spiketimes}};

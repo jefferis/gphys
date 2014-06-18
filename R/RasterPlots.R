@@ -292,7 +292,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 #' \dontrun{ 
 #' spikes=CollectSpikesFromSweeps(
 #'   system.file('igor','spikes','nm20110914c4',package='gphys'),
-#'   subdir='Block I',sweeps=0:4)
+#'   subdir='BLOCKI',sweeps=0:4)
 #' ## stripchart
 #' PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),pch=19,method='jitter',
 #'  col=1:6)
@@ -326,7 +326,7 @@ PlotOdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=N
 #' @examples 
 #' spikes=CollectSpikesFromSweeps(
 #'   system.file('igor','spikes','nm20110914c4',package='gphys'),
-#'   subdir='BlockI',sweeps=0:4)
+#'   subdir='BLOCKI',sweeps=0:4)
 #' od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
 #' summary(od)
 #' apply(od,2,function(x) c(mean=mean(x),sd=sd(x)))
@@ -356,7 +356,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
   # but not those wave/sweep combinations where this signalling NA from
   # Igor/NClamp is missing because those sweeps never actually happened
   # ie the odour was not presented!
-  empty_wave_sweeps=subset(spikess,is.na(Time) & !is.na(Wave))
+  empty_wave_sweeps=spikess[is.na(spikess$Time) & !is.na(spikess$Wave),]
   for(i in seq_len(nrow(empty_wave_sweeps))){
     cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
     cur_sweep=as.character(empty_wave_sweeps[i,'Sweep'])
