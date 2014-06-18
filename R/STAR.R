@@ -93,7 +93,7 @@ as.mpsth<-function(x,...){
 #' @author jefferis
 #' @method plot mpsth
 #' @export
-#' @seealso STAR::psth, STAR::plot.psth
+#' @seealso \code{\link[STAR]{psth}}, \code{\link[STAR]{plot.psth}}
 plot.mpsth<-function(x,stimTimeCourse = NULL, colStim = "grey80",
     colCI = NULL, xlab='Time /s', ylab='Spike Freq /Hz', xlim, ylim, lwd = 2,
     col = 1,labels=NULL,toplot=c("lines",'CI','legend'),...){
