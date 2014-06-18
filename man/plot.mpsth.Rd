@@ -38,6 +38,6 @@ Plot PSTHs for multiple neurons (or multiple stimuli)
 jefferis
 }
 \seealso{
-STAR::psth, STAR::plot.psth
+\code{\link[STAR]{psth}}, \code{\link[STAR]{plot.psth}}
 }
 

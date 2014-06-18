@@ -41,25 +41,26 @@ divide.spiketimes<-function(x, blocksize, ...){
   stnew
 }
 
-#' Split a spiketimes object with multiple repeats into list with one entry per
+#' Split a spiketimes object with multiple repeats into list with one entry per 
 #' repeat
 #' 
-#' \emph{Deprecated} as of gphys 0.9 and will be removed from gphys 1.0 (CRAN
+#' \emph{Deprecated} as of gphys 0.9 and will be removed from gphys 1.0 (CRAN 
 #' release).
-#'
+#' 
 #' Only works for spiketimes from single pxp file. FIXME Teach this to cope with
 #' repeat blocks with different odours in different order
-#' @param st The spiketimes object
-#' @param blocksize number of waves per block - deduced from odour names if
-#'   missing
+#' @param x The spiketimes object
+#' @param f number of waves per block - deduced from odour names if missing
+#' @param drop IGNORED
+#' @param ... IGNORED
 #' @return new spiketimes object (list) with one entry for each block of odours
 #' @author jefferis
 #' @method split spiketimes
 #' @export
 #' @family spiketimes
-split.spiketimes<-function(st, blocksize){
+split.spiketimes<-function(x, f, drop, ...){
   .Deprecated('divide',msg = "Please switch to new gphys::divide function!")
-  divide(x=st, blocksize=blocksize)
+  divide(x=x, blocksize=f)
 }
 
 #' Combine multiple compatible spiketimes series (to plot as single raster)
@@ -251,7 +252,7 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
         x$OldWave=x$Wave;
         y=data.frame(Time=numeric(0), Wave=integer(0),OldWave=integer(0))
         for(i in seq_along(new_waves)){
-          ssx=subset(x,Wave==sel_oldwaves[i],c(Time,Wave,OldWave))
+          ssx=x[x$Wave==sel_oldwaves[i], c("Time", "Wave", "OldWave")]
           if(nrow(ssx)>0){
             ssx$Wave=new_waves[i]
             y=rbind(y,ssx) 
@@ -355,7 +356,7 @@ as.repeatedTrain.spiketimes<-function(x,...){
   if(is.null(nn)) nn=as.character(seq(nsweeps))
   for(i in seq_along(nn)){
     # nb waves are 0 indexed in nclamp and time unit is ms not s
-    spikelist=lapply(x,function(s) subset(s,Wave==(i-1),Time)[[1]]/1000)
+    spikelist=lapply(x,function(s) s[s$Wave==(i-1) & !is.na(s$Wave),'Time']/1000)
     # remove any NAs (converting those trains to empty numeric vectors)
     spikelist=lapply(spikelist,na.omit)
     l[[nn[i]]]=as.repeatedTrain(spikelist)

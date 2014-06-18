@@ -4,13 +4,16 @@
 \title{Split a spiketimes object with multiple repeats into list with one entry per
 repeat}
 \usage{
-\method{split}{spiketimes}(st, blocksize)
+\method{split}{spiketimes}(x, f, drop, ...)
 }
 \arguments{
-\item{st}{The spiketimes object}
+\item{x}{The spiketimes object}
 
-\item{blocksize}{number of waves per block - deduced from odour names if
-missing}
+\item{f}{number of waves per block - deduced from odour names if missing}
+
+\item{drop}{IGNORED}
+
+\item{...}{IGNORED}
 }
 \value{
 new spiketimes object (list) with one entry for each block of odours
