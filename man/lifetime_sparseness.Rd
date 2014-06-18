@@ -36,7 +36,7 @@ assess the significance of sparseness differences.
 \examples{
 spikes=CollectSpikesFromSweeps(
   system.file('igor','spikes','nm20110914c4',package='gphys'),
-  subdir='BlockI',sweeps=0:4)
+  subdir='BLOCKI',sweeps=0:4)
 od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
 S=lifetime_sparseness(od)
 }
