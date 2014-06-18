@@ -41,25 +41,26 @@ divide.spiketimes<-function(x, blocksize, ...){
   stnew
 }
 
-#' Split a spiketimes object with multiple repeats into list with one entry per
+#' Split a spiketimes object with multiple repeats into list with one entry per 
 #' repeat
 #' 
-#' \emph{Deprecated} as of gphys 0.9 and will be removed from gphys 1.0 (CRAN
+#' \emph{Deprecated} as of gphys 0.9 and will be removed from gphys 1.0 (CRAN 
 #' release).
-#'
+#' 
 #' Only works for spiketimes from single pxp file. FIXME Teach this to cope with
 #' repeat blocks with different odours in different order
-#' @param st The spiketimes object
-#' @param blocksize number of waves per block - deduced from odour names if
-#'   missing
+#' @param x The spiketimes object
+#' @param f number of waves per block - deduced from odour names if missing
+#' @param drop IGNORED
+#' @param ... IGNORED
 #' @return new spiketimes object (list) with one entry for each block of odours
 #' @author jefferis
 #' @method split spiketimes
 #' @export
 #' @family spiketimes
-split.spiketimes<-function(st, blocksize){
+split.spiketimes<-function(x, f, drop, ...){
   .Deprecated('divide',msg = "Please switch to new gphys::divide function!")
-  divide(x=st, blocksize=blocksize)
+  divide(x=x, blocksize=f)
 }
 
 #' Combine multiple compatible spiketimes series (to plot as single raster)
