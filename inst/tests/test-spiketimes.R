@@ -144,8 +144,8 @@ test_that("Count spikes - with baseline", {
 test_that("Count spikes - Shahar data with repeated block", {
       nmdir='../igor/spikes/nm20120906c0'
       b8=CollectSpikesFromSweeps(nmdir,8,xlim=c(0,3000),stimRange=c(500,1000))
-      # split into separate data frames for each repeat
-      b8s=split(b8)
+      # divide into separate data frames for each repeat
+      b8s=divide(b8)
       b10=CollectSpikesFromSweeps(nmdir,10,xlim=c(0,3000),stimRange=c(500,1000))
       od8=OdourResponseFromSpikes(b8s,response=c(700,1500))
       od8_baseline=structure(list(OilBl = c(0, 0, 0, 0), BeZal = c(0, 0, 0, 0), 
@@ -157,13 +157,16 @@ test_that("Count spikes - Shahar data with repeated block", {
       expect_that(od8,equals(od8_baseline))
     })
 
-test_that("Split spiketimes with n presentations into n separate dataframes",{
+test_that("divide spiketimes with n presentations into n separate dataframes",{
       # This organisation is typical for Shahar's data when a single PXP file
       # contains repeated presentations for the same set of odours
       nmdir='../igor/spikes/nm20120906c0'
       b8=CollectSpikesFromSweeps(nmdir,8,xlim=c(0,3000),stimRange=c(500,1000))
-      # split into separate data frames for each repeat
-      b8s=split(b8)
+      # divide into separate data frames for each repeat
+      b8s=divide(b8)
+      
+      expect_warning(b8s_wsplit<-split(b8))
+      expect_equal(b8s_wsplit, b8s)
       
       b8s_baseline=structure(list(structure(list(Time = c(85.48837, NA, NA, NA, 
                           1009.242, NA, 852.1313, 895.276, 906.8022, 915.5463, 936.9566, 
@@ -235,21 +238,21 @@ test_that("Split spiketimes with n presentations into n separate dataframes",{
       
       names_baseline=c("008.000", "008.001", "008.002", "008.003")
       expect_that(names(b8s),equals(names_baseline),
-          "Check that after splitting we make sensible names for each block")
+          "Check that after dividing we make sensible names for each block")
     })
 
-test_that("Merge 2 blocks that have been split",{
+test_that("Merge 2 blocks that have been divided",{
       nmdir='../igor/spikes/nm20120906c0'
       b8=CollectSpikesFromSweeps(nmdir,8,xlim=c(0,3000),stimRange=c(500,1000))
-      # split into separate data frames for each repeat
-      b8s=split(b8)
+      # divide into separate data frames for each repeat
+      b8s=divide(b8)
       b10=CollectSpikesFromSweeps(nmdir,10,xlim=c(0,3000),stimRange=c(500,1000))
-      b10s=split(b10)
+      b10s=divide(b10)
       bs=merge(b8s,b10s)
       merged_names=c("008.000,010.000", "008.001,010.001", "008.002,010.002", 
           "008.003,010.003")
       expect_that(names(bs),equals(merged_names),
-          "Check that we get sensible names after split and merge")
+          "Check that we get sensible names after divide and merge")
       merged_lengths=c(56,52,68,63)
       expect_that(sapply(bs,nrow),is_equivalent_to(merged_lengths),
           "Check that we get the right number of spikes in the right blocks")
