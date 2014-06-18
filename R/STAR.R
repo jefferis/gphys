@@ -98,7 +98,10 @@ plot.mpsth<-function(x,stimTimeCourse = NULL, colStim = "grey80",
     colCI = NULL, xlab='Time /s', ylab='Spike Freq /Hz', xlim, ylim, lwd = 2,
     col = 1,labels=NULL,toplot=c("lines",'CI','legend'),...){
   # if there is only one psth in the list, use standard plot method
-  if(length(x)==1) return(plot(x[[1]],y=y,...))
+  if(length(x)==1) return(plot(x[[1]], stimTimeCourse=stimTimeCourse,
+                               colStim=colStim, colCI=colCI, xlab=xlab,
+                               ylab=ylab, xlim=xlim, ylim=ylim,
+                               lwd = lwd, col = col, ...))
   maxFreq <- max(sapply(x,"[[",'ciUp'))
   if(missing(xlim))
     xlim=range(sapply(x,function(xx) tsp.psth(xx)[1:2]))
