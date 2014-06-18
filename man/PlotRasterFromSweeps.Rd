@@ -10,8 +10,8 @@ PlotRasterFromSweeps(sweepdir, sweeps, subdir = "", subset = NULL,
   pch = 22, dotcolour = "black", dotsize = 0.5, dotwidth = 20,
   spikeheight = 0.8, odourRange = NULL, odourCol = rgb(1, 0.8, 0.8, 1),
   relabelfun = identity, fixChannels = NULL, IncludeChannels = FALSE,
-  PlotSpikes = TRUE, PlotDividers = TRUE, panel.first = NULL,
-  panel.last = NULL, ...)
+  PlotSpikes = TRUE, PlotDividers = TRUE, DividerCol = "black",
+  panel.first = NULL, panel.last = NULL, ...)
 
 \method{plot}{spiketimes}(x, ...)
 }
@@ -55,6 +55,9 @@ PlotRasterFromSweeps(sweepdir, sweeps, subdir = "", subset = NULL,
 \item{PlotSpikes}{Whether to plot the spikes (default TRUE)}
 
 \item{PlotDividers}{Plot the dividing lines between odours (default TRUE)}
+
+\item{DividerCol}{the colour with which to plot dividing lines between odours
+(default black)}
 
 \item{panel.first}{An \code{expression} to be evaluated after the plot axes
 are set up but before any plotting takes place}
