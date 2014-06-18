@@ -355,7 +355,7 @@ as.repeatedTrain.spiketimes<-function(x,...){
   if(is.null(nn)) nn=as.character(seq(nsweeps))
   for(i in seq_along(nn)){
     # nb waves are 0 indexed in nclamp and time unit is ms not s
-    spikelist=lapply(x,function(s) s[s$Wave==(i-1),'Time'][[1]]/1000)
+    spikelist=lapply(x,function(s) s[s$Wave==(i-1) & !is.na(s$Wave),'Time']/1000)
     # remove any NAs (converting those trains to empty numeric vectors)
     spikelist=lapply(spikelist,na.omit)
     l[[nn[i]]]=as.repeatedTrain(spikelist)
