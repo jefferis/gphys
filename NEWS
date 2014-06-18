@@ -1,3 +1,11 @@
+gphys 0.9
+=========
+* deprecate split.spiketimes in favour of divide.spiketimes
+* prepare for CRAN release by fixing all R CMD CHECK warnings/notes
+* fix bug in example on case-sensitive filesystems
+* add zenodo shield
+* dev: add travis integration
+
 gphys 0.8-2
 ===========
 * Add lifetime_sparseness function
