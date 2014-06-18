@@ -1,3 +1,8 @@
+gphys 0.8-2
+===========
+* Add lifetime_sparseness function
+* give PlotRasterFromSweeps a DividerCol argument
+
 gphys 0.8.1
 ===========
 * Allow smpsth to pass on additional arguments to STAR::psth (such as
