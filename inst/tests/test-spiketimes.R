@@ -1,4 +1,4 @@
-context("Test handling of spike times files saved by Igor/Neuromatic")
+context("Merge spike times files saved by Igor/Neuromatic")
 
 test_that("merge two blocks of spikes, ", {
   nmdir='../igor/spikes/nm20120413c0'
@@ -101,6 +101,7 @@ test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", 
     expect_that(csd[1:nrow(csa),colnames(csa)],equals(csa))
     })
 
+context("Counting spike times")
 test_that("Count spikes - large reponse window", {
   nmdir='../igor/spikes/nm20120413c0'
   a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
@@ -157,6 +158,7 @@ test_that("Count spikes - Shahar data with repeated block", {
       expect_that(od8,equals(od8_baseline))
     })
 
+context("Dividing spike times")
 test_that("divide spiketimes with n presentations into n separate dataframes",{
       # This organisation is typical for Shahar's data when a single PXP file
       # contains repeated presentations for the same set of odours
@@ -259,7 +261,7 @@ test_that("Merge 2 blocks that have been divided",{
       
     })
 
-
+context("Subset spike times")
 test_that("subset spikes by odour or channel",{
   fixVec=structure(c(31, 30, 29, 27, 26, 25), .Names = c("empty", "IAA", "cVA", "PAA", "4ol", "ctr"))
   a=CollectSpikesFromSweeps("../igor/spikes/nm20110907c3/",subdir='BLOCKI',fixChannels=fixVec)
