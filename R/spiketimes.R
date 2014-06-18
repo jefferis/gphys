@@ -251,7 +251,7 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
         x$OldWave=x$Wave;
         y=data.frame(Time=numeric(0), Wave=integer(0),OldWave=integer(0))
         for(i in seq_along(new_waves)){
-          ssx=subset(x,Wave==sel_oldwaves[i],c(Time,Wave,OldWave))
+          ssx=x[x$Wave==sel_oldwaves[i], c("Time", "Wave", "OldWave")]
           if(nrow(ssx)>0){
             ssx$Wave=new_waves[i]
             y=rbind(y,ssx) 
@@ -355,7 +355,7 @@ as.repeatedTrain.spiketimes<-function(x,...){
   if(is.null(nn)) nn=as.character(seq(nsweeps))
   for(i in seq_along(nn)){
     # nb waves are 0 indexed in nclamp and time unit is ms not s
-    spikelist=lapply(x,function(s) subset(s,Wave==(i-1),Time)[[1]]/1000)
+    spikelist=lapply(x,function(s) s[s$Wave==(i-1),'Time'][[1]]/1000)
     # remove any NAs (converting those trains to empty numeric vectors)
     spikelist=lapply(spikelist,na.omit)
     l[[nn[i]]]=as.repeatedTrain(spikelist)

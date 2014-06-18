@@ -356,7 +356,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
   # but not those wave/sweep combinations where this signalling NA from
   # Igor/NClamp is missing because those sweeps never actually happened
   # ie the odour was not presented!
-  empty_wave_sweeps=subset(spikess,is.na(Time) & !is.na(Wave))
+  empty_wave_sweeps=spikess[is.na(spikess$Time) & !is.na(spikess$Wave),]
   for(i in seq_len(nrow(empty_wave_sweeps))){
     cur_wave=as.character(empty_wave_sweeps[i,'Wave'])
     cur_sweep=as.character(empty_wave_sweeps[i,'Sweep'])
