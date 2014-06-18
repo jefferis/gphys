@@ -1,3 +1,9 @@
+gphys 0.8.1
+===========
+* Allow smpsth to pass on additional arguments to STAR::psth (such as
+  plotting arguemnts)
+* dev: switch to roxygen2 v4
+
 gphys 0.8
 ===========
 * Major version bump due to possible backwards incompatibility in scale.ts
