@@ -18,4 +18,8 @@ test_that("lifetime_sparseness",{
   # nb difference in baseline for cell 4 is due to loss of a positive response
   expect_equal(lifetime_sparseness(od2),
                c(1, 1, 1, 0.979202772963605, 0.95049504950495))
+  
+  expect_warning(S3<-lifetime_sparseness(od2, minodours = 1.0),
+                 'too few odours')
+  expect_equal(S3, c(1, 1, 1, NA, NA))
 })
