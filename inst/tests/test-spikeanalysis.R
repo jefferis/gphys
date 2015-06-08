@@ -17,5 +17,5 @@ test_that("lifetime_sparseness",{
   od2[4,'IAA']=NA
   # nb difference in baseline for cell 4 is due to loss of a positive response
   expect_equal(lifetime_sparseness(od2),
-               c(1, 1, 1, 0.983362218370884, 0.96039603960396))
+               c(1, 1, 1, 0.979202772963605, 0.95049504950495))
 })
