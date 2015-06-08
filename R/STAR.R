@@ -41,6 +41,7 @@ tsp.psth<-function(x){
 #' @author jefferis
 #' @export
 #' @seealso STAR::psth, STAR::plot.psth, spiketimes
+#' @importFrom STAR is.repeatedTrain psth
 #' @examples
 #' spikes=CollectSpikesFromSweeps(
 #'   system.file('igor','spikes','nm20120917c1',package='gphys'),
