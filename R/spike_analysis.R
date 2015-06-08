@@ -50,12 +50,12 @@ lifetime_sparseness<-function(x,minodours=0.75){
     warning("Zeroing ",nxlt0,' responses < 0')
   }
   # main calculation
-  N<-ncol(x) # number of odours
+  N=rowSums(is.finite(x)) # number of odours
   S=1/(1-1/N)*( 1 - (rowSums(x/N,na.rm=T)^2)/(rowSums(x^2/N,na.rm=T)) )
   
   # but replace caclulated values with NA if too few odours are available
-  nodours_percell=rowSums(is.finite(x))
-  badcell=nodours_percell<minodours
+  
+  badcell=N<minodours
   if(any(badcell)){
     warning("Returning NA for ",sum(badcell,na.rm=T),' cells that have too few odours')
     S[badcell]=NA
