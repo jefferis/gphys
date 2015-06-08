@@ -32,6 +32,11 @@
 #'   subdir='BLOCKI',sweeps=0:4)
 #' od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
 #' S=lifetime_sparseness(od)
+#' 
+#' # check what happens with NAs
+#' od2=od
+#' od2[5,'cVA']=NA
+#' S2=lifetime_sparseness(od2)
 lifetime_sparseness<-function(x,minodours=0.75){
   if(is.data.frame(x)) x=as.matrix(x)
   if(!is.matrix(x)){
@@ -39,7 +44,7 @@ lifetime_sparseness<-function(x,minodours=0.75){
     else stop("Unknown data format. I like matrices, dataframes and vectors.")
   }
   # remove any terms <0
-  if(any(x<0)){
+  if(any(x<0, na.rm=T)){
     nxlt0=sum(x<0,na.rm=T)
     x[x<0]=0
     warning("Zeroing ",nxlt0,' responses < 0')

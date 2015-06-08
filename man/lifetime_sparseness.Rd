@@ -40,6 +40,11 @@ spikes=CollectSpikesFromSweeps(
   subdir='BLOCKI',sweeps=0:4)
 od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
 S=lifetime_sparseness(od)
+
+# check what happens with NAs
+od2=od
+od2[5,'cVA']=NA
+S2=lifetime_sparseness(od2)
 }
 \references{
 Olsen S.R. and Wilson R.I. (2008). Lateral presynaptic inhibition
