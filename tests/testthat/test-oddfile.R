@@ -4,9 +4,9 @@
 ###############################################################################
 
 context("Test handling of ODD config files saved by Igor XOP")
-
+igordir<-system.file("igor", package = 'gphys')
 test_that("Read simple odd config file", {
-      odd<-read.odd("../igor/oddfiles/simple_odd.txt")
+      odd<-read.odd(file.path(igordir,"oddfiles/simple_odd.txt"))
       odd_baseline=structure(list(
               odour = c("4ol", "IAA", "ctr", "PAA", "fly", "cVA"),
               del = c(0L, 0L, 0L, 0L, 0L, 0L), 
@@ -32,7 +32,7 @@ test_that("Read simple odd config file", {
     })
 
 test_that("Fix channels in ODD config file", {
-      odd<-read.odd("../igor/oddfiles/simple_odd.txt")
+      odd<-read.odd(file.path(igordir,"oddfiles/simple_odd.txt"))
       fixVec=c(empty=31,IAA=30,cVA=29,PAA=27,`4ol`=26,ctr=25)
       fixed=fix.odd(odd,fixVec)
       fixed_odour=c('IAA','4ol','empty','cVA','ctr','PAA')
@@ -41,7 +41,7 @@ test_that("Fix channels in ODD config file", {
     })
       
 test_that("Read complex ODD config file", {
-      odd<<-read.odd("../igor/oddfiles/nm20120125c1_000_odd_5times_Sput_1.txt")
+      odd<<-read.odd(file.path(igordir,"oddfiles/nm20120125c1_000_odd_5times_Sput_1.txt"))
       odd_baseline=structure(list(odour = c("OilBl", "E2Hex", "GerAc", "Prpyl", 
                   "IPenA", "Et3HB", "Nonnl", "CiVAc", "OilBl", "E2Hex", "GerAc", 
                   "Prpyl", "IPenA", "Et3HB", "Nonnl", "CiVAc", "OilBl", "E2Hex", 
@@ -88,7 +88,7 @@ test_that("Read complex ODD config file", {
     })
 
 test_that("Read ODD config file with missing zeros in a line", {
-      odd<<-read.odd("../igor/oddfiles/missingzeros.txt")
+      odd<<-read.odd(file.path(igordir,"oddfiles/missingzeros.txt"))
       odd_baseline=structure(list(odour = c("OilBl", "E2Hex", "GerAc", "Prpyl", 
                   "IPenA", "Et3HB", "Nonnl", "CiVAc", "OilBl", "E2Hex", "GerAc", 
                   "Prpyl", "IPenA", "Et3HB", "Nonnl", "CiVAc", "OilBl", "E2Hex", 

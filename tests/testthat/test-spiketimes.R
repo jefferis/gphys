@@ -1,7 +1,7 @@
 context("Merge spike times files saved by Igor/Neuromatic")
 
+nmdir=system.file("igor/spikes/nm20120413c0", package = 'gphys')
 test_that("merge two blocks of spikes, ", {
-  nmdir='../igor/spikes/nm20120413c0'
   a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
   b=CollectSpikesFromSweeps(nmdir,subdir="BLOCKB")
   
@@ -31,7 +31,6 @@ test_that("merge two blocks of spikes, ", {
 })
     
 test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", {
-    nmdir='../igor/spikes/nm20120413c0'
     a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
     b=CollectSpikesFromSweeps(nmdir,subdir="BLOCKB")
     c=merge(a,b)
@@ -74,7 +73,7 @@ test_that("merge two blocks of spikes with unequal lengths (A longer than B) ", 
     })
     
 test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", {
-    nmdir='../igor/spikes/nm20121020c2'
+    nmdir=system.file("igor/spikes/nm20121020c2", package = 'gphys')
     a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
     b=CollectSpikesFromSweeps(nmdir,subdir="BLOCKB")
     c=merge(a,b)
@@ -103,7 +102,6 @@ test_that("merge two blocks of spikes with unequal lengths (B longer than A) ", 
 
 context("Counting spike times")
 test_that("Count spikes - large reponse window", {
-  nmdir='../igor/spikes/nm20120413c0'
   a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
   csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
 
@@ -121,7 +119,6 @@ test_that("Count spikes - large reponse window", {
 })
 
 test_that("Count spikes - NULL baseline", {
-      nmdir='../igor/spikes/nm20120413c0'
       a=CollectSpikesFromSweeps(nmdir,subdir="BLOCKA")
       csa=OdourResponseFromSpikes(a,responseWindow=c(0,4000))
       csa.nb=OdourResponseFromSpikes(a,responseWindow=c(0,4000),baselineWindow = NULL)
@@ -130,7 +127,7 @@ test_that("Count spikes - NULL baseline", {
     })
 
 test_that("Count spikes - with baseline", {
-      nmdir='../igor/spikes/nm20110914c4'
+      nmdir=system.file("igor/spikes/nm20110914c4", package = 'gphys')
       spikes=CollectSpikesFromSweeps(nmdir,subdir="BLOCKI",sweeps=0:4)
       od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
       
@@ -143,7 +140,7 @@ test_that("Count spikes - with baseline", {
     })
 
 test_that("Count spikes - Shahar data with repeated block", {
-      nmdir='../igor/spikes/nm20120906c0'
+      nmdir=system.file("igor/spikes/nm20120906c0", package = 'gphys')
       b8=CollectSpikesFromSweeps(nmdir,8,xlim=c(0,3000),stimRange=c(500,1000))
       # divide into separate data frames for each repeat
       b8s=divide(b8)
@@ -162,7 +159,7 @@ context("Dividing spike times")
 test_that("divide spiketimes with n presentations into n separate dataframes",{
       # This organisation is typical for Shahar's data when a single PXP file
       # contains repeated presentations for the same set of odours
-      nmdir='../igor/spikes/nm20120906c0'
+      nmdir=system.file("igor/spikes/nm20120906c0", package = 'gphys')
       b8=CollectSpikesFromSweeps(nmdir,8,xlim=c(0,3000),stimRange=c(500,1000))
       # divide into separate data frames for each repeat
       b8s=divide(b8)
@@ -244,7 +241,7 @@ test_that("divide spiketimes with n presentations into n separate dataframes",{
     })
 
 test_that("Merge 2 blocks that have been divided",{
-      nmdir='../igor/spikes/nm20120906c0'
+      nmdir=system.file("igor/spikes/nm20120906c0", package = 'gphys')
       b8=CollectSpikesFromSweeps(nmdir,8,xlim=c(0,3000),stimRange=c(500,1000))
       # divide into separate data frames for each repeat
       b8s=divide(b8)
@@ -264,8 +261,9 @@ test_that("Merge 2 blocks that have been divided",{
 context("Subset spike times")
 test_that("subset spikes by odour or channel",{
   fixVec=structure(c(31, 30, 29, 27, 26, 25), .Names = c("empty", "IAA", "cVA", "PAA", "4ol", "ctr"))
-  a=CollectSpikesFromSweeps("../igor/spikes/nm20110907c3/",subdir='BLOCKI',fixChannels=fixVec)
-  b=CollectSpikesFromSweeps("../igor/spikes/nm20110907c3/",subdir='BLOCKII')
+  nmdir=system.file("igor/spikes/nm20110907c3", package = 'gphys')
+  a=CollectSpikesFromSweeps(nmdir,subdir='BLOCKI',fixChannels=fixVec)
+  b=CollectSpikesFromSweeps(nmdir,subdir='BLOCKII')
   ab=merge(a,b)
   
   cVAPAA=subset(ab,c("cVA","PAA"))

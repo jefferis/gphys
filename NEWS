@@ -1,3 +1,10 @@
+gphys 0.10.0
+============
+* fix bugs in handling of NAs in lifetime_sparseness
+* minor doc fixes
+* make test installation optional
+* dev: update roxygen2
+
 gphys 0.9
 =========
 * deprecate split.spiketimes in favour of divide.spiketimes
