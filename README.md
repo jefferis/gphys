@@ -8,26 +8,19 @@ e.g. in the package [frulhns](https://github.com/jefferis/frulhns).
 For further details see the R [DESCRIPTION](DESCRIPTION) file.
  
 ## Installation
-Currently there isn't a released version on [CRAN](http://cran.r-project.org/).
-
-### Released versions
-The recommendation is to install from our lab repository:
-
-```r
-install.packages("gphys",repos='http://jefferislab.org/R',type='source')
-```
-
-### Bleeding Edge
-You can, however, download the [tar ball](https://github.com/jefferis/gphys/tarball/develop), and run `R CMD INSTALL` on it, or use the **devtools** package to install the development version:
+Currently there isn't a released version on [CRAN](http://cran.r-project.org/).You can use 
+the **devtools** package to install either the latest **release** or **development** version:
 
 ```r
 # install devtools if required
 install.packages("devtools")
 
 library(devtools)
+# latest release
+install_github("jefferis/gphys")
 # nb develop branch will typically be the most up to date since master
 # is now reserved for released versions.
-install_github("gphys", "jefferis",ref='develop')
+install_github("jefferis/gphys@develop")
 ```
 
 Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and [devtools](http://CRAN.R-project.org/package=devtools) to install this way.
