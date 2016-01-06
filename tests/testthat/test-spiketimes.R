@@ -238,7 +238,23 @@ test_that("divide spiketimes with n presentations into n separate dataframes",{
       names_baseline=c("008.000", "008.001", "008.002", "008.003")
       expect_that(names(b8s),equals(names_baseline),
           "Check that after dividing we make sensible names for each block")
+      
     })
+
+test_that("divide spiketimes works with shuffled presentations",{
+  nmdir=system.file("igor/spikes/nm20151231c0/", package = 'gphys')
+  b8=CollectSpikesFromSweeps(nmdir,4,xlim=c(0,3000),stimRange=c(500,750))
+  # divide into separate data frames for each repeat
+  b8s=divide(b8)
+  
+  # Let's check that the order that waves appear in the 4 separate blocks
+  # matches what we predict looking at the shuffled odd
+  baseline=list(0:7, 
+                c(0, 3, 2, 4, 6, 1, 7, 5), 
+                c(0, 7, 1, 6, 4, 2, 5, 3),
+                c(0, 6, 5, 3, 1, 4, 2, 7))
+  expect_equivalent(lapply(b8s, function(x) unique(x$Wave)), baseline)
+})
 
 test_that("Merge 2 blocks that have been divided",{
       nmdir=system.file("igor/spikes/nm20120906c0", package = 'gphys')

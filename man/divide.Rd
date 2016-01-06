@@ -26,8 +26,19 @@ divide.spiketimes is designed for the situation where a single pxp file
 contains multiple repeats for the same stimulus set.
 }
 \details{
-Only works for spiketimes from single pxp file. FIXME Teach this to
-  cope with repeat blocks with different odours in different order
+Only works for spiketimes from single pxp file.
+
+  The function can cope with cases where odour order has been shuffled within
+  repeated blocks each containing all test odours (but not when the odours
+  could appear at any point in the test sequence).
+
+  For shuffled data the Wave column will be a number from 0 to blocksize-1
+  that indicates which of the presented channels the spikes belong to. Note
+  that this is sorted by absolute channel number \bold{not} by the order of
+  presentation of odours in the first block.
+
+  Likwise the \code{oddconf} of the returned list of data.frames will have
+  the odours sorted in absolute channel order.
 }
 \author{
 jefferis
