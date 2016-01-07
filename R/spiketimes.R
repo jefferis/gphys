@@ -5,11 +5,22 @@ divide<-function(x, ...) UseMethod("divide")
 #' Divide spiketimes object with multiple repeats into list with one entry per 
 #' repeat
 #' 
-#' divide.spiketimes is designed for the situation where a single pxp file
+#' divide.spiketimes is designed for the situation where a single pxp file 
 #' contains multiple repeats for the same stimulus set.
 #' 
-#' @details Only works for spiketimes from single pxp file. FIXME Teach this to
-#'   cope with repeat blocks with different odours in different order
+#' @details Only works for spiketimes from single pxp file.
+#'   
+#'   The function can cope with cases where odour order has been shuffled within
+#'   repeated blocks each containing all test odours (but not when the odours
+#'   could appear at any point in the test sequence). 
+#'   
+#'   For shuffled data the Wave column will be a number from 0 to blocksize-1
+#'   that indicates which of the presented channels the spikes belong to. Note
+#'   that this is sorted by absolute channel number \bold{not} by the order of
+#'   presentation of odours in the first block.
+#'   
+#'   Likwise the \code{oddconf} of the returned list of data.frames will have
+#'   the odours sorted in absolute channel order.
 #' @param x The spiketimes object
 #' @param blocksize number of waves per block - deduced from odour names if 
 #'   missing
@@ -25,10 +36,26 @@ divide.spiketimes<-function(x, blocksize, ...){
   odd=attr(x,'oddconf')
   if(missing(blocksize))
     blocksize=length(unique(odd$odour))
+  nWaves=max(st1$OldWave, na.rm = TRUE)+1
+  nblocks=round(nWaves/blocksize)
+  if(nblocks*blocksize!=nWaves){
+    stop("nblocks * blocksize != nWaves!")
+  }
+  
+  # What is the correct order for the odours?
+  # sorted unique channel numbers
+  sorted_chans=sort(unique(odd$chan))
+  
+
+  # map the order that the waves were acquired in onto that chosen odour order.
+  order_for_wave=match(odd$chan, sorted_chans)
+  # now map the wave index (e.g. 0-31) through that vector to give 
+  # the order in which sweeps would have been acquired if they were not shuffled
+  st1$Wave=order_for_wave[st1$OldWave+1]-1
+
   # Find 0 indexed repetition number
   st1$Rep=floor(st1$OldWave/blocksize)
-  st1$Wave=st1$OldWave%%blocksize
-  
+
   stnew=split(st1,st1$Rep)
   mostattributes(stnew)=attributes(x)
   # We will have to make new names now that the list has more elements
@@ -36,7 +63,7 @@ divide.spiketimes<-function(x, blocksize, ...){
   # (ie still 0-indexed for second part)
   names(stnew)=sprintf("%s.%03d",names(x),seq_along(stnew)-1)
   if(!is.null(attr(stnew,'oddconf'))){
-    attr(stnew,'oddconf')=attr(stnew,'oddconf')[1:blocksize,]
+    attr(stnew,'oddconf')=attr(stnew,'oddconf')[order_for_wave[1:blocksize],]
   }
   stnew
 }
