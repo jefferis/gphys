@@ -220,8 +220,13 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
   # Read in all spike times
 	
   ff=dir(file.path(sweepdir,subdir),'^[0-9]{3}_SP_',full.names=TRUE)
-  rasterd=lapply(ff,read.table,col.names=c("Time","Wave"),header=TRUE, 
-    na.strings='NAN')
+  read_spikes<-function(f) {
+    x=read.table(f,col.names=c("Time","Wave"),header=TRUE, na.strings='NAN')
+    # Record first 3 digits of filename
+    x$FileNum=substr(basename(f),1,3)
+    x
+  }
+  rasterd=lapply(ff,read_spikes)
   names(rasterd)=substring(basename(ff),1,3)
   
   oddfiles=dir(sweepdir,pattern='_odd[_.]')
