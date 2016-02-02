@@ -397,3 +397,62 @@ as.repeatedTrain.spiketimes<-function(x,...){
 as.repeatedTrain.default<-function(x,...) {
   STAR::as.repeatedTrain(x)
 }
+
+#' Find the Igor waves matching a set of spikes (even if shuffled)
+#' 
+#' @param x a spiketimes object
+IgorWavesForSpikes<-function(x) {
+  # join up any repeat blocks
+  rx=do.call(rbind, x)
+  # Find unique rows after dropping the time column
+  # these tell us which igor file number and wave we want
+  unique(rx[,-1])
+  ix=IgorWavesForSpikes(x)
+  # find pxp files
+  pxps=dir(attr(x,'sweepdir'), pattern="_[0-9]{3}\\.pxp$", full.names = TRUE)
+  # name those by the sweep number
+  names(pxps)=sub(".*_([0-9]{3})\\.pxp", "\\1", pxps)
+  # now we can figure out which file we want
+  ix$File=pxps[ix$FileNum]
+  ix
+}
+
+#' Make average (analogue) waves that match a spiketimes object
+#' 
+#' You can use the \code{wavestem} argument to choose the analogue input channel
+#' to use for calculation.
+#' 
+#' @param x A spiketimes object
+#' @param wavestem The stem of the wave names in Igor (defaults to 
+#'   \code{"RecordA"})
+#' @return A \code{mts} object with as many rows as there are Waves in the 
+#'   stimulus protocol (i.e. normally odours).
+#' @export
+#' @seealso \code{\link{CollectSpikesFromSweeps}}
+MakeAverageWaves<-function(x, wavestem="RecordA"){
+  ix=IgorWavesForSpikes(x)
+  ix$IgorWave=paste0(wavestem, ix$OldWave)
+  files_to_read=unique(ix$File)
+  names(files_to_read)=sub(".*_([0-9]{3})\\.pxp", "\\1", files_to_read)
+  # n
+  wavelist=sapply(files_to_read, read.pxp, regex=wavestem, simplify = FALSE)
+  
+  avgwaves=list()
+  for(w in sort(unique(ix$Wave))){
+    wix=ix[, ix$Wave==w]
+    if(nrow(wix)==0) stop("Unable to find Igor waves for wave: ", w)
+    thisfilenum=unique(wix$FileNum)
+    # FIXME we don't want to keep this limitation for ever
+    if(length(thisfilenum)>1)
+      stop("Waves for a single channel come from different files. I wasn't expecting that!")
+    
+    # get those waves as a list
+    wl=wavelist[[thisfilenum]][wix$IgorWave]
+    # turn them into a timeseries
+    ww=IgorR::WaveToTimeSeries(wl)
+    # average them 
+    avgwaves[[as.character(w)]]=mean(ww)
+  }
+  # now cbind all the average waves together to make our final answer
+  do.call(cbind, avgwaves)
+}
