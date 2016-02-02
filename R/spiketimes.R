@@ -406,8 +406,8 @@ IgorWavesForSpikes<-function(x) {
   rx=do.call(rbind, x)
   # Find unique rows after dropping the time column
   # these tell us which igor file number and wave we want
-  unique(rx[,-1])
-  ix=IgorWavesForSpikes(x)
+  ix=unique(rx[,-1])
+  
   # find pxp files
   pxps=dir(attr(x,'sweepdir'), pattern="_[0-9]{3}\\.pxp$", full.names = TRUE)
   # name those by the sweep number
@@ -439,7 +439,7 @@ MakeAverageWaves<-function(x, wavestem="RecordA"){
   
   avgwaves=list()
   for(w in sort(unique(ix$Wave))){
-    wix=ix[, ix$Wave==w]
+    wix=ix[ix$Wave==w, ]
     if(nrow(wix)==0) stop("Unable to find Igor waves for wave: ", w)
     thisfilenum=unique(wix$FileNum)
     # FIXME we don't want to keep this limitation for ever
