@@ -136,7 +136,8 @@ plot(spikes)
 jefferis
 }
 \seealso{
-\code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and 
+\code{\link{CollectSpikesFromSweeps},
+  \code{\link{AddLinesToRasterPlot}},\link{fix.odd}} and 
   \code{\link{plot.default}} for graphical parameters
 
 \code{\link{PlotRasterFromSweeps}, \link{spiketimes}}

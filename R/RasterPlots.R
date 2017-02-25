@@ -38,7 +38,8 @@
 #'   plotted
 #' @param ... Additional parameters passed to plot
 #' @author jefferis
-#' @seealso \code{\link{CollectSpikesFromSweeps}, \link{fix.odd}} and 
+#' @seealso \code{\link{CollectSpikesFromSweeps},
+#'   \code{\link{AddLinesToRasterPlot}},\link{fix.odd}} and 
 #'   \code{\link{plot.default}} for graphical parameters
 #' @export
 #' @aliases plot.spiketimes
