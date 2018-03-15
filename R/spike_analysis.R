@@ -24,11 +24,11 @@
 #' @export
 #' @references Olsen S.R. and Wilson R.I. (2008). Lateral presynaptic inhibition
 #'   mediates gain control in an olfactory circuit. Nature 452 (7190), 956--960.
-#'   \href{http://dx.doi.org/10.1038/nature06864}{doi:10.1038/nature06864}
+#'   \href{http://doi.org/10.1038/nature06864}{doi:10.1038/nature06864}
 #'   
 #'   Willmore B. and  Tolhurst D.J.(2001). Characterizing the sparseness of 
 #'   neural codes. Network Comput. Neural Syst. 12, 255 (2001) 
-#'   \href{http://dx.doi.org/10.1080/net.12.3.255.270}{doi:10.1080/net.12.3.255.270}
+#'   \href{http://doi.org/10.1080/net.12.3.255.270}{doi:10.1080/net.12.3.255.270}
 #'   
 #' @section Missing Values (NAs): When there are missing values in \code{x}, 
 #'   they are omitted silently. NAs do not count towards the value of N, the 
