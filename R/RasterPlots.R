@@ -38,8 +38,8 @@
 #'   plotted
 #' @param ... Additional parameters passed to plot
 #' @author jefferis
-#' @seealso \code{\link{CollectSpikesFromSweeps},
-#'   \code{\link{AddLinesToRasterPlot}},\link{fix.odd}} and 
+#' @seealso \code{\link{CollectSpikesFromSweeps}},
+#'   \code{\link{AddLinesToRasterPlot}},\code{\link{fix.odd}} and 
 #'   \code{\link{plot.default}} for graphical parameters
 #' @export
 #' @importFrom graphics axis title segments rect par points

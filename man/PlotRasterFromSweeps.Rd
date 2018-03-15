@@ -134,8 +134,8 @@ spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
 plot(spikes)
 }
 \seealso{
-\code{\link{CollectSpikesFromSweeps},
-  \code{\link{AddLinesToRasterPlot}},\link{fix.odd}} and 
+\code{\link{CollectSpikesFromSweeps}},
+  \code{\link{AddLinesToRasterPlot}},\code{\link{fix.odd}} and 
   \code{\link{plot.default}} for graphical parameters
 
 \code{\link{PlotRasterFromSweeps}, \link{spiketimes}}
