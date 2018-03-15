@@ -1,3 +1,13 @@
+gphys 0.11
+==========
+* fix bug in handling shuffled odour blocks in divide.spiketimes (#13)
+* record file number when reading in spike times (#14).
+  This will be useful for dealing with shuffled odour presentations where we
+  would like superimpose voltage information.
+* add MakeAverageWaves function to make average (analogue) waves that match a 
+  spiketimes object
+* minor doc improvements (#15)
+
 gphys 0.10.0
 ============
 * fix bugs in handling of NAs in lifetime_sparseness
