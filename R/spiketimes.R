@@ -359,6 +359,7 @@ as.repeatedTrain<-function(x,...){
 #' one for each odour.
 #' @inheritParams as.repeatedTrain
 #' @export
+#' @importFrom stats na.omit
 #' @rdname as.repeatedTrain
 #' @method as.repeatedTrain spiketimes
 #' @aliases as.repeatedTrain

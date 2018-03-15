@@ -68,6 +68,7 @@ smpsth<-function(spikes, breaks=c(bw=0.5,step=0.05), CI=0.95,
 #' @return list of class mpsth
 #' @author jefferis
 #' @export
+#' @importFrom methods is
 #' @family mpsth
 #' @seealso \code{\link{psth}}
 as.mpsth<-function(x,...){
@@ -95,6 +96,8 @@ as.mpsth<-function(x,...){
 #' @method plot mpsth
 #' @export
 #' @seealso \code{\link[STAR]{psth}}, \code{\link[STAR]{plot.psth}}
+#' @importFrom grDevices col2rgb rgb 
+#' @importFrom graphics legend lines plot polygon
 plot.mpsth<-function(x,stimTimeCourse = NULL, colStim = "grey80",
     colCI = NULL, xlab='Time /s', ylab='Spike Freq /Hz', xlim, ylim, lwd = 2,
     col = 1,labels=NULL,toplot=c("lines",'CI','legend'),...){

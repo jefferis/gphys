@@ -33,6 +33,7 @@ tsp.nclamppxp<-function(path,pxpnum,WaveToCheck="RecordA0"){
 #' @param ... additional arguments (currently ignored)
 #' @return return value Single time series (ts)
 #' @export
+#' @importFrom stats tsp
 #' @method mean mts
 #' @seealso \code{\link{ts}}
 #' @examples
@@ -97,6 +98,7 @@ scale.ts<-function(x, center = min(x), scale=diff(range(x))){
 #' @param sides 1=>convolution for past values, default 2=>centred on lag=0
 #' @return time series object with call attribute
 #' @export
+#' @importFrom stats window
 #' @seealso \code{\link{window},\link[stats]{filter}}
 #' @examples
 #' x=ts(rnorm(10000)+sin(1:10000/100),start=0,deltat=0.01)

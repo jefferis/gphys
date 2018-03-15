@@ -42,6 +42,7 @@
 #'   \code{\link{AddLinesToRasterPlot}},\link{fix.odd}} and 
 #'   \code{\link{plot.default}} for graphical parameters
 #' @export
+#' @importFrom graphics axis title segments rect par points
 #' @aliases plot.spiketimes
 #' @examples
 #' ## Plot time range 2-4s with odour pulse 2-3s for sweeps 0,1,3
@@ -205,6 +206,7 @@ plot.spiketimes<-function(x, ...) PlotRasterFromSweeps(x, ...)
 #' # and plotting them
 #' plot(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 #' @importFrom tools md5sum
+#' @importFrom utils read.table
 CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
     fixChannels=NULL,subset=NULL){
   if(!file.exists(sweepdir)){
@@ -292,6 +294,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 #' @return results of plotfun (if any)
 #' @author jefferis
 #' @export
+#' @importFrom graphics stripchart
 #' @family OdourResponse
 #' @seealso CollectSpikesFromSweeps
 #' @examples
@@ -397,6 +400,7 @@ OdourResponseFromSpikes<-function(spiketimes,responseWindow,baselineWindow=NULL,
 #' @param col vector or function of colours that will be passed to \code{\link{lines}}
 #' @param ... additional arguments passed to lines.ts function
 #' @export
+#' @importFrom stats ts
 #' @seealso \code{\link{PlotRasterFromSweeps}},\code{\link{lines}}
 #' @examples
 #' \dontrun{
