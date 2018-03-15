@@ -27,7 +27,7 @@ results of plotfun (if any)
 Boxplot of spikes within a window (optionally less a baseline)
 }
 \examples{
-\dontrun{ 
+\donttest{ 
 spikes=CollectSpikesFromSweeps(
   system.file('igor','spikes','nm20110914c4',package='gphys'),
   subdir='BLOCKI',sweeps=0:4)

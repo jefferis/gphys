@@ -298,7 +298,7 @@ CollectSpikesFromSweeps<-function(sweepdir,sweeps,subdir='',xlim,stimRange,
 #' @family OdourResponse
 #' @seealso CollectSpikesFromSweeps
 #' @examples
-#' \dontrun{ 
+#' \donttest{ 
 #' spikes=CollectSpikesFromSweeps(
 #'   system.file('igor','spikes','nm20110914c4',package='gphys'),
 #'   subdir='BLOCKI',sweeps=0:4)
