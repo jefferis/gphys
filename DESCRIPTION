@@ -1,9 +1,9 @@
 Package: gphys
-Maintainer: Greg Jefferis <jefferis@gmail.com>
-License: GPL (>= 2)
 Title: Analyse Electrophysiology Data Acquired by 'Neuromatic' / 'Igor Pro'
 Type: Package
-Author: Greg Jefferis
+Authors@R: person("Gregory","Jefferis", email="jefferis@gmail.com", 
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355"))
+License: GPL (>= 2)
 Description: Provides functions to make spike time raster plots for
     electrophysiological data acquired and pre-analysed by the 'Neuromatic'
     package for 'Igor Pro'. The input data format is a simple text file saved
