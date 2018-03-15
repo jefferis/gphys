@@ -26,4 +26,4 @@ install_github("jefferis/gphys@develop")
 Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and [devtools](http://CRAN.R-project.org/package=devtools) to install this way.
 
 ## Acknowledgements
-This tool naturally depends on a number of other R packages including my own package [IgorR]. However the most sophisticated and domain-specific dependency is the [STAR](http://cran.r-project.org/web/packages/STAR) package of Christophe Pouzat – this offers a great deal of exciting functionality that we hope to use in future.
+This tool naturally depends on a number of other R packages including my own package [IgorR](https://github.com/jefferis/IgorR). However the most sophisticated and domain-specific dependency is the [STAR](http://cran.r-project.org/web/packages/STAR) package of Christophe Pouzat – this offers a great deal of exciting functionality that we hope to use in future.
