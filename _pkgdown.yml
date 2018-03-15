@@ -1,0 +1,59 @@
+reference:
+- title: Package overview
+  desc: ~
+  contents:
+  - '`gphys-package`'
+- title: Read/plot ephys data
+  desc: ~
+  contents:
+  - '`PlotRasterFromSweeps`'
+  - '`PlotOdourResponseFromSpikes`'
+  - '`CollectSpikesFromSweeps`'
+  - '`AddLinesToRasterPlot`'
+  - '`MakeAverageWaves`'
+  - '`IgorWavesForSpikes`'
+- title: Summarising responses
+  desc: ~
+  contents:
+  - '`OdourResponseFromSpikes`'
+  - '`lifetime_sparseness`'
+- title: Odour delivery information 
+  desc: ~
+  contents:
+  - '`read.odd`'
+  - '`fix.odd`'
+- title: Spike trains
+  desc: ~
+  contents:
+  - '`as.repeatedTrain`'
+  - '`spiketimes`'
+  - '`split.spiketimes`'
+  - '`merge.spiketimes`'
+  - '`divide`'
+  - '`is.spiketimes`'
+  - '`subset.spiketimes`'
+  - '`[.spiketimes`'
+  - '`+.spiketimes`'
+- title: Time series helper functions/methods
+  desc: ~
+  contents:
+  - '`smooth_decimate`'
+  - '`scale.ts`'
+  - '`mean.mts`'
+  - '`tsp.nclamppxp`'
+  - '`tsp.psth`'
+- title: PSTH helper functions/methods
+  desc: These help interact with STAR package smoothed peristimulus time histogram objects
+  contents:
+  - '`smpsth`'
+  - '`[.mpsth`'
+  - '`as.ts.mpsth`'
+  - '`as.ts.psth`'
+  - '`as.mpsth`'
+  - '`plot.mpsth`'
+- title: Miscellaneous utility functions
+  desc: ~
+  contents:
+  - '`finder_colour`'
+  - '`finder_colour_fast`'
+  - '`set_finder_colour`'
