@@ -48,4 +48,3 @@ AddLinesToRasterPlot(avgwavests,col='red')
 \seealso{
 \code{\link{PlotRasterFromSweeps}},\code{\link{lines}}
 }
-

@@ -16,11 +16,10 @@ Character string (None when no colour is set) or NA on error
 Note the colours are mapped according to my 10.6.8 system but see:
 http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 }
-\author{
-jefferis
-}
 \seealso{
 Other finder_colour: \code{\link{finder_colour_fast}},
   \code{\link{set_finder_colour}}
 }
-
+\author{
+jefferis
+}

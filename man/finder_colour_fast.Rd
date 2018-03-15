@@ -19,11 +19,10 @@ Note the colours are mapped according to my 10.6.8 system but see:
 http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 Drops the file and gives a message if a file does not exist
 }
-\author{
-jefferis
-}
 \seealso{
 Other finder_colour: \code{\link{finder_colour}},
   \code{\link{set_finder_colour}}
 }
-
+\author{
+jefferis
+}

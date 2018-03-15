@@ -17,13 +17,12 @@ list of class mpsth
 \description{
 Convert a list of STAR psth objects into an mpsth object
 }
-\author{
-jefferis
-}
 \seealso{
 \code{\link{psth}}
 
 Other mpsth: \code{\link{[.mpsth}},
   \code{\link{as.ts.mpsth}}
 }
-
+\author{
+jefferis
+}

@@ -12,4 +12,3 @@ IgorWavesForSpikes(x)
 \description{
 Find the Igor waves matching a set of spikes (even if shuffled)
 }
-

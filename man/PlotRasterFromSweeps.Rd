@@ -3,6 +3,7 @@
 \name{PlotRasterFromSweeps}
 \alias{PlotRasterFromSweeps}
 \alias{plot.spiketimes}
+\alias{plot.spiketimes}
 \title{Make a raster plot from a set of Nclamp sweeps recording odour responses}
 \usage{
 PlotRasterFromSweeps(sweepdir, sweeps, subdir = "", subset = NULL,
@@ -132,9 +133,6 @@ options(gphys.datadir=system.file('igor','spikes',package='gphys'))
 spikes=CollectSpikesFromSweeps('nm20120514c2',subdir='BLOCKB')
 plot(spikes)
 }
-\author{
-jefferis
-}
 \seealso{
 \code{\link{CollectSpikesFromSweeps},
   \code{\link{AddLinesToRasterPlot}},\link{fix.odd}} and 
@@ -142,4 +140,6 @@ jefferis
 
 \code{\link{PlotRasterFromSweeps}, \link{spiketimes}}
 }
-
+\author{
+jefferis
+}

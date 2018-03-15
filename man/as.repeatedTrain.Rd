@@ -3,6 +3,7 @@
 \name{as.repeatedTrain}
 \alias{as.repeatedTrain}
 \alias{as.repeatedTrain.spiketimes}
+\alias{as.repeatedTrain}
 \title{Generic function to convert spikes to STAR as.repeatedTrain objects}
 \usage{
 as.repeatedTrain(x, ...)
@@ -39,4 +40,3 @@ psth(rt[['PAA']])
 \seealso{
 \code{\link[STAR]{as.repeatedTrain}}
 }
-

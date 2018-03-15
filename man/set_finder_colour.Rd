@@ -20,11 +20,10 @@ Logical indicating success or failure
 Set the colour label of a file in the MacOS X Finder 
 See http://stackoverflow.com/questions/2435580/tagging-files-with-colors-in-os-x-finder-from-shell-scripts
 }
-\author{
-jefferis
-}
 \seealso{
 Other finder_colour: \code{\link{finder_colour_fast}},
   \code{\link{finder_colour}}
 }
-
+\author{
+jefferis
+}

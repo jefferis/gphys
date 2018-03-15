@@ -20,4 +20,3 @@ Extract one or more psth objects to make a new mpsth list
 Other mpsth: \code{\link{as.mpsth}},
   \code{\link{as.ts.mpsth}}
 }
-

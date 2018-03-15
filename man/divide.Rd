@@ -40,9 +40,6 @@ Only works for spiketimes from single pxp file.
   Likwise the \code{oddconf} of the returned list of data.frames will have
   the odours sorted in absolute channel order.
 }
-\author{
-jefferis
-}
 \seealso{
 Other spiketimes: \code{\link{+.spiketimes}},
   \code{\link{[.spiketimes}}, \code{\link{is.spiketimes}},
@@ -50,4 +47,6 @@ Other spiketimes: \code{\link{+.spiketimes}},
   \code{\link{split.spiketimes}},
   \code{\link{subset.spiketimes}}
 }
-
+\author{
+jefferis
+}

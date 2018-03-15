@@ -53,4 +53,3 @@ lines(xsc,col='green')
 \seealso{
 \code{\link{window},\link[stats]{filter}}
 }
-

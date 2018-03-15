@@ -38,10 +38,9 @@ apply(od,2,function(x) c(mean=mean(x),sd=sd(x)))
 od2=OdourResponseFromSpikes(spikes,response=c(0,2000),freq=TRUE)
 summary(od2)
 }
-\author{
-jefferis
-}
 \seealso{
 Other OdourResponse: \code{\link{PlotOdourResponseFromSpikes}}
 }
-
+\author{
+jefferis
+}

@@ -2,8 +2,8 @@
 % Please edit documentation in R/gphys-package.R
 \docType{package}
 \name{gphys-package}
-\alias{gphys}
 \alias{gphys-package}
+\alias{gphys}
 \title{Analyse electrophysiology data acquired by Neuromatic / Igor Pro}
 \description{
 gphys = Greg's ephys (and perhaps gee whiz)
@@ -47,4 +47,3 @@ peristimulus time histograms.
 and \code{\link{STAR}} package for further analysis.
 }
 \keyword{package}
-

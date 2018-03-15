@@ -28,4 +28,3 @@ ws<-scale(wts,center=-200,scale=400)
 \seealso{
 \code{\link{ts}}
 }
-

@@ -23,4 +23,3 @@ to use for calculation.
 \seealso{
 \code{\link{CollectSpikesFromSweeps}}
 }
-

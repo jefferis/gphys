@@ -35,10 +35,9 @@
 \description{
 Plot PSTHs for multiple neurons (or multiple stimuli)
 }
-\author{
-jefferis
-}
 \seealso{
 \code{\link[STAR]{psth}}, \code{\link[STAR]{plot.psth}}
 }
-
+\author{
+jefferis
+}

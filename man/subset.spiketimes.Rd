@@ -26,9 +26,6 @@ NB If an odour name is duplicated in the oddconfig (e.g. ctr or oil, often)
 then it is not possible to use them in a subset expression and the channel
 number must be used instead.
 }
-\author{
-jefferis
-}
 \seealso{
 Other spiketimes: \code{\link{+.spiketimes}},
   \code{\link{[.spiketimes}}, \code{\link{divide}},
@@ -36,4 +33,6 @@ Other spiketimes: \code{\link{+.spiketimes}},
   \code{\link{merge.spiketimes}}, \code{\link{spiketimes}},
   \code{\link{split.spiketimes}}
 }
-
+\author{
+jefferis
+}

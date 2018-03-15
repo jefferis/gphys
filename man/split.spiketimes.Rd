@@ -27,9 +27,6 @@ release).
 Only works for spiketimes from single pxp file. FIXME Teach this to cope with
 repeat blocks with different odours in different order
 }
-\author{
-jefferis
-}
 \seealso{
 Other spiketimes: \code{\link{+.spiketimes}},
   \code{\link{[.spiketimes}}, \code{\link{divide}},
@@ -37,4 +34,6 @@ Other spiketimes: \code{\link{+.spiketimes}},
   \code{\link{merge.spiketimes}}, \code{\link{spiketimes}},
   \code{\link{subset.spiketimes}}
 }
-
+\author{
+jefferis
+}

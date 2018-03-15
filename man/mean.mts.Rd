@@ -27,4 +27,3 @@ summary(wm)
 \seealso{
 \code{\link{ts}}
 }
-

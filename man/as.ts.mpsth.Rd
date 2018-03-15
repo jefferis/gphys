@@ -25,12 +25,11 @@ psth2 <- psth(CAL1V[["neuron 2"]],breaks=c(bw=1,step=0.1),plot=FALSE)
 z=as.ts(as.mpsth(list(psth1,psth2)))
 plot(z,plot.type='single',col=1:2,ylab='Frequency /Hz')
 }
-\author{
-jefferis
-}
 \seealso{
 ts as.ts.mpsth STAR::psth
 
 Other mpsth: \code{\link{[.mpsth}}, \code{\link{as.mpsth}}
 }
-
+\author{
+jefferis
+}

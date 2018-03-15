@@ -57,4 +57,3 @@ plot(spikes,xlim=c(2000,4000),odourRange=c(2000,3000))
 \author{
 jefferis
 }
-

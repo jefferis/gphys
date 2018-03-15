@@ -26,4 +26,3 @@ tsp.nclamppxp(system.file("igor","WedJul407c2_001.pxp",package="IgorR"))
 \seealso{
 \code{\link{tsp}},\code{\link{tsp.igorwave}}
 }
-

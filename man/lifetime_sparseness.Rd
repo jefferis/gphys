@@ -42,6 +42,7 @@ minodours is interpreted as fraction when <=1. If >1 it is assumed
   they are omitted silently. NAs do not count towards the value of N, the 
   number of responses /cell in the equation above.
 }
+
 \examples{
 spikes=CollectSpikesFromSweeps(
   system.file('igor','spikes','nm20110914c4',package='gphys'),
@@ -63,4 +64,3 @@ Olsen S.R. and Wilson R.I. (2008). Lateral presynaptic inhibition
   neural codes. Network Comput. Neural Syst. 12, 255 (2001) 
   \href{http://dx.doi.org/10.1080/net.12.3.255.270}{doi:10.1080/net.12.3.255.270}
 }
-

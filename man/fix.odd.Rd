@@ -25,4 +25,3 @@ fixed=fix.odd(odd,fixVec)
 \author{
 jefferis
 }
-

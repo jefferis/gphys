@@ -19,4 +19,3 @@ Convert a STAR psth into a (multi) time series object
 \seealso{
 Other psth: \code{\link{tsp.psth}}
 }
-

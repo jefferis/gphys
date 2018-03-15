@@ -39,12 +39,11 @@ PlotOdourResponseFromSpikes(spikes,c(2200,2700),c(0,2000),freq=TRUE,
  PLOTFUN=boxplot)
 }
 }
-\author{
-jefferis
-}
 \seealso{
 CollectSpikesFromSweeps
 
 Other OdourResponse: \code{\link{OdourResponseFromSpikes}}
 }
-
+\author{
+jefferis
+}

@@ -23,9 +23,6 @@ Example use: Igor crashed and you ended up with one recording split into
 files from both folders independently and then join them together with this
 function.
 }
-\author{
-jefferis
-}
 \seealso{
 Other spiketimes: \code{\link{[.spiketimes}},
   \code{\link{divide}}, \code{\link{is.spiketimes}},
@@ -33,4 +30,6 @@ Other spiketimes: \code{\link{[.spiketimes}},
   \code{\link{split.spiketimes}},
   \code{\link{subset.spiketimes}}
 }
-
+\author{
+jefferis
+}

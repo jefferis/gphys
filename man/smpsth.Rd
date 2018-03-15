@@ -30,10 +30,9 @@ spikes=CollectSpikesFromSweeps(
   subdir="BLOCKA",stimRange=c(2000,2500))
 smpsth(spikes)
 }
-\author{
-jefferis
-}
 \seealso{
 STAR::psth, STAR::plot.psth, spiketimes
 }
-
+\author{
+jefferis
+}
