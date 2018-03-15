@@ -16,10 +16,10 @@ the **devtools** package to install either the latest **release** or **developme
 install.packages("devtools")
 
 library(devtools)
-# latest release
+# latest release (recommended)
 install_github("jefferis/gphys")
-# nb develop branch will typically be the most up to date since master
-# is now reserved for released versions.
+
+# develop branch may occasionally have changes that have not been merged to master
 install_github("jefferis/gphys@develop")
 ```
 
