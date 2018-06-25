@@ -45,15 +45,25 @@ minodours is interpreted as fraction when <=1. If >1 it is assumed
 
 \examples{
 spikes=CollectSpikesFromSweeps(
-  system.file('igor','spikes','nm20110914c4',package='gphys'),
-  subdir='BLOCKI',sweeps=0:4)
+  system.file('igor','spikes','nm20120514c2',package='gphys'),
+  subdir='BLOCKA')
 od=OdourResponseFromSpikes(spikes,response=c(2200,2700),baseline=c(0,2000))
-S=lifetime_sparseness(od)
+# NB we take mean response per odour since we must end up with one number
+# per odour per cell
+S=lifetime_sparseness(colMeans(od))
+data.frame(odour=colnames(od), S=S)
 
 # check what happens with NAs
 od2=od
 od2[5,'cVA']=NA
-S2=lifetime_sparseness(od2)
+lifetime_sparseness(colMeans(od2))
+
+# compare with a sparse cell
+spikes2=CollectSpikesFromSweeps(
+  system.file('igor','spikes','nm20110914c4',package='gphys'),
+  subdir='BLOCKI', sweeps=0:4)
+od3=OdourResponseFromSpikes(spikes2,response=c(2200,2700),baseline=c(0,2000))
+lifetime_sparseness(colMeans(od3))
 }
 \references{
 Olsen S.R. and Wilson R.I. (2008). Lateral presynaptic inhibition
