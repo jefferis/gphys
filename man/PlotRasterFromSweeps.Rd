@@ -13,7 +13,7 @@ PlotRasterFromSweeps(sweepdir, sweeps, subdir = "", subset = NULL,
   spikeheight = 0.8, odourRange = NULL, odourCol = rgb(1, 0.8, 0.8, 1),
   relabelfun = identity, fixChannels = NULL, IncludeChannels = FALSE,
   PlotSpikes = TRUE, PlotDividers = TRUE, DividerCol = "black",
-  panel.first = NULL, panel.last = NULL, ...)
+  DividerLwd = 0.5, panel.first = NULL, panel.last = NULL, ...)
 
 \method{plot}{spiketimes}(x, ...)
 }
@@ -72,6 +72,8 @@ channels to correct odours. FIXME shouldn't we fix channels as well.}
 
 \item{DividerCol}{the colour with which to plot dividing lines between odours
 (default black)}
+
+\item{DividerLwd}{the width of the lines between odours (default 0.5)}
 
 \item{panel.first}{An \code{expression} to be evaluated after the plot axes 
 are set up but before any plotting takes place}
