@@ -15,7 +15,7 @@ Description: Provides functions to make spike time raster plots for
     'STAR' package.
 BugReports: https://github.com/jefferis/gphys/issues
 Url: https://github.com/jefferis/gphys http://www.neuromatic.thinkrandom.com
-Version: 0.11
+Version: 0.11.0.9000
 Depends:
     STAR,
     IgorR,

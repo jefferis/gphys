@@ -1,3 +1,5 @@
+# gphys 0.11.0.9000
+
 # gphys 0.11
 
 * fix bug in handling shuffled odour blocks in divide.spiketimes (#13)
