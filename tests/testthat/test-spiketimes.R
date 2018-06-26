@@ -220,6 +220,10 @@ test_that("subset spikes by odour or channel",{
   cVAPAA=subset(ab,c("cVA","PAA"))
   chs2927=subset(ab,c(29,27))
   
+  od_subset=c("ger",'lin', 'oil')
+  expect_warning(sb<-subset(b, odours = od_subset))
+  expect_equal(attr(sb, 'oddconf')$odour, od_subset)
+  
   expect_that(chs2927,is_equivalent_to(cVAPAA),
               "Check that we get the same result subsetting by odour or channel")
   

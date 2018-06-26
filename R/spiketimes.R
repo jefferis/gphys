@@ -205,36 +205,40 @@ merge.spiketimes<-function(x,y,...){
   l
 }
 
-#' Make a new spiketimes object containing only sweeps for an odour subset
-#' 
+#' Subset spiketimes object to contain only sweeps for an odour subset
+#'
 #' NB the sweeps will be in the specified odour/channel order. If an unnamed
-#' second parameter is specified it will be interpreted as vector of odours
-#' if character or channel ids if numeric. 
-#' NB If an odour name is duplicated in the oddconfig (e.g. ctr or oil, often)
-#' then it is not possible to use them in a subset expression and the channel
-#' number must be used instead.
-#' @param x The old spiketimes object
+#' second parameter is specified it will be interpreted as vector of odours if
+#' it is a character or channel ids if it is numeric.
+#'
+#' If an odour name is duplicated in the oddconfig (e.g. ctr or oil, often) then
+#' a warning will be given and the first matching sweep(s) will be used.
+#'
+#' @param x The original spiketimes object
 #' @param odours A character vector of odours
 #' @param channels Integer vector of channels
-#' @param ... further arguments to be passed to or from other methods.
+#' @param ... further arguments to be passed to or from other methods (currently
+#'   ignored)
 #' @return spiketimes object restricted to specified odours or channels
-#' @method subset spiketimes
 #' @author jefferis
 #' @family spiketimes
+#' @aliases subset
 #' @export
-subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
+subset.spiketimes<-function(x,odours=NULL,channels=NULL, ...){
   oddconf=attr(x,'oddconf')
   # Note that waves come in 0-indexed from Igor so we'll do the same
   oddconf$OldWave=seq_len(nrow(oddconf))-1
   if(is.null(channels) && is.numeric(odours)) {channels=odours;odours=NULL}
   if(!is.null(odours)){
     if(any(duplicated(odours)))
-      stop("Cannot handle duplicated odours")
+      stop("Cannot handle subsets that contain duplicated odours")
     if(any(duplicated(oddconf$odour))){
       dupodours<-unique(oddconf$odour[duplicated(oddconf$odour)])
-      if(any(odours%in%dupodours))
-        stop("Cannot subset using odours that are duplicated in ODD config (",
-            paste(dupodours,collapse=" "),")")
+      seldupodours <- intersect(odours, dupodours)
+      if(length(seldupodours)){
+        warning("Keeping first occurence of duplicate odour(s) in ODD config (",
+            paste(seldupodours,collapse=" "),")")
+      }
     }
     rownames(oddconf)=make.unique(as.character(oddconf$odour))
     newoddconf=oddconf[odours,]
@@ -242,7 +246,7 @@ subset.spiketimes<-function(x,odours=NULL,channels=NULL,...){
     if(is.null(channels))
       stop("Must supply either odours or channels")
     if(any(duplicated(channels)))
-      stop("Cannot handle duplicated channels")
+      stop("Cannot handle subsets that contain duplicated channels")
     if(any(duplicated(oddconf$chan))){
       # check if the channels we want are among the duplicates. If yes, warn
       duplicated_channels=unique(oddconf$chan[duplicated(oddconf$chan)])
