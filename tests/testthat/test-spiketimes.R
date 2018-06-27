@@ -19,7 +19,7 @@ test_that("merge two blocks of spikes, ", {
   
   mwi=attr(c,'mergedwaveinfo')
   expect_false(is.null(mwi),
-               "Check that merged wave has mergedwaveinfo attribute")
+               info = "Check that merged wave has mergedwaveinfo attribute")
   
   expect_that(mwi[[1,'pxps']],equals(c("000","001","002","003","004","005")))
   expect_that(mwi[[14,'pxps']],equals(c("007","008","009","010","011","012")))
@@ -172,7 +172,7 @@ test_that("divide spiketimes with n presentations into n separate dataframes",{
       
       names_baseline=c("008.000", "008.001", "008.002", "008.003")
       expect_that(names(b8s),equals(names_baseline),
-          "Check that after dividing we make sensible names for each block")
+          info="Check that after dividing we make sensible names for each block")
       
     })
 
@@ -202,7 +202,7 @@ test_that("Merge 2 blocks that have been divided",{
       merged_names=c("008.000,010.000", "008.001,010.001", "008.002,010.002", 
           "008.003,010.003")
       expect_that(names(bs),equals(merged_names),
-          "Check that we get sensible names after divide and merge")
+          info="Check that we get sensible names after divide and merge")
       merged_lengths=c(56,52,68,63)
       expect_that(sapply(bs,nrow),is_equivalent_to(merged_lengths),
           "Check that we get the right number of spikes in the right blocks")
@@ -225,7 +225,7 @@ test_that("subset spikes by odour or channel",{
   expect_equal(attr(sb, 'oddconf')$odour, od_subset)
   
   expect_that(chs2927,is_equivalent_to(cVAPAA),
-              "Check that we get the same result subsetting by odour or channel")
+              info="Check that we get the same result subsetting by odour or channel")
   
   expect_warning(subset(ab,c(29,21)),regex='Will use first sweep for duplicated channels',
                  info="Check that we get a warning when subsetting using a duplicated channel")
