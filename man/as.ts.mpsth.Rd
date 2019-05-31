@@ -33,3 +33,4 @@ Other mpsth: \code{\link{[.mpsth}}, \code{\link{as.mpsth}}
 \author{
 jefferis
 }
+\concept{mpsth}

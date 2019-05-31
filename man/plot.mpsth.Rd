@@ -5,9 +5,9 @@
 \title{Plot PSTHs for multiple neurons (or multiple stimuli)}
 \usage{
 \method{plot}{mpsth}(x, stimTimeCourse = NULL, colStim = "grey80",
-  colCI = NULL, xlab = "Time /s", ylab = "Spike Freq /Hz", xlim, ylim,
-  lwd = 2, col = 1, labels = NULL, toplot = c("lines", "CI", "legend"),
-  ...)
+  colCI = NULL, xlab = "Time /s", ylab = "Spike Freq /Hz", xlim,
+  ylim, lwd = 2, col = 1, labels = NULL, toplot = c("lines", "CI",
+  "legend"), ...)
 }
 \arguments{
 \item{x}{a list of psth objects (class mpsth)}

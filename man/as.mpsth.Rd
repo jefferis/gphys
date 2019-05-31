@@ -26,3 +26,4 @@ Other mpsth: \code{\link{[.mpsth}},
 \author{
 jefferis
 }
+\concept{mpsth}

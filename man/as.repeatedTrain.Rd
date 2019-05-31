@@ -3,7 +3,6 @@
 \name{as.repeatedTrain}
 \alias{as.repeatedTrain}
 \alias{as.repeatedTrain.spiketimes}
-\alias{as.repeatedTrain}
 \title{Generic function to convert spikes to STAR as.repeatedTrain objects}
 \usage{
 as.repeatedTrain(x, ...)
@@ -19,8 +18,6 @@ as.repeatedTrain(x, ...)
 repeatedTrain object (list of numeric vectors)
 }
 \description{
-Generic function to convert spikes to STAR as.repeatedTrain objects
-
 The STAR (Spike Train Analysis with R) package has a large number of useful
 functions for e.g. PSTH analysis.
 Note that the spiketimes objects are a list of data frames, where each list 

@@ -22,3 +22,4 @@ tsp
 
 Other psth: \code{\link{as.ts.psth}}
 }
+\concept{psth}

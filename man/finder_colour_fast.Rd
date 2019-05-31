@@ -26,3 +26,4 @@ Other finder_colour: \code{\link{finder_colour}},
 \author{
 jefferis
 }
+\concept{finder_colour}

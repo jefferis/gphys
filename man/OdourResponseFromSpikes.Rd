@@ -4,8 +4,8 @@
 \alias{OdourResponseFromSpikes}
 \title{Produce table of spiking responses (optionally subtracting baseline)}
 \usage{
-OdourResponseFromSpikes(spiketimes, responseWindow, baselineWindow = NULL,
-  freq = FALSE)
+OdourResponseFromSpikes(spiketimes, responseWindow,
+  baselineWindow = NULL, freq = FALSE)
 }
 \arguments{
 \item{spiketimes}{list of spiketimes collected by CollectSpikesFromSweeps}
@@ -44,3 +44,4 @@ Other OdourResponse: \code{\link{PlotOdourResponseFromSpikes}}
 \author{
 jefferis
 }
+\concept{OdourResponse}

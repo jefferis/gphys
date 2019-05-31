@@ -4,7 +4,8 @@
 \alias{read.odd}
 \title{Read in the ODD text file describing odour presentation sequence}
 \usage{
-read.odd(oddfile, fill = TRUE, stringsAsFactors = FALSE, Verbose = FALSE)
+read.odd(oddfile, fill = TRUE, stringsAsFactors = FALSE,
+  Verbose = FALSE)
 }
 \arguments{
 \item{oddfile}{Path to ODD file}

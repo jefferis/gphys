@@ -37,3 +37,4 @@ Other spiketimes: \code{\link{+.spiketimes}},
 \author{
 jefferis
 }
+\concept{spiketimes}

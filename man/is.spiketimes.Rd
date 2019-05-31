@@ -22,3 +22,4 @@ Other spiketimes: \code{\link{+.spiketimes}},
   \code{\link{split.spiketimes}},
   \code{\link{subset.spiketimes}}
 }
+\concept{spiketimes}

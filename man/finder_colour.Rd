@@ -23,3 +23,4 @@ Other finder_colour: \code{\link{finder_colour_fast}},
 \author{
 jefferis
 }
+\concept{finder_colour}

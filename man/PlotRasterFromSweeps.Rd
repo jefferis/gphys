@@ -3,17 +3,17 @@
 \name{PlotRasterFromSweeps}
 \alias{PlotRasterFromSweeps}
 \alias{plot.spiketimes}
-\alias{plot.spiketimes}
 \title{Make a raster plot from a set of Nclamp sweeps recording odour responses}
 \usage{
 PlotRasterFromSweeps(sweepdir, sweeps, subdir = "", subset = NULL,
   xlim = NULL, xaxis = TRUE, yaxis = TRUE, frame.plot = TRUE,
-  xaxs = "i", yaxs = "i", main, sub, xlab = "Time/ms", ylab = "Odour",
-  pch = 22, dotcolour = "black", dotsize = 0.5, dotwidth = 20,
-  spikeheight = 0.8, odourRange = NULL, odourCol = rgb(1, 0.8, 0.8, 1),
-  relabelfun = identity, fixChannels = NULL, IncludeChannels = FALSE,
-  PlotSpikes = TRUE, PlotDividers = TRUE, DividerCol = "black",
-  DividerLwd = 0.5, panel.first = NULL, panel.last = NULL, ...)
+  xaxs = "i", yaxs = "i", main, sub, xlab = "Time/ms",
+  ylab = "Odour", pch = 22, dotcolour = "black", dotsize = 0.5,
+  dotwidth = 20, spikeheight = 0.8, odourRange = NULL,
+  odourCol = rgb(1, 0.8, 0.8, 1), relabelfun = identity,
+  fixChannels = NULL, IncludeChannels = FALSE, PlotSpikes = TRUE,
+  PlotDividers = TRUE, DividerCol = "black", DividerLwd = 0.5,
+  panel.first = NULL, panel.last = NULL, ...)
 
 \method{plot}{spiketimes}(x, ...)
 }
@@ -86,8 +86,6 @@ plotted}
 \item{x}{A spiketimes object}
 }
 \description{
-Make a raster plot from a set of Nclamp sweeps recording odour responses
-
 This overloads base R's plot and calls PlotRasterFromSweeps
 }
 \details{

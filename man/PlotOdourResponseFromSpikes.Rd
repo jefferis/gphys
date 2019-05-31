@@ -4,8 +4,8 @@
 \alias{PlotOdourResponseFromSpikes}
 \title{Boxplot of spikes within a window (optionally less a baseline)}
 \usage{
-PlotOdourResponseFromSpikes(spiketimes, responseWindow, baselineWindow = NULL,
-  freq = FALSE, PLOTFUN = stripchart, ...)
+PlotOdourResponseFromSpikes(spiketimes, responseWindow,
+  baselineWindow = NULL, freq = FALSE, PLOTFUN = stripchart, ...)
 }
 \arguments{
 \item{spiketimes}{list of spiketimes collected by CollectSpikesFromSweeps}
@@ -47,3 +47,4 @@ Other OdourResponse: \code{\link{OdourResponseFromSpikes}}
 \author{
 jefferis
 }
+\concept{OdourResponse}
