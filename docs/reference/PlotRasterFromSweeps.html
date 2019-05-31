@@ -32,8 +32,7 @@
 
 <meta property="og:title" content="Make a raster plot from a set of Nclamp sweeps recording odour responses — PlotRasterFromSweeps" />
 
-<meta property="og:description" content="Make a raster plot from a set of Nclamp sweeps recording odour responses
-This overloads base R's plot and calls PlotRasterFromSweeps" />
+<meta property="og:description" content="This overloads base R's plot and calls PlotRasterFromSweeps" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,19 +104,19 @@ This overloads base R's plot and calls PlotRasterFromSweeps" />
 
     <div class="ref-description">
     
-    <p>Make a raster plot from a set of Nclamp sweeps recording odour responses</p>
-<p>This overloads base R's plot and calls PlotRasterFromSweeps</p>
+    <p>This overloads base R's plot and calls PlotRasterFromSweeps</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>PlotRasterFromSweeps</span>(<span class='no'>sweepdir</span>, <span class='no'>sweeps</span>, <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xaxis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>yaxis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>frame.plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>xaxs</span> <span class='kw'>=</span> <span class='st'>"i"</span>, <span class='kw'>yaxs</span> <span class='kw'>=</span> <span class='st'>"i"</span>, <span class='no'>main</span>, <span class='no'>sub</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Time/ms"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Odour"</span>,
-  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>22</span>, <span class='kw'>dotcolour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>dotsize</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>dotwidth</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>spikeheight</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>odourRange</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>odourCol</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/rgb'>rgb</a></span>(<span class='fl'>1</span>, <span class='fl'>0.8</span>, <span class='fl'>0.8</span>, <span class='fl'>1</span>),
-  <span class='kw'>relabelfun</span> <span class='kw'>=</span> <span class='no'>identity</span>, <span class='kw'>fixChannels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>IncludeChannels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>PlotSpikes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>PlotDividers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>DividerCol</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>DividerLwd</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>panel.first</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>panel.last</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+  <span class='kw'>xaxs</span> <span class='kw'>=</span> <span class='st'>"i"</span>, <span class='kw'>yaxs</span> <span class='kw'>=</span> <span class='st'>"i"</span>, <span class='no'>main</span>, <span class='no'>sub</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Time/ms"</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Odour"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>22</span>, <span class='kw'>dotcolour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>dotsize</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>dotwidth</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>spikeheight</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>odourRange</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>odourCol</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/rgb'>rgb</a></span>(<span class='fl'>1</span>, <span class='fl'>0.8</span>, <span class='fl'>0.8</span>, <span class='fl'>1</span>), <span class='kw'>relabelfun</span> <span class='kw'>=</span> <span class='no'>identity</span>,
+  <span class='kw'>fixChannels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>IncludeChannels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>PlotSpikes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>PlotDividers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>DividerCol</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>DividerLwd</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>panel.first</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>panel.last</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for spiketimes</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>

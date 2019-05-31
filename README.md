@@ -1,7 +1,7 @@
 # gphys
 [![Build Status](https://travis-ci.org/jefferis/gphys.svg)](https://travis-ci.org/jefferis/gphys)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://jefferis.github.io/gphys/reference/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10300.svg)](https://doi.org/10.5281/zenodo.10300)
+[![DOI](https://zenodo.org/badge/12226078.svg)](https://zenodo.org/badge/latestdoi/12226078)
 
 This R package provides relatively specialised routines for analysing electrophysiological data determined by the research in [our lab](http://jefferislab.org) using whole cell patch clamp techniques to analyse olfactory processing in the fly. Nevertheless it is possible that others, especially anyone using Jason Rothman's [Neuromatic](http://www.neuromatic.thinkrandom.com) data analysis and acquisition package for Igor Pro, may find some functionality useful. It can also be used to reproduce some of the analysis / figures in our published work
 e.g. in the package [frulhns](https://github.com/jefferis/frulhns).
