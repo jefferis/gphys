@@ -1,4 +1,8 @@
-# gphys 0.11.0.9000
+# gphys 0.12
+
+* Allow subset.spiketimes to remove duplicate odours (#18)
+* give PlotRasterFromSweeps a DividerLwd argument, making the dividers between
+  odours narrower than in the past (Glenn Turner complained about these).
 
 # gphys 0.11
 
