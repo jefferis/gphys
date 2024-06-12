@@ -17,14 +17,15 @@ BugReports: https://github.com/jefferis/gphys/issues
 Url: https://github.com/jefferis/gphys http://www.neuromatic.thinkrandom.com
 Version: 0.12
 Depends:
+    STAR,
     IgorR,
     stats
 Imports:
     tools,
     methods
 Suggests:
-    testthat,
-    STAR
+    testthat
 RoxygenNote: 6.1.1
 Remotes:
-    jefferis/IgorR
+    jefferis/IgorR,
+    cran/STAR
